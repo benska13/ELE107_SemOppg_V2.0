@@ -146,5 +146,103 @@ namespace Monitor
             txtPasientNavn.Text = _pasient.Navn;
             txtPasientAlder.Text = _pasient.Alder;
         }
+
+        private void registrerPasientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+
+                RegistrerPM registrer = new RegistrerPM(_pasient);
+                registrer.ShowDialog();
+
+
+                _pasient.Kroppstemperatur.Min = (int)registrer.MinTemp;
+                _pasient.Kroppstemperatur.Max = (int)registrer.MaxTemp;
+                _pasient.Blodtrykk.Max = (int)registrer.MaxBlodtrykk;
+                _pasient.Blodtrykk.Min = (int)registrer.MinBlodtrykk;
+                _pasient.Pulsfrekvens.Max = (int)registrer.MaxPuls;
+                _pasient.Pulsfrekvens.Min = (int)registrer.MinPuls;
+                _pasient.Respirasjonsrate.Max = (int)registrer.MaxResp;
+                _pasient.Respirasjonsrate.Min = (int)registrer.MinResp;
+                _pasient.Navn = registrer.Navn;
+                _pasient.Alder = registrer.Alder;
+
+                OppdaterLabel();
+
+                SendData(); //sende registrert pasient til sentral
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(exception.ToString());
+            }
+        }
+
+        private void kobleTilSentralToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                minSokkel.KobleTilServer();    // blokkerende metode
+                txtSentralInfo.Text = "Tilkoblet server";
+            }
+            catch (SocketException eks)
+            {
+                MessageBox.Show("Feil: " + eks.Message);
+            }
+
+            string json = new JavaScriptSerializer().Serialize(_pasient);
+            klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+
+        }
+
+        private void velgComPortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ts_cbComPorter.Items.Clear(); //Tømmer listen
+                string[] portNames = SerialPort.GetPortNames(); //henter tilgjengelige porter
+
+                foreach (string name in portNames) //legger tigjengelige porter til i windu
+                {
+                    ts_cbComPorter.Items.Add(name);
+                }
+
+                if (ts_cbComPorter.Items.Count > 0) ts_cbComPorter.SelectedIndex = 0;
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("feil med henting av com porter" + exception.ToString());
+
+            }
+        }
+
+        private void kobleTilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (kobleTilToolStripMenuItem.Text == "Koble til")
+                {
+                    comPort.Close();
+                    comPort.PortName = ts_cbComPorter.SelectedItem.ToString();
+                    comPort.BaudRate = 9600;
+                    comPort.ReadTimeout = 1000;
+                    comPort.Open();
+
+                    SettOppKort();
+
+                    kobleTilToolStripMenuItem.Text = "Koble fra";
+                }
+                else
+                {
+                    comPort.Close();
+                    kobleTilToolStripMenuItem.Text = "Koble til";
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Prøv en annen serieport.\n\n" + ex.ToString());
+            }
+        }
     }
 }

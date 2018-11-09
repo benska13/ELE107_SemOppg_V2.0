@@ -132,6 +132,7 @@
             this.registrerPasientToolStripMenuItem.Name = "registrerPasientToolStripMenuItem";
             this.registrerPasientToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
             this.registrerPasientToolStripMenuItem.Text = "Registrer pasient";
+            this.registrerPasientToolStripMenuItem.Click += new System.EventHandler(this.registrerPasientToolStripMenuItem_Click);
             // 
             // velgComPortToolStripMenuItem
             // 
@@ -141,6 +142,7 @@
             this.velgComPortToolStripMenuItem.Name = "velgComPortToolStripMenuItem";
             this.velgComPortToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.velgComPortToolStripMenuItem.Text = "com port";
+            this.velgComPortToolStripMenuItem.Click += new System.EventHandler(this.velgComPortToolStripMenuItem_Click);
             // 
             // ts_cbComPorter
             // 
@@ -152,6 +154,7 @@
             this.kobleTilToolStripMenuItem.Name = "kobleTilToolStripMenuItem";
             this.kobleTilToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.kobleTilToolStripMenuItem.Text = "Koble til";
+            this.kobleTilToolStripMenuItem.Click += new System.EventHandler(this.kobleTilToolStripMenuItem_Click);
             // 
             // label8
             // 
@@ -377,6 +380,7 @@
             this.kobleTilSentralToolStripMenuItem.Name = "kobleTilSentralToolStripMenuItem";
             this.kobleTilSentralToolStripMenuItem.Size = new System.Drawing.Size(100, 20);
             this.kobleTilSentralToolStripMenuItem.Text = "Koble til sentral";
+            this.kobleTilSentralToolStripMenuItem.Click += new System.EventHandler(this.kobleTilSentralToolStripMenuItem_Click);
             // 
             // menuStrip1
             // 
