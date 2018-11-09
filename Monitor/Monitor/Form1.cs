@@ -182,16 +182,22 @@ namespace Monitor
         {
             try
             {
-                minSokkel.KobleTilServer();    // blokkerende metode
+                //minSokkel.KobleTilServer();    // blokkerende metode
+                Socket klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                IPEndPoint serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+                klientSokkel.Connect(serverEP);
+
                 txtSentralInfo.Text = "Tilkoblet server";
+
+                string json = new JavaScriptSerializer().Serialize(_pasient);
+                klientSokkel.Send(Encoding.ASCII.GetBytes(json));
             }
             catch (SocketException eks)
             {
                 MessageBox.Show("Feil: " + eks.Message);
             }
 
-            string json = new JavaScriptSerializer().Serialize(_pasient);
-            klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+            
 
         }
 

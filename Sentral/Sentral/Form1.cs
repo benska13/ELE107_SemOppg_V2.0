@@ -17,26 +17,28 @@ using System.Threading;
 // aktive alarmer // ok
 // avslutt 
 //Varsler watchdog 
-// ny kom
+// sjekk om pasient finnes fra før
 
 namespace Sentral
 {
+    public delegate void Mdt(ListPasient p);
+
     public partial class Form1 : Form
     {
         private BindingList<ListPasient> _pasienter;
         private BindingList<Alarm> AktiveAlarmer;
 
-
+        private List<Socket> _kommSokkeList;
         private Socket _lytteSokkel;
-        private Socket _kommSokkel;
-        private Socket _kommSokkel2;
-        private string _mottattTekst;
-        private string _mottattTekst2;
+
         private int teller = 1;
         private string _filnavn = "PasienterFil";
 
+        private Mdt minDelegate;
+
         public Form1()
         {
+            
             InitializeComponent();
             _pasienter = new BindingList<ListPasient> { };
             OppdaterLabelerGui();
@@ -49,7 +51,10 @@ namespace Sentral
             listPasientBindingSource.DataSource = _pasienter;
             bgwVentPaKlient.RunWorkerAsync();
             AktiveAlarmer = new BindingList<Alarm>();
-           // dataGridAktiveAlarmer.DataSource = AktiveAlarmer;
+            // dataGridAktiveAlarmer.DataSource = AktiveAlarmer;
+
+
+
 
             try
             {
@@ -59,10 +64,41 @@ namespace Sentral
             {
                 MessageBox.Show(ex.ToString());
             }
-            
 
+
+            _kommSokkeList =new List<Socket>();
+            ThreadPool.QueueUserWorkItem(VentPaaMonitor);
         }
 
+        private void VentPaaMonitor(object state)
+        {
+            while (true)
+            {
+                var kommSocket = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
+                _kommSokkeList.Add(kommSocket);                             // Klient oppdaget og legger tilkoblingsdata til i listen
+                string data = minSokkel.VentPaData(kommSocket);         // venter på pasientdata
+                Pasient p = Serialize.StringTPasient(data);                // konverterer til pasient 
+                _pasienter.Add(new ListPasient(p));                         // legger pasient til i listen med pasienter                        MÅ S`JEKKE OM  P ER DER FRA FØR!!!
+               
+
+                
+                ThreadPool.QueueUserWorkItem(VentPaaData);                  // Starter en tråd som venter på data
+            }
+        }
+        
+        private void VentPaaData(object state)
+        {
+            while (true)
+            {
+                string data = minSokkel.VentPaData(_kommSokkeList[0]);
+                Pasient p = Serialize.StringTPasient(data);
+                _pasienter[0].NyData(p);
+
+                minDelegate = new Mdt(OppdaterVerdiGui);
+                this.Invoke(minDelegate, _pasienter[0]);
+            }
+
+        }
 
 
         private void OppdaterLabelerGui()
@@ -84,25 +120,6 @@ namespace Sentral
 
         }
 
-
-        private void bgwVentPaKlient_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-
-        }
-        private void bgwVentPaKlient_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-
-        }
-        private void bgwVenterPaData_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            _mottattTekst = minSokkel.VentPaData(_kommSokkel);
-
-        }
-
-        private void bgwVenterPaData_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-
-        }
 
         public void OppdaterVerdiGui(ListPasient n)
         {
@@ -132,21 +149,6 @@ namespace Sentral
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            _pasienter.Add(new ListPasient(new Pasient()));
-        }
-
-        private void bgwVenterPaData2_DoWork(object sender, DoWorkEventArgs e)
-        {
-            _mottattTekst2 = minSokkel.VentPaData(_kommSokkel2);
-        }
-
-        private void bgwVenterPaData2_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-
-        }
-
         private void dgwPasienter_SelectionChanged(object sender, EventArgs e)
         {
             int x = dgwPasienter.SelectedRows[0].Index;
@@ -161,7 +163,6 @@ namespace Sentral
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpPuls;
-            //
         }
 
         private void gbxTemp_MouseCaptureChanged(object sender, EventArgs e)
@@ -177,11 +178,6 @@ namespace Sentral
         private void gbxBlod_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpBlod;
-        }
-
-        public void Intervall_Click(object sender, EventArgs e)
-        {
-
         }
     }
 
