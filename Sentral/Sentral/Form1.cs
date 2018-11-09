@@ -17,7 +17,7 @@ using System.Threading;
 // aktive alarmer // ok
 // avslutt 
 //Varsler watchdog 
-
+// ny kom
 
 namespace Sentral
 {
@@ -33,6 +33,7 @@ namespace Sentral
         private string _mottattTekst;
         private string _mottattTekst2;
         private int teller = 1;
+        private string _filnavn = "PasienterFil";
 
         public Form1()
         {
@@ -49,6 +50,16 @@ namespace Sentral
             bgwVentPaKlient.RunWorkerAsync();
             AktiveAlarmer = new BindingList<Alarm>();
            // dataGridAktiveAlarmer.DataSource = AktiveAlarmer;
+
+            try
+            {
+                LesSkrivFil.LesFraFil(_filnavn);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
 
         }
 
@@ -116,6 +127,8 @@ namespace Sentral
             lblBx4Max.Text = n.ListRespirasjonsrate.First().Max.ToString();
             txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString();
             textBoxTidMaal.Text = n.ListAlarm.First().datoTid.ToLongTimeString();
+
+            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
         }
 
 
@@ -167,11 +180,6 @@ namespace Sentral
         }
 
         public void Intervall_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void buttonAvslutt_Click(object sender, EventArgs e)
         {
 
         }

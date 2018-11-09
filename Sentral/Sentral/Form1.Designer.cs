@@ -186,7 +186,7 @@
             this.listKroppstemperaturDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView1.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView1.Name = "listKroppstemperaturDataGridView1";
-            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(573, 282);
+            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(517, 241);
             this.listKroppstemperaturDataGridView1.TabIndex = 0;
             // 
             // listPulsfrekvensBindingSource
@@ -204,7 +204,7 @@
             this.tpPuls.Location = new System.Drawing.Point(4, 22);
             this.tpPuls.Name = "tpPuls";
             this.tpPuls.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPuls.Size = new System.Drawing.Size(579, 288);
+            this.tpPuls.Size = new System.Drawing.Size(523, 247);
             this.tpPuls.TabIndex = 1;
             this.tpPuls.Text = "puls";
             this.tpPuls.UseVisualStyleBackColor = true;
@@ -285,7 +285,7 @@
             this.tpResp.Location = new System.Drawing.Point(4, 22);
             this.tpResp.Name = "tpResp";
             this.tpResp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpResp.Size = new System.Drawing.Size(579, 288);
+            this.tpResp.Size = new System.Drawing.Size(523, 247);
             this.tpResp.TabIndex = 2;
             this.tpResp.Text = "resp";
             this.tpResp.UseVisualStyleBackColor = true;
@@ -303,7 +303,7 @@
             this.listKroppstemperaturDataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView2.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView2.Name = "listKroppstemperaturDataGridView2";
-            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(573, 282);
+            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(517, 241);
             this.listKroppstemperaturDataGridView2.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn11
@@ -342,7 +342,7 @@
             this.tpBlod.Location = new System.Drawing.Point(4, 22);
             this.tpBlod.Name = "tpBlod";
             this.tpBlod.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBlod.Size = new System.Drawing.Size(579, 288);
+            this.tpBlod.Size = new System.Drawing.Size(523, 247);
             this.tpBlod.TabIndex = 3;
             this.tpBlod.Text = "blod";
             this.tpBlod.UseVisualStyleBackColor = true;
@@ -360,7 +360,7 @@
             this.listKroppstemperaturDataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView3.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView3.Name = "listKroppstemperaturDataGridView3";
-            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(573, 282);
+            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(517, 241);
             this.listKroppstemperaturDataGridView3.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn16
@@ -399,7 +399,7 @@
             this.tpAlarm.Location = new System.Drawing.Point(4, 22);
             this.tpAlarm.Name = "tpAlarm";
             this.tpAlarm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAlarm.Size = new System.Drawing.Size(579, 288);
+            this.tpAlarm.Size = new System.Drawing.Size(523, 247);
             this.tpAlarm.TabIndex = 4;
             this.tpAlarm.Text = "Aktive Alarmer";
             this.tpAlarm.UseVisualStyleBackColor = true;
@@ -417,7 +417,7 @@
             this.dataGridAktiveAlarmer.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridAktiveAlarmer.Name = "dataGridAktiveAlarmer";
             this.dataGridAktiveAlarmer.RowTemplate.Height = 24;
-            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(573, 282);
+            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(517, 241);
             this.dataGridAktiveAlarmer.TabIndex = 0;
             // 
             // datoTidDataGridViewTextBoxColumn
