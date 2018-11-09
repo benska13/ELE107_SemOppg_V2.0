@@ -183,11 +183,6 @@ namespace Sentral
         {
 
         }
-
-        private void buttonAvslutt_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 
 }
