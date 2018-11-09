@@ -17,7 +17,7 @@ using System.Threading;
 // aktive alarmer // ok
 // avslutt 
 //Varsler watchdog 
-
+// ny kom
 
 namespace Sentral
 {
