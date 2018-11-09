@@ -31,7 +31,7 @@ namespace Sentral
         private List<Socket> _kommSokkeList;
         private Socket _lytteSokkel;
 
-        private int teller = 1;
+        private int teller = 0;
         private string _filnavn = "PasienterFil";
 
         private Mdt minDelegate;
@@ -49,7 +49,7 @@ namespace Sentral
             _lytteSokkel.Listen(10);
 
             listPasientBindingSource.DataSource = _pasienter;
-            bgwVentPaKlient.RunWorkerAsync();
+           // bgwVentPaKlient.RunWorkerAsync();
             AktiveAlarmer = new BindingList<Alarm>();
             // dataGridAktiveAlarmer.DataSource = AktiveAlarmer;
 
@@ -83,19 +83,21 @@ namespace Sentral
 
                 
                 ThreadPool.QueueUserWorkItem(VentPaaData);                  // Starter en tråd som venter på data
+                teller++;
             }
         }
         
         private void VentPaaData(object state)
         {
+            int i = teller;
             while (true)
             {
-                string data = minSokkel.VentPaData(_kommSokkeList[0]);
+                string data = minSokkel.VentPaData(_kommSokkeList[i]);
                 Pasient p = Serialize.StringTPasient(data);
-                _pasienter[0].NyData(p);
+                _pasienter[i].NyData(p);
 
                 minDelegate = new Mdt(OppdaterVerdiGui);
-                this.Invoke(minDelegate, _pasienter[0]);
+                this.Invoke(minDelegate, _pasienter[i]);
             }
 
         }
