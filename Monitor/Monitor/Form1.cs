@@ -49,8 +49,10 @@ namespace Monitor
         private int _teller;
 
         private IPEndPoint serverEndPoint;
-        private Socket klientSokkel;
+        //private Socket klientSokkel;
 
+        Socket klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        IPEndPoint serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
 
         public Form1()
         {
@@ -183,8 +185,6 @@ namespace Monitor
             try
             {
                 //minSokkel.KobleTilServer();    // blokkerende metode
-                Socket klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                IPEndPoint serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
                 klientSokkel.Connect(serverEP);
 
                 txtSentralInfo.Text = "Tilkoblet server";
@@ -248,6 +248,88 @@ namespace Monitor
             catch (Exception ex)
             {
                 MessageBox.Show("Prøv en annen serieport.\n\n" + ex.ToString());
+            }
+        }
+
+        private void bgWLesData_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try
+            {
+                bool ferdig = false;
+                string data = "";
+
+                comPort.ReadTimeout = 2000;
+                if (comPort.IsOpen)     // lage en noe som sjekker at det kommer data
+                {
+                    while (!ferdig)
+                    {
+                        char tegn = Convert.ToChar(comPort.ReadChar()); // SerialPort comPort
+                        data = data + tegn;
+                        if (tegn == '#') ferdig = true;
+                    }
+                    // Finner Dato og klokke
+                    var _pos = data.IndexOf('B');
+                    // _pasient.SetDatoKlokke(data.Substring(_pos + 1, 14).ToString());
+
+                    // Digital /alarm
+                    _pos = data.IndexOf('D');
+                    //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
+
+
+                    // id-kode
+
+                    // Finner puls
+                    _pos = data.IndexOf('F');
+                    _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                    // Finner blodtrykk
+                    _pos = data.IndexOf('G');
+                    _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                    // Finner temperatur
+                    _pos = data.IndexOf('H');
+                    _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
+
+                    // Finner respirasjon
+                    _pos = data.IndexOf('I');
+                    _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
+                }
+
+
+
+
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("bgW\n\n" + exception.ToString());
+                //bgWLesData.RunWorkerAsync();
+            }
+        }
+
+        private void bgWLesData_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            try
+            {
+                txtTemp.Text = _pasient.Kroppstemperatur.GetVerdi().ToString();
+                txtBlodtrykk.Text = _pasient.Blodtrykk.GetVerdi().ToString();
+                txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
+                txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
+
+                AlarmLogikk();
+
+
+                _teller++;
+                if (_teller > 10)
+                {
+                    SendData();
+                    _teller = 0;
+                }
+
+                bgWLesData.RunWorkerAsync();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show("bgWorkerComp\n" + exception.ToString());
             }
         }
     }

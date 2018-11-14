@@ -38,11 +38,6 @@ namespace Monitor
 
         }
 
-        private void btnOk_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public string Navn
         {
             get { return navn; }
@@ -93,19 +88,21 @@ namespace Monitor
             get { return minResp; }
         }
 
-        private void btnOk_Click_1(object sender, EventArgs e)
+        private void btnOk_Click_3(object sender, EventArgs e)
         {
+            navn = txtNavn.Text;
+            alder = (txtAlder.Text);
+            maxPuls = int.Parse(txtMaxPuls.Text);
+            minPuls = int.Parse(txtMinPuls.Text);
+            maxTemp = int.Parse(txtMaxTemp.Text);
+            minTemp = int.Parse(txtMinTemp.Text);
+            maxBlodtrykk = int.Parse(txtMaxBlodtrykk.Text);
+            minBlodtrykk = int.Parse(txtMinBlodtrykk.Text);
+            maxResp = int.Parse(txtMaxResp.Text);
+            minResp = int.Parse(txtMinResp.Text);
 
-        }
 
-        private void btnOk_Click_2(object sender, EventArgs e)
-        {
-
-        }
-
-        private void RegistrerPM_Load(object sender, EventArgs e)
-        {
-
+            this.Close();
         }
     }
 }

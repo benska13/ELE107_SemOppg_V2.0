@@ -195,6 +195,7 @@
             this.btnOk.TabIndex = 67;
             this.btnOk.Text = "Registrer";
             this.btnOk.UseVisualStyleBackColor = true;
+            this.btnOk.Click += new System.EventHandler(this.btnOk_Click_3);
             // 
             // txtAlder
             // 

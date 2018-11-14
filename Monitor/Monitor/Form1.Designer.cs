@@ -382,6 +382,11 @@
             this.kobleTilSentralToolStripMenuItem.Text = "Koble til sentral";
             this.kobleTilSentralToolStripMenuItem.Click += new System.EventHandler(this.kobleTilSentralToolStripMenuItem_Click);
             // 
+            // bgWLesData
+            // 
+            this.bgWLesData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWLesData_DoWork);
+            this.bgWLesData.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWLesData_RunWorkerCompleted);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
