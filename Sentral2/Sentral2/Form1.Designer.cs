@@ -30,29 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.lblBx3Enhet1 = new System.Windows.Forms.Label();
-            this.txtBx3Verdi1 = new System.Windows.Forms.TextBox();
-            this.lblBx3Enhet2 = new System.Windows.Forms.Label();
-            this.lblBx3Max = new System.Windows.Forms.Label();
-            this.txtBx3Verdi2 = new System.Windows.Forms.TextBox();
-            this.lblBx3Min = new System.Windows.Forms.Label();
-            this.gbxBlod = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.gbxResp = new System.Windows.Forms.GroupBox();
-            this.lblBx4Enhet = new System.Windows.Forms.Label();
-            this.lblBx4Max = new System.Windows.Forms.Label();
-            this.txtBx4Verdi = new System.Windows.Forms.TextBox();
-            this.lblBx4Min = new System.Windows.Forms.Label();
-            this.gbxPuls = new System.Windows.Forms.GroupBox();
-            this.lblBx2Enhet = new System.Windows.Forms.Label();
-            this.lblBx2Max = new System.Windows.Forms.Label();
-            this.txtBx2Verdi = new System.Windows.Forms.TextBox();
-            this.lblBx2Min = new System.Windows.Forms.Label();
-            this.gbxTemp = new System.Windows.Forms.GroupBox();
-            this.lblBx1Enhet = new System.Windows.Forms.Label();
-            this.lblBx1Max = new System.Windows.Forms.Label();
-            this.txtBx1Verdi = new System.Windows.Forms.TextBox();
-            this.lblBx1Min = new System.Windows.Forms.Label();
             this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
             this.bgwVentPaKlient = new System.ComponentModel.BackgroundWorker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -67,6 +44,29 @@
             this.buttonAvslutt = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.gbxResp = new System.Windows.Forms.GroupBox();
+            this.lblBx4Enhet = new System.Windows.Forms.Label();
+            this.lblBx4Max = new System.Windows.Forms.Label();
+            this.txtBx4Verdi = new System.Windows.Forms.TextBox();
+            this.lblBx4Min = new System.Windows.Forms.Label();
+            this.gbxBlod = new System.Windows.Forms.GroupBox();
+            this.lblBx3Enhet1 = new System.Windows.Forms.Label();
+            this.txtBx3Verdi1 = new System.Windows.Forms.TextBox();
+            this.lblBx3Enhet2 = new System.Windows.Forms.Label();
+            this.lblBx3Max = new System.Windows.Forms.Label();
+            this.txtBx3Verdi2 = new System.Windows.Forms.TextBox();
+            this.lblBx3Min = new System.Windows.Forms.Label();
+            this.gbxPuls = new System.Windows.Forms.GroupBox();
+            this.lblBx2Enhet = new System.Windows.Forms.Label();
+            this.lblBx2Max = new System.Windows.Forms.Label();
+            this.txtBx2Verdi = new System.Windows.Forms.TextBox();
+            this.lblBx2Min = new System.Windows.Forms.Label();
+            this.gbxTemp = new System.Windows.Forms.GroupBox();
+            this.lblBx1Enhet = new System.Windows.Forms.Label();
+            this.lblBx1Max = new System.Windows.Forms.Label();
+            this.txtBx1Verdi = new System.Windows.Forms.TextBox();
+            this.lblBx1Min = new System.Windows.Forms.Label();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.Intervall = new System.Windows.Forms.Button();
             this.textBoxTidMaal = new System.Windows.Forms.TextBox();
@@ -108,11 +108,6 @@
             this.datoTidDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listPulsfrekvensBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.gbxBlod.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.gbxResp.SuspendLayout();
-            this.gbxPuls.SuspendLayout();
-            this.gbxTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -127,6 +122,11 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.gbxResp.SuspendLayout();
+            this.gbxBlod.SuspendLayout();
+            this.gbxPuls.SuspendLayout();
+            this.gbxTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -159,6 +159,246 @@
             this.dateTimePicker1.ShowUpDown = true;
             this.dateTimePicker1.Size = new System.Drawing.Size(94, 20);
             this.dateTimePicker1.TabIndex = 3;
+            // 
+            // dateTimePicker3
+            // 
+            this.dateTimePicker3.CustomFormat = "MM/dd/yyyy hh:mm:ss";
+            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker3.Location = new System.Drawing.Point(226, 16);
+            this.dateTimePicker3.Name = "dateTimePicker3";
+            this.dateTimePicker3.ShowUpDown = true;
+            this.dateTimePicker3.Size = new System.Drawing.Size(90, 20);
+            this.dateTimePicker3.TabIndex = 5;
+            // 
+            // bgwVentPaKlient
+            // 
+            this.bgwVentPaKlient.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwVentPaKlient_DoWork);
+            this.bgwVentPaKlient.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwVentPaKlient_RunWorkerCompleted);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
+            this.splitContainer1.SplitterDistance = 301;
+            this.splitContainer1.TabIndex = 3;
+            // 
+            // splitContainer3
+            // 
+            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer3.Name = "splitContainer3";
+            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer3.Panel1
+            // 
+            this.splitContainer3.Panel1.Controls.Add(this.dgwPasienter);
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.buttonwatchdog);
+            this.splitContainer3.Panel2.Controls.Add(this.txtboxwatchdog);
+            this.splitContainer3.Panel2.Controls.Add(this.buttonAvslutt);
+            this.splitContainer3.Panel2.Controls.Add(this.button1);
+            this.splitContainer3.Size = new System.Drawing.Size(301, 450);
+            this.splitContainer3.SplitterDistance = 185;
+            this.splitContainer3.TabIndex = 0;
+            // 
+            // dgwPasienter
+            // 
+            this.dgwPasienter.AllowUserToAddRows = false;
+            this.dgwPasienter.AllowUserToDeleteRows = false;
+            this.dgwPasienter.AutoGenerateColumns = false;
+            this.dgwPasienter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgwPasienter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idDataGridViewTextBoxColumn,
+            this.navnDataGridViewTextBoxColumn,
+            this.alderDataGridViewTextBoxColumn});
+            this.dgwPasienter.DataSource = this.listPasientBindingSource;
+            this.dgwPasienter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgwPasienter.Location = new System.Drawing.Point(0, 0);
+            this.dgwPasienter.Name = "dgwPasienter";
+            this.dgwPasienter.ReadOnly = true;
+            this.dgwPasienter.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgwPasienter.Size = new System.Drawing.Size(301, 185);
+            this.dgwPasienter.TabIndex = 0;
+            this.dgwPasienter.SelectionChanged += new System.EventHandler(this.dgwPasienter_SelectionChanged_1);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // navnDataGridViewTextBoxColumn
+            // 
+            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
+            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
+            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
+            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // alderDataGridViewTextBoxColumn
+            // 
+            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
+            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
+            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
+            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // listPasientBindingSource
+            // 
+            this.listPasientBindingSource.DataSource = typeof(LibaryPasient.ListPasient);
+            // 
+            // buttonwatchdog
+            // 
+            this.buttonwatchdog.BackColor = System.Drawing.Color.Lime;
+            this.buttonwatchdog.Location = new System.Drawing.Point(11, 80);
+            this.buttonwatchdog.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonwatchdog.Name = "buttonwatchdog";
+            this.buttonwatchdog.Size = new System.Drawing.Size(45, 43);
+            this.buttonwatchdog.TabIndex = 3;
+            this.buttonwatchdog.UseVisualStyleBackColor = false;
+            // 
+            // txtboxwatchdog
+            // 
+            this.txtboxwatchdog.Location = new System.Drawing.Point(83, 92);
+            this.txtboxwatchdog.Margin = new System.Windows.Forms.Padding(2);
+            this.txtboxwatchdog.Name = "txtboxwatchdog";
+            this.txtboxwatchdog.Size = new System.Drawing.Size(182, 20);
+            this.txtboxwatchdog.TabIndex = 2;
+            this.txtboxwatchdog.Text = "Manglet Signal fra Monitor X i over 20 sek";
+            // 
+            // buttonAvslutt
+            // 
+            this.buttonAvslutt.Location = new System.Drawing.Point(160, 32);
+            this.buttonAvslutt.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonAvslutt.Name = "buttonAvslutt";
+            this.buttonAvslutt.Size = new System.Drawing.Size(56, 19);
+            this.buttonAvslutt.TabIndex = 1;
+            this.buttonAvslutt.Text = "Avslutt";
+            this.buttonAvslutt.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 28);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // splitContainer2
+            // 
+            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer2.Name = "splitContainer2";
+            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer2.Panel1
+            // 
+            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
+            // 
+            // splitContainer2.Panel2
+            // 
+            this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
+            this.splitContainer2.Size = new System.Drawing.Size(495, 450);
+            this.splitContainer2.SplitterDistance = 121;
+            this.splitContainer2.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.gbxResp, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxBlod, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxPuls, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxTemp, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(495, 121);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gbxResp
+            // 
+            this.gbxResp.Controls.Add(this.lblBx4Enhet);
+            this.gbxResp.Controls.Add(this.lblBx4Max);
+            this.gbxResp.Controls.Add(this.txtBx4Verdi);
+            this.gbxResp.Controls.Add(this.lblBx4Min);
+            this.gbxResp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxResp.Location = new System.Drawing.Point(249, 3);
+            this.gbxResp.Name = "gbxResp";
+            this.gbxResp.Size = new System.Drawing.Size(117, 115);
+            this.gbxResp.TabIndex = 3;
+            this.gbxResp.TabStop = false;
+            this.gbxResp.Text = "resp";
+            this.gbxResp.MouseCaptureChanged += new System.EventHandler(this.gbxResp_MouseCaptureChanged);
+            // 
+            // lblBx4Enhet
+            // 
+            this.lblBx4Enhet.AutoSize = true;
+            this.lblBx4Enhet.Location = new System.Drawing.Point(79, 49);
+            this.lblBx4Enhet.Name = "lblBx4Enhet";
+            this.lblBx4Enhet.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Enhet.TabIndex = 3;
+            this.lblBx4Enhet.Text = "label10";
+            // 
+            // lblBx4Max
+            // 
+            this.lblBx4Max.AutoSize = true;
+            this.lblBx4Max.Location = new System.Drawing.Point(16, 69);
+            this.lblBx4Max.Name = "lblBx4Max";
+            this.lblBx4Max.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Max.TabIndex = 2;
+            this.lblBx4Max.Text = "label11";
+            // 
+            // txtBx4Verdi
+            // 
+            this.txtBx4Verdi.Location = new System.Drawing.Point(15, 46);
+            this.txtBx4Verdi.Name = "txtBx4Verdi";
+            this.txtBx4Verdi.Size = new System.Drawing.Size(57, 20);
+            this.txtBx4Verdi.TabIndex = 1;
+            // 
+            // lblBx4Min
+            // 
+            this.lblBx4Min.AutoSize = true;
+            this.lblBx4Min.Location = new System.Drawing.Point(16, 30);
+            this.lblBx4Min.Name = "lblBx4Min";
+            this.lblBx4Min.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Min.TabIndex = 0;
+            this.lblBx4Min.Text = "label12";
+            // 
+            // gbxBlod
+            // 
+            this.gbxBlod.Controls.Add(this.lblBx3Enhet1);
+            this.gbxBlod.Controls.Add(this.txtBx3Verdi1);
+            this.gbxBlod.Controls.Add(this.lblBx3Enhet2);
+            this.gbxBlod.Controls.Add(this.lblBx3Max);
+            this.gbxBlod.Controls.Add(this.txtBx3Verdi2);
+            this.gbxBlod.Controls.Add(this.lblBx3Min);
+            this.gbxBlod.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxBlod.Location = new System.Drawing.Point(372, 3);
+            this.gbxBlod.Name = "gbxBlod";
+            this.gbxBlod.Size = new System.Drawing.Size(120, 115);
+            this.gbxBlod.TabIndex = 2;
+            this.gbxBlod.TabStop = false;
+            this.gbxBlod.Text = "blod";
+            this.gbxBlod.MouseCaptureChanged += new System.EventHandler(this.gbxBlod_MouseCaptureChanged);
             // 
             // lblBx3Enhet1
             // 
@@ -210,90 +450,6 @@
             this.lblBx3Min.TabIndex = 0;
             this.lblBx3Min.Text = "label9";
             // 
-            // gbxBlod
-            // 
-            this.gbxBlod.Controls.Add(this.lblBx3Enhet1);
-            this.gbxBlod.Controls.Add(this.txtBx3Verdi1);
-            this.gbxBlod.Controls.Add(this.lblBx3Enhet2);
-            this.gbxBlod.Controls.Add(this.lblBx3Max);
-            this.gbxBlod.Controls.Add(this.txtBx3Verdi2);
-            this.gbxBlod.Controls.Add(this.lblBx3Min);
-            this.gbxBlod.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxBlod.Location = new System.Drawing.Point(321, 3);
-            this.gbxBlod.Name = "gbxBlod";
-            this.gbxBlod.Size = new System.Drawing.Size(100, 115);
-            this.gbxBlod.TabIndex = 2;
-            this.gbxBlod.TabStop = false;
-            this.gbxBlod.Text = "blod";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.gbxResp, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxBlod, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxPuls, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxTemp, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 121);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // gbxResp
-            // 
-            this.gbxResp.Controls.Add(this.lblBx4Enhet);
-            this.gbxResp.Controls.Add(this.lblBx4Max);
-            this.gbxResp.Controls.Add(this.txtBx4Verdi);
-            this.gbxResp.Controls.Add(this.lblBx4Min);
-            this.gbxResp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxResp.Location = new System.Drawing.Point(215, 3);
-            this.gbxResp.Name = "gbxResp";
-            this.gbxResp.Size = new System.Drawing.Size(100, 115);
-            this.gbxResp.TabIndex = 3;
-            this.gbxResp.TabStop = false;
-            this.gbxResp.Text = "resp";
-            // 
-            // lblBx4Enhet
-            // 
-            this.lblBx4Enhet.AutoSize = true;
-            this.lblBx4Enhet.Location = new System.Drawing.Point(31, 102);
-            this.lblBx4Enhet.Name = "lblBx4Enhet";
-            this.lblBx4Enhet.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Enhet.TabIndex = 3;
-            this.lblBx4Enhet.Text = "label10";
-            // 
-            // lblBx4Max
-            // 
-            this.lblBx4Max.AutoSize = true;
-            this.lblBx4Max.Location = new System.Drawing.Point(16, 69);
-            this.lblBx4Max.Name = "lblBx4Max";
-            this.lblBx4Max.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Max.TabIndex = 2;
-            this.lblBx4Max.Text = "label11";
-            // 
-            // txtBx4Verdi
-            // 
-            this.txtBx4Verdi.Location = new System.Drawing.Point(15, 46);
-            this.txtBx4Verdi.Name = "txtBx4Verdi";
-            this.txtBx4Verdi.Size = new System.Drawing.Size(57, 20);
-            this.txtBx4Verdi.TabIndex = 1;
-            // 
-            // lblBx4Min
-            // 
-            this.lblBx4Min.AutoSize = true;
-            this.lblBx4Min.Location = new System.Drawing.Point(16, 30);
-            this.lblBx4Min.Name = "lblBx4Min";
-            this.lblBx4Min.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Min.TabIndex = 0;
-            this.lblBx4Min.Text = "label12";
-            // 
             // gbxPuls
             // 
             this.gbxPuls.Controls.Add(this.lblBx2Enhet);
@@ -303,15 +459,16 @@
             this.gbxPuls.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbxPuls.Location = new System.Drawing.Point(3, 3);
             this.gbxPuls.Name = "gbxPuls";
-            this.gbxPuls.Size = new System.Drawing.Size(100, 115);
+            this.gbxPuls.Size = new System.Drawing.Size(117, 115);
             this.gbxPuls.TabIndex = 1;
             this.gbxPuls.TabStop = false;
             this.gbxPuls.Text = "puls";
+            this.gbxPuls.MouseCaptureChanged += new System.EventHandler(this.gbxPuls_MouseCaptureChanged);
             // 
             // lblBx2Enhet
             // 
             this.lblBx2Enhet.AutoSize = true;
-            this.lblBx2Enhet.Location = new System.Drawing.Point(40, 102);
+            this.lblBx2Enhet.Location = new System.Drawing.Point(81, 49);
             this.lblBx2Enhet.Name = "lblBx2Enhet";
             this.lblBx2Enhet.Size = new System.Drawing.Size(35, 13);
             this.lblBx2Enhet.TabIndex = 3;
@@ -349,17 +506,18 @@
             this.gbxTemp.Controls.Add(this.txtBx1Verdi);
             this.gbxTemp.Controls.Add(this.lblBx1Min);
             this.gbxTemp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxTemp.Location = new System.Drawing.Point(109, 3);
+            this.gbxTemp.Location = new System.Drawing.Point(126, 3);
             this.gbxTemp.Name = "gbxTemp";
-            this.gbxTemp.Size = new System.Drawing.Size(100, 115);
+            this.gbxTemp.Size = new System.Drawing.Size(117, 115);
             this.gbxTemp.TabIndex = 0;
             this.gbxTemp.TabStop = false;
             this.gbxTemp.Text = "temp";
+            this.gbxTemp.MouseCaptureChanged += new System.EventHandler(this.gbxTemp_MouseCaptureChanged);
             // 
             // lblBx1Enhet
             // 
             this.lblBx1Enhet.AutoSize = true;
-            this.lblBx1Enhet.Location = new System.Drawing.Point(39, 102);
+            this.lblBx1Enhet.Location = new System.Drawing.Point(80, 49);
             this.lblBx1Enhet.Name = "lblBx1Enhet";
             this.lblBx1Enhet.Size = new System.Drawing.Size(35, 13);
             this.lblBx1Enhet.TabIndex = 3;
@@ -390,159 +548,6 @@
             this.lblBx1Min.TabIndex = 0;
             this.lblBx1Min.Text = "label1";
             // 
-            // dateTimePicker3
-            // 
-            this.dateTimePicker3.CustomFormat = "MM/dd/yyyy hh:mm:ss";
-            this.dateTimePicker3.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dateTimePicker3.Location = new System.Drawing.Point(226, 16);
-            this.dateTimePicker3.Name = "dateTimePicker3";
-            this.dateTimePicker3.ShowUpDown = true;
-            this.dateTimePicker3.Size = new System.Drawing.Size(90, 20);
-            this.dateTimePicker3.TabIndex = 5;
-            // 
-            // bgwVentPaKlient
-            // 
-            this.bgwVentPaKlient.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwVentPaKlient_DoWork);
-            this.bgwVentPaKlient.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwVentPaKlient_RunWorkerCompleted);
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer3);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 265;
-            this.splitContainer1.TabIndex = 3;
-            // 
-            // splitContainer3
-            // 
-            this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Name = "splitContainer3";
-            this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer3.Panel1
-            // 
-            this.splitContainer3.Panel1.Controls.Add(this.dgwPasienter);
-            // 
-            // splitContainer3.Panel2
-            // 
-            this.splitContainer3.Panel2.Controls.Add(this.buttonwatchdog);
-            this.splitContainer3.Panel2.Controls.Add(this.txtboxwatchdog);
-            this.splitContainer3.Panel2.Controls.Add(this.buttonAvslutt);
-            this.splitContainer3.Panel2.Controls.Add(this.button1);
-            this.splitContainer3.Size = new System.Drawing.Size(265, 450);
-            this.splitContainer3.SplitterDistance = 185;
-            this.splitContainer3.TabIndex = 0;
-            // 
-            // dgwPasienter
-            // 
-            this.dgwPasienter.AllowUserToAddRows = false;
-            this.dgwPasienter.AllowUserToDeleteRows = false;
-            this.dgwPasienter.AutoGenerateColumns = false;
-            this.dgwPasienter.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgwPasienter.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idDataGridViewTextBoxColumn,
-            this.navnDataGridViewTextBoxColumn,
-            this.alderDataGridViewTextBoxColumn});
-            this.dgwPasienter.DataSource = this.listPasientBindingSource;
-            this.dgwPasienter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgwPasienter.Location = new System.Drawing.Point(0, 0);
-            this.dgwPasienter.Name = "dgwPasienter";
-            this.dgwPasienter.ReadOnly = true;
-            this.dgwPasienter.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgwPasienter.Size = new System.Drawing.Size(265, 185);
-            this.dgwPasienter.TabIndex = 0;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // navnDataGridViewTextBoxColumn
-            // 
-            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
-            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
-            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
-            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // alderDataGridViewTextBoxColumn
-            // 
-            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
-            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
-            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
-            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // listPasientBindingSource
-            // 
-            this.listPasientBindingSource.DataSource = typeof(LibaryPasient.ListPasient);
-            // 
-            // buttonwatchdog
-            // 
-            this.buttonwatchdog.BackColor = System.Drawing.Color.Lime;
-            this.buttonwatchdog.Location = new System.Drawing.Point(9, 138);
-            this.buttonwatchdog.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonwatchdog.Name = "buttonwatchdog";
-            this.buttonwatchdog.Size = new System.Drawing.Size(45, 43);
-            this.buttonwatchdog.TabIndex = 3;
-            this.buttonwatchdog.UseVisualStyleBackColor = false;
-            // 
-            // txtboxwatchdog
-            // 
-            this.txtboxwatchdog.Location = new System.Drawing.Point(77, 150);
-            this.txtboxwatchdog.Margin = new System.Windows.Forms.Padding(2);
-            this.txtboxwatchdog.Name = "txtboxwatchdog";
-            this.txtboxwatchdog.Size = new System.Drawing.Size(182, 20);
-            this.txtboxwatchdog.TabIndex = 2;
-            this.txtboxwatchdog.Text = "Manglet Signal fra Monitor X i over 20 sek";
-            // 
-            // buttonAvslutt
-            // 
-            this.buttonAvslutt.Location = new System.Drawing.Point(236, 12);
-            this.buttonAvslutt.Margin = new System.Windows.Forms.Padding(2);
-            this.buttonAvslutt.Name = "buttonAvslutt";
-            this.buttonAvslutt.Size = new System.Drawing.Size(56, 19);
-            this.buttonAvslutt.TabIndex = 1;
-            this.buttonAvslutt.Text = "Avslutt";
-            this.buttonAvslutt.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.tableLayoutPanel1);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Size = new System.Drawing.Size(531, 450);
-            this.splitContainer2.SplitterDistance = 121;
-            this.splitContainer2.TabIndex = 0;
-            // 
             // splitContainer4
             // 
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -560,7 +565,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer4.Size = new System.Drawing.Size(531, 325);
+            this.splitContainer4.Size = new System.Drawing.Size(495, 325);
             this.splitContainer4.SplitterDistance = 48;
             this.splitContainer4.TabIndex = 6;
             // 
@@ -572,6 +577,7 @@
             this.Intervall.TabIndex = 2;
             this.Intervall.Text = "Intervall";
             this.Intervall.UseVisualStyleBackColor = true;
+            this.Intervall.Click += new System.EventHandler(this.Intervall_Click);
             // 
             // textBoxTidMaal
             // 
@@ -592,7 +598,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(531, 273);
+            this.tabControl1.Size = new System.Drawing.Size(495, 273);
             this.tabControl1.TabIndex = 0;
             // 
             // tpTemp
@@ -601,7 +607,7 @@
             this.tpTemp.Location = new System.Drawing.Point(4, 22);
             this.tpTemp.Name = "tpTemp";
             this.tpTemp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTemp.Size = new System.Drawing.Size(523, 247);
+            this.tpTemp.Size = new System.Drawing.Size(487, 247);
             this.tpTemp.TabIndex = 0;
             this.tpTemp.Text = "temp";
             this.tpTemp.UseVisualStyleBackColor = true;
@@ -620,7 +626,7 @@
             this.listKroppstemperaturDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView.Name = "listKroppstemperaturDataGridView";
-            this.listKroppstemperaturDataGridView.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn
@@ -664,7 +670,7 @@
             this.tpPuls.Location = new System.Drawing.Point(4, 22);
             this.tpPuls.Name = "tpPuls";
             this.tpPuls.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPuls.Size = new System.Drawing.Size(523, 247);
+            this.tpPuls.Size = new System.Drawing.Size(487, 247);
             this.tpPuls.TabIndex = 1;
             this.tpPuls.Text = "puls";
             this.tpPuls.UseVisualStyleBackColor = true;
@@ -683,7 +689,7 @@
             this.listKroppstemperaturDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView1.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView1.Name = "listKroppstemperaturDataGridView1";
-            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView1.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn1
@@ -727,7 +733,7 @@
             this.tpResp.Location = new System.Drawing.Point(4, 22);
             this.tpResp.Name = "tpResp";
             this.tpResp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpResp.Size = new System.Drawing.Size(523, 247);
+            this.tpResp.Size = new System.Drawing.Size(487, 247);
             this.tpResp.TabIndex = 2;
             this.tpResp.Text = "resp";
             this.tpResp.UseVisualStyleBackColor = true;
@@ -746,7 +752,7 @@
             this.listKroppstemperaturDataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView2.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView2.Name = "listKroppstemperaturDataGridView2";
-            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView2.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn2
@@ -791,7 +797,7 @@
             this.tpBlod.Location = new System.Drawing.Point(4, 22);
             this.tpBlod.Name = "tpBlod";
             this.tpBlod.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBlod.Size = new System.Drawing.Size(523, 247);
+            this.tpBlod.Size = new System.Drawing.Size(487, 247);
             this.tpBlod.TabIndex = 3;
             this.tpBlod.Text = "blod";
             this.tpBlod.UseVisualStyleBackColor = true;
@@ -810,7 +816,7 @@
             this.listKroppstemperaturDataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView3.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView3.Name = "listKroppstemperaturDataGridView3";
-            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView3.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn3
@@ -855,7 +861,7 @@
             this.tpAlarm.Location = new System.Drawing.Point(4, 22);
             this.tpAlarm.Name = "tpAlarm";
             this.tpAlarm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAlarm.Size = new System.Drawing.Size(523, 247);
+            this.tpAlarm.Size = new System.Drawing.Size(487, 247);
             this.tpAlarm.TabIndex = 4;
             this.tpAlarm.Text = "Aktive Alarmer";
             this.tpAlarm.UseVisualStyleBackColor = true;
@@ -872,7 +878,7 @@
             this.dataGridAktiveAlarmer.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridAktiveAlarmer.Name = "dataGridAktiveAlarmer";
             this.dataGridAktiveAlarmer.RowTemplate.Height = 24;
-            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(517, 241);
+            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(481, 241);
             this.dataGridAktiveAlarmer.TabIndex = 0;
             // 
             // datoTidDataGridViewTextBoxColumn4
@@ -893,15 +899,6 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.gbxBlod.ResumeLayout(false);
-            this.gbxBlod.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.gbxResp.ResumeLayout(false);
-            this.gbxResp.PerformLayout();
-            this.gbxPuls.ResumeLayout(false);
-            this.gbxPuls.PerformLayout();
-            this.gbxTemp.ResumeLayout(false);
-            this.gbxTemp.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -917,6 +914,15 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.gbxResp.ResumeLayout(false);
+            this.gbxResp.PerformLayout();
+            this.gbxBlod.ResumeLayout(false);
+            this.gbxBlod.PerformLayout();
+            this.gbxPuls.ResumeLayout(false);
+            this.gbxPuls.PerformLayout();
+            this.gbxTemp.ResumeLayout(false);
+            this.gbxTemp.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);
@@ -946,29 +952,6 @@
         #endregion
 
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label lblBx3Enhet1;
-        private System.Windows.Forms.TextBox txtBx3Verdi1;
-        private System.Windows.Forms.Label lblBx3Enhet2;
-        private System.Windows.Forms.Label lblBx3Max;
-        private System.Windows.Forms.TextBox txtBx3Verdi2;
-        private System.Windows.Forms.Label lblBx3Min;
-        private System.Windows.Forms.GroupBox gbxBlod;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox gbxResp;
-        private System.Windows.Forms.Label lblBx4Enhet;
-        private System.Windows.Forms.Label lblBx4Max;
-        private System.Windows.Forms.TextBox txtBx4Verdi;
-        private System.Windows.Forms.Label lblBx4Min;
-        private System.Windows.Forms.GroupBox gbxPuls;
-        private System.Windows.Forms.Label lblBx2Enhet;
-        private System.Windows.Forms.Label lblBx2Max;
-        private System.Windows.Forms.TextBox txtBx2Verdi;
-        private System.Windows.Forms.Label lblBx2Min;
-        private System.Windows.Forms.GroupBox gbxTemp;
-        private System.Windows.Forms.Label lblBx1Enhet;
-        private System.Windows.Forms.Label lblBx1Max;
-        private System.Windows.Forms.TextBox txtBx1Verdi;
-        private System.Windows.Forms.Label lblBx1Min;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.ComponentModel.BackgroundWorker bgwVentPaKlient;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -994,9 +977,6 @@
         private System.Windows.Forms.DataGridView listKroppstemperaturDataGridView3;
         private System.Windows.Forms.TabPage tpAlarm;
         private System.Windows.Forms.DataGridView dataGridAktiveAlarmer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource listPasientBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn verdiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn enhetDataGridViewTextBoxColumn;
@@ -1024,6 +1004,32 @@
         private System.Windows.Forms.BindingSource listBlodtrykkBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn4;
         private System.Windows.Forms.BindingSource listAlarmBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox gbxResp;
+        private System.Windows.Forms.Label lblBx4Enhet;
+        private System.Windows.Forms.Label lblBx4Max;
+        private System.Windows.Forms.TextBox txtBx4Verdi;
+        private System.Windows.Forms.Label lblBx4Min;
+        private System.Windows.Forms.GroupBox gbxBlod;
+        private System.Windows.Forms.Label lblBx3Enhet1;
+        private System.Windows.Forms.TextBox txtBx3Verdi1;
+        private System.Windows.Forms.Label lblBx3Enhet2;
+        private System.Windows.Forms.Label lblBx3Max;
+        private System.Windows.Forms.TextBox txtBx3Verdi2;
+        private System.Windows.Forms.Label lblBx3Min;
+        private System.Windows.Forms.GroupBox gbxPuls;
+        private System.Windows.Forms.Label lblBx2Enhet;
+        private System.Windows.Forms.Label lblBx2Max;
+        private System.Windows.Forms.TextBox txtBx2Verdi;
+        private System.Windows.Forms.Label lblBx2Min;
+        private System.Windows.Forms.GroupBox gbxTemp;
+        private System.Windows.Forms.Label lblBx1Enhet;
+        private System.Windows.Forms.Label lblBx1Max;
+        private System.Windows.Forms.TextBox txtBx1Verdi;
+        private System.Windows.Forms.Label lblBx1Min;
     }
 }
 
