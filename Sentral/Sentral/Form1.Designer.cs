@@ -840,6 +840,11 @@
             this.splitContainer1.SplitterDistance = 265;
             this.splitContainer1.TabIndex = 2;
             // 
+            // bgwVentPaKlient
+            // 
+            this.bgwVentPaKlient.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwVentPaKlient_DoWork);
+            this.bgwVentPaKlient.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwVentPaKlient_RunWorkerCompleted);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);

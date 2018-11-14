@@ -35,6 +35,7 @@ namespace Sentral2
         private string _filnavn = "PasienterFil";
 
         private Mdt minDelegate;
+        private Mdt minDelegate2;
 
         public Form1()
         {
@@ -67,35 +68,42 @@ namespace Sentral2
 
 
             _kommSokkeList = new List<Socket>();
-            ThreadPool.QueueUserWorkItem(VentPaaMonitor);
+            //ThreadPool.QueueUserWorkItem(VentPaaMonitor, _pasienter);
         }
 
         private void VentPaaMonitor(object state)
         {
+
             while (true)
             {
-                var kommSocket = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
-                _kommSokkeList.Add(kommSocket);                             // Klient oppdaget og legger tilkoblingsdata til i listen
-                string data = minSokkel.VentPaData(kommSocket);         // venter på pasientdata
-                Pasient p = Serialize.StringTPasient(data);                // konverterer til pasient 
-                _pasienter.Add(new ListPasient(p));                         // legger pasient til i listen med pasienter                        MÅ S`JEKKE OM  P ER DER FRA FØR!!!
+                
 
 
 
-                ThreadPool.QueueUserWorkItem(VentPaaData);                  // Starter en tråd som venter på data
+
+
+
             }
+        }
+
+        private void LeggTilPasient(ListPasient p)
+        {
+            _pasienter.Add(p);
+
         }
 
         private void VentPaaData(object state)
         {
+            ListPasient lp = (ListPasient) state;
+
             while (true)
             {
                 string data = minSokkel.VentPaData(_kommSokkeList[0]);
                 Pasient p = Serialize.StringTPasient(data);
-                _pasienter[0].NyData(p);
+                lp.NyData(p);
 
                 minDelegate = new Mdt(OppdaterVerdiGui);
-                this.Invoke(minDelegate, _pasienter[0]);
+                this.Invoke(minDelegate, lp);
             }
 
         }
@@ -178,6 +186,28 @@ namespace Sentral2
         private void gbxBlod_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpBlod;
+        }
+
+        private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e)
+        {
+            var kommSocket = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
+            _kommSokkeList.Add(kommSocket);                             // Klient oppdaget og legger tilkoblingsdata til i listen
+            
+        }
+
+        private void bgwVentPaKlient_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            string data = minSokkel.VentPaData(_kommSokkeList[0]);         // venter på pasientdata
+            Pasient p = Serialize.StringTPasient(data);                // konverterer til pasient 
+
+            //sjekk om pasient er i listen fra før
+
+            //minDelegate2 = new Mdt(LeggTilPasient);
+            //this.Invoke(minDelegate2, new ListPasient(p));
+
+            _pasienter.Add(new ListPasient(p));                         // legger pasient til i listen med pasienter
+            ThreadPool.QueueUserWorkItem(VentPaaData, _pasienter.Last());                  // Starter en tråd som venter på data
+
         }
     }
 
