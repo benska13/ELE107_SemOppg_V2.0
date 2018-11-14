@@ -153,11 +153,8 @@ namespace Monitor
         {
             try
             {
-
-
                 RegistrerPM registrer = new RegistrerPM(_pasient);
                 registrer.ShowDialog();
-
 
                 _pasient.Kroppstemperatur.Min = (int)registrer.MinTemp;
                 _pasient.Kroppstemperatur.Max = (int)registrer.MaxTemp;
@@ -267,9 +264,15 @@ namespace Monitor
                         data = data + tegn;
                         if (tegn == '#') ferdig = true;
                     }
-                    // Finner Dato og klokke
+
+                    // MULIG LØSNING PÅ DATO?????
+                    // Finner dato og klokkeslett
+                    string dato = "";
                     var _pos = data.IndexOf('B');
-                    // _pasient.SetDatoKlokke(data.Substring(_pos + 1, 14).ToString());
+                    dato += data.Substring(_pos + 1, 8);
+                    _pos = data.IndexOf('C');
+                    dato += data.Substring(_pos + 1, 6);
+                    _pasient.SetDatoKlokke(dato);
 
                     // Digital /alarm
                     _pos = data.IndexOf('D');
