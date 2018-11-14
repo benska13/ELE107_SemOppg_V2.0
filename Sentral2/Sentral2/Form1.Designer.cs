@@ -461,6 +461,7 @@
             this.dgwPasienter.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgwPasienter.Size = new System.Drawing.Size(265, 185);
             this.dgwPasienter.TabIndex = 0;
+            this.dgwPasienter.SelectionChanged += new System.EventHandler(this.dgwPasienter_SelectionChanged_1);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -508,7 +509,7 @@
             // 
             // buttonAvslutt
             // 
-            this.buttonAvslutt.Location = new System.Drawing.Point(236, 12);
+            this.buttonAvslutt.Location = new System.Drawing.Point(164, 13);
             this.buttonAvslutt.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAvslutt.Name = "buttonAvslutt";
             this.buttonAvslutt.Size = new System.Drawing.Size(56, 19);

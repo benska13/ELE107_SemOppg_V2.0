@@ -68,7 +68,9 @@ namespace LibaryPasient
 
         }
 
-
+        public ListPasient()
+        {
+        }
 
         public void NyData(Pasient inPasient)
         {
