@@ -21,7 +21,7 @@ using System.Threading;
 
 namespace Sentral2
 {
-    public delegate void Mdt(ListPasient p);
+    public delegate void Mdt(Pasient p);
 
     public partial class Form1 : Form
     {
@@ -35,7 +35,8 @@ namespace Sentral2
         private string _filnavn = "PasienterFil";
 
         private Mdt minDelegate;
-        private Mdt minDelegate2;
+
+        private int pasientnr = 0;
 
         public Form1()
         {
@@ -71,39 +72,38 @@ namespace Sentral2
             //ThreadPool.QueueUserWorkItem(VentPaaMonitor, _pasienter);
         }
 
-        private void VentPaaMonitor(object state)
+        void PasientSjekk(Pasient n)
         {
-
-            while (true)
+            bool pasientFunnet = false;
+            foreach (ListPasient p in _pasienter)
             {
-                
-
-
-
-
-
-
+                if (p.Navn == n.Navn)
+                {
+                    p.NyData(n);
+                    pasientFunnet = true;
+                    OppdaterVerdiGui(p);
+                }
             }
-        }
 
-        private void LeggTilPasient(ListPasient p)
-        {
-            _pasienter.Add(p);
-
+            if (!pasientFunnet)
+            {
+                _pasienter.Add(new ListPasient(n));
+                OppdaterVerdiGui(_pasienter.Last());
+            }
         }
 
         private void VentPaaData(object state)
         {
-            ListPasient lp = (ListPasient) state;
-
+            //ListPasient lp = (ListPasient) state;
+            Socket kommSocket = (Socket)state;
+            int i = pasientnr;
             while (true)
             {
-                string data = minSokkel.VentPaData(_kommSokkeList[0]);
+                string data = minSokkel.VentPaData(kommSocket);
                 Pasient p = Serialize.StringTPasient(data);
-                lp.NyData(p);
 
-                minDelegate = new Mdt(OppdaterVerdiGui);
-                this.Invoke(minDelegate, lp);
+                minDelegate = new Mdt(PasientSjekk);
+                this.Invoke(minDelegate, p);
             }
 
         }
@@ -192,21 +192,21 @@ namespace Sentral2
         {
             var kommSocket = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
             _kommSokkeList.Add(kommSocket);                             // Klient oppdaget og legger tilkoblingsdata til i listen
-            
+
         }
 
         private void bgwVentPaKlient_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            string data = minSokkel.VentPaData(_kommSokkeList[0]);         // venter på pasientdata
+            string data = minSokkel.VentPaData(_kommSokkeList[pasientnr]);         // venter på pasientdata
             Pasient p = Serialize.StringTPasient(data);                // konverterer til pasient 
+            //_pasienter.Add(new ListPasient(p));                         // legger pasient til i listen med pasienter                        MÅ S`JEKKE OM  P ER DER FRA FØR!!!
 
-            //sjekk om pasient er i listen fra før
+            PasientSjekk(p);
 
-            //minDelegate2 = new Mdt(LeggTilPasient);
-            //this.Invoke(minDelegate2, new ListPasient(p));
 
-            _pasienter.Add(new ListPasient(p));                         // legger pasient til i listen med pasienter
-            ThreadPool.QueueUserWorkItem(VentPaaData, _pasienter.Last());                  // Starter en tråd som venter på data
+            ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkeList[pasientnr]);                  // Starter en tråd som venter på data
+            pasientnr++;
+            bgwVentPaKlient.RunWorkerAsync();
 
         }
     }
