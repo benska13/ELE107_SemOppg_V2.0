@@ -36,20 +36,15 @@ namespace Sentral2
 
         public Form1()
         {
-
             InitializeComponent();
+
             _pasienter = new BindingList<ListPasient> { };
             OppdaterLabelerGui();
 
             _lytteSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            var serverEp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+            IPEndPoint serverEp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
             _lytteSokkel.Bind(serverEp);
             _lytteSokkel.Listen(10);
-
-         
-
-            new BindingList<Alarm>();
-            // dataGridAktiveAlarmer.DataSource = AktiveAlarmer;
 
             try
             {
@@ -60,11 +55,9 @@ namespace Sentral2
                 MessageBox.Show(ex.ToString());
             }
 
-
             listPasientBindingSource.DataSource = _pasienter;
             dgwPasienter.SelectAll();
             bgwVentPaKlient.RunWorkerAsync();
-
         }
 
         void PasientSjekk(Pasient n)      // Kan gjøres bedre
@@ -86,21 +79,20 @@ namespace Sentral2
                 OppdaterVerdiGui(_pasienter.Last());
             }
         }
-
         private void VentPaaData(object state)
         {
+            
             Socket kommSocket = (Socket)state;
-            while (true)
+            while (kommSocket.IsBound)
             {
                 string data = minSokkel.VentPaData(kommSocket);
                 Pasient p = Serialize.StringTPasient(data);
+                p.KommSokkel = kommSocket;
 
                 _minDelegate = new Mdt(PasientSjekk);
                 this.Invoke(_minDelegate, p);
             }
         }
-
-
         private void OppdaterLabelerGui()
         {
             // bx1= temp
@@ -119,8 +111,6 @@ namespace Sentral2
             lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
 
         }
-
-
         public void OppdaterVerdiGui(ListPasient n)
         {
             if (_pasienter[dgwPasienter.SelectedRows[0].Index]==n)
@@ -151,39 +141,31 @@ namespace Sentral2
             }
             LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
         }
-
-
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpPuls;
         }
-
         private void gbxTemp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpTemp;
         }
-
         private void gbxResp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpResp;
         }
-
         private void gbxBlod_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpBlod;
         }
-
         private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e)
         {
             _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
         }
-
         private void bgwVentPaKlient_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkel);                  // Starter en tråd som venter på data
             bgwVentPaKlient.RunWorkerAsync();
         }
-
         private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e)
         {
             if (dgwPasienter.SelectedRows.Count!=0)
@@ -196,5 +178,13 @@ namespace Sentral2
                 listBlodtrykkBindingSource.DataSource = _pasienter[x].ListBlodtrykk;
             }
         }
+        private void Intervall_Click(object sender, EventArgs e)
+        {
+            Klokke Nyklokke = new Klokke();
+            Nyklokke.Intervallskrivut(dateTimePicker1, dateTimePicker3, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+        }
+
     }
+
+
 }

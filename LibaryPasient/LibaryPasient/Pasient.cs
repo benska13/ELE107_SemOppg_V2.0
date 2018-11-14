@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Net.Sockets;
+
 /*
   legge til
     - id på pasient
@@ -19,7 +21,7 @@ namespace LibaryPasient
         public Respirasjonsrate Respirasjonsrate { get; set; } = new Respirasjonsrate();
         public Alarm Alarm { get; set; } = new Alarm();
         public static DateTime DatoKlokke { get; set; }
-
+        public Socket KommSokkel { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
             //yyyymmdd
@@ -52,6 +54,8 @@ namespace LibaryPasient
         public BindingList<Pulsfrekvens> ListPulsfrekvens { get; set; }
         public BindingList<Alarm> ListAlarm { get; set; }
 
+        public Socket KommSokkel { get; set; }
+
         public ListPasient(Pasient innPasient)
         {
             Id = idteller++;
@@ -76,6 +80,7 @@ namespace LibaryPasient
         {
             Navn = inPasient.Navn;
             Alder = inPasient.Alder;
+            KommSokkel = inPasient.KommSokkel;
 
             ListKroppstemperatur.Insert(0, inPasient.Kroppstemperatur);
             ListBlodtrykk.Insert(0, inPasient.Blodtrykk);

@@ -30,19 +30,33 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.lblBx3Enhet1 = new System.Windows.Forms.Label();
-            this.txtBx3Verdi1 = new System.Windows.Forms.TextBox();
-            this.lblBx3Enhet2 = new System.Windows.Forms.Label();
-            this.lblBx3Max = new System.Windows.Forms.Label();
-            this.txtBx3Verdi2 = new System.Windows.Forms.TextBox();
-            this.lblBx3Min = new System.Windows.Forms.Label();
-            this.gbxBlod = new System.Windows.Forms.GroupBox();
+            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
+            this.bgwVentPaKlient = new System.ComponentModel.BackgroundWorker();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.dgwPasienter = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listPasientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.buttonwatchdog = new System.Windows.Forms.Button();
+            this.txtboxwatchdog = new System.Windows.Forms.TextBox();
+            this.buttonAvslutt = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxResp = new System.Windows.Forms.GroupBox();
             this.lblBx4Enhet = new System.Windows.Forms.Label();
             this.lblBx4Max = new System.Windows.Forms.Label();
             this.txtBx4Verdi = new System.Windows.Forms.TextBox();
             this.lblBx4Min = new System.Windows.Forms.Label();
+            this.gbxBlod = new System.Windows.Forms.GroupBox();
+            this.lblBx3Enhet1 = new System.Windows.Forms.Label();
+            this.txtBx3Verdi1 = new System.Windows.Forms.TextBox();
+            this.lblBx3Enhet2 = new System.Windows.Forms.Label();
+            this.lblBx3Max = new System.Windows.Forms.Label();
+            this.txtBx3Verdi2 = new System.Windows.Forms.TextBox();
+            this.lblBx3Min = new System.Windows.Forms.Label();
             this.gbxPuls = new System.Windows.Forms.GroupBox();
             this.lblBx2Enhet = new System.Windows.Forms.Label();
             this.lblBx2Max = new System.Windows.Forms.Label();
@@ -53,17 +67,6 @@
             this.lblBx1Max = new System.Windows.Forms.Label();
             this.txtBx1Verdi = new System.Windows.Forms.TextBox();
             this.lblBx1Min = new System.Windows.Forms.Label();
-            this.dateTimePicker3 = new System.Windows.Forms.DateTimePicker();
-            this.bgwVentPaKlient = new System.ComponentModel.BackgroundWorker();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.dgwPasienter = new System.Windows.Forms.DataGridView();
-            this.listPasientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.buttonwatchdog = new System.Windows.Forms.Button();
-            this.txtboxwatchdog = new System.Windows.Forms.TextBox();
-            this.buttonAvslutt = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.Intervall = new System.Windows.Forms.Button();
             this.textBoxTidMaal = new System.Windows.Forms.TextBox();
@@ -105,14 +108,6 @@
             this.datoTidDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listPulsfrekvensBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.navnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.alderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.gbxBlod.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.gbxResp.SuspendLayout();
-            this.gbxPuls.SuspendLayout();
-            this.gbxTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -127,6 +122,11 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.gbxResp.SuspendLayout();
+            this.gbxBlod.SuspendLayout();
+            this.gbxPuls.SuspendLayout();
+            this.gbxTemp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -160,236 +160,6 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(94, 20);
             this.dateTimePicker1.TabIndex = 3;
             // 
-            // lblBx3Enhet1
-            // 
-            this.lblBx3Enhet1.AutoSize = true;
-            this.lblBx3Enhet1.Location = new System.Drawing.Point(69, 46);
-            this.lblBx3Enhet1.Name = "lblBx3Enhet1";
-            this.lblBx3Enhet1.Size = new System.Drawing.Size(41, 13);
-            this.lblBx3Enhet1.TabIndex = 5;
-            this.lblBx3Enhet1.Text = "label13";
-            // 
-            // txtBx3Verdi1
-            // 
-            this.txtBx3Verdi1.Location = new System.Drawing.Point(6, 42);
-            this.txtBx3Verdi1.Name = "txtBx3Verdi1";
-            this.txtBx3Verdi1.Size = new System.Drawing.Size(57, 20);
-            this.txtBx3Verdi1.TabIndex = 4;
-            // 
-            // lblBx3Enhet2
-            // 
-            this.lblBx3Enhet2.AutoSize = true;
-            this.lblBx3Enhet2.Location = new System.Drawing.Point(69, 68);
-            this.lblBx3Enhet2.Name = "lblBx3Enhet2";
-            this.lblBx3Enhet2.Size = new System.Drawing.Size(35, 13);
-            this.lblBx3Enhet2.TabIndex = 3;
-            this.lblBx3Enhet2.Text = "label7";
-            // 
-            // lblBx3Max
-            // 
-            this.lblBx3Max.AutoSize = true;
-            this.lblBx3Max.Location = new System.Drawing.Point(7, 88);
-            this.lblBx3Max.Name = "lblBx3Max";
-            this.lblBx3Max.Size = new System.Drawing.Size(35, 13);
-            this.lblBx3Max.TabIndex = 2;
-            this.lblBx3Max.Text = "label8";
-            // 
-            // txtBx3Verdi2
-            // 
-            this.txtBx3Verdi2.Location = new System.Drawing.Point(6, 65);
-            this.txtBx3Verdi2.Name = "txtBx3Verdi2";
-            this.txtBx3Verdi2.Size = new System.Drawing.Size(57, 20);
-            this.txtBx3Verdi2.TabIndex = 1;
-            // 
-            // lblBx3Min
-            // 
-            this.lblBx3Min.AutoSize = true;
-            this.lblBx3Min.Location = new System.Drawing.Point(7, 29);
-            this.lblBx3Min.Name = "lblBx3Min";
-            this.lblBx3Min.Size = new System.Drawing.Size(35, 13);
-            this.lblBx3Min.TabIndex = 0;
-            this.lblBx3Min.Text = "label9";
-            // 
-            // gbxBlod
-            // 
-            this.gbxBlod.Controls.Add(this.lblBx3Enhet1);
-            this.gbxBlod.Controls.Add(this.txtBx3Verdi1);
-            this.gbxBlod.Controls.Add(this.lblBx3Enhet2);
-            this.gbxBlod.Controls.Add(this.lblBx3Max);
-            this.gbxBlod.Controls.Add(this.txtBx3Verdi2);
-            this.gbxBlod.Controls.Add(this.lblBx3Min);
-            this.gbxBlod.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxBlod.Location = new System.Drawing.Point(321, 3);
-            this.gbxBlod.Name = "gbxBlod";
-            this.gbxBlod.Size = new System.Drawing.Size(100, 115);
-            this.gbxBlod.TabIndex = 2;
-            this.gbxBlod.TabStop = false;
-            this.gbxBlod.Text = "blod";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 5;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.gbxResp, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxBlod, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxPuls, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gbxTemp, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(531, 121);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // gbxResp
-            // 
-            this.gbxResp.Controls.Add(this.lblBx4Enhet);
-            this.gbxResp.Controls.Add(this.lblBx4Max);
-            this.gbxResp.Controls.Add(this.txtBx4Verdi);
-            this.gbxResp.Controls.Add(this.lblBx4Min);
-            this.gbxResp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxResp.Location = new System.Drawing.Point(215, 3);
-            this.gbxResp.Name = "gbxResp";
-            this.gbxResp.Size = new System.Drawing.Size(100, 115);
-            this.gbxResp.TabIndex = 3;
-            this.gbxResp.TabStop = false;
-            this.gbxResp.Text = "resp";
-            // 
-            // lblBx4Enhet
-            // 
-            this.lblBx4Enhet.AutoSize = true;
-            this.lblBx4Enhet.Location = new System.Drawing.Point(31, 102);
-            this.lblBx4Enhet.Name = "lblBx4Enhet";
-            this.lblBx4Enhet.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Enhet.TabIndex = 3;
-            this.lblBx4Enhet.Text = "label10";
-            // 
-            // lblBx4Max
-            // 
-            this.lblBx4Max.AutoSize = true;
-            this.lblBx4Max.Location = new System.Drawing.Point(16, 69);
-            this.lblBx4Max.Name = "lblBx4Max";
-            this.lblBx4Max.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Max.TabIndex = 2;
-            this.lblBx4Max.Text = "label11";
-            // 
-            // txtBx4Verdi
-            // 
-            this.txtBx4Verdi.Location = new System.Drawing.Point(15, 46);
-            this.txtBx4Verdi.Name = "txtBx4Verdi";
-            this.txtBx4Verdi.Size = new System.Drawing.Size(57, 20);
-            this.txtBx4Verdi.TabIndex = 1;
-            // 
-            // lblBx4Min
-            // 
-            this.lblBx4Min.AutoSize = true;
-            this.lblBx4Min.Location = new System.Drawing.Point(16, 30);
-            this.lblBx4Min.Name = "lblBx4Min";
-            this.lblBx4Min.Size = new System.Drawing.Size(41, 13);
-            this.lblBx4Min.TabIndex = 0;
-            this.lblBx4Min.Text = "label12";
-            // 
-            // gbxPuls
-            // 
-            this.gbxPuls.Controls.Add(this.lblBx2Enhet);
-            this.gbxPuls.Controls.Add(this.lblBx2Max);
-            this.gbxPuls.Controls.Add(this.txtBx2Verdi);
-            this.gbxPuls.Controls.Add(this.lblBx2Min);
-            this.gbxPuls.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxPuls.Location = new System.Drawing.Point(3, 3);
-            this.gbxPuls.Name = "gbxPuls";
-            this.gbxPuls.Size = new System.Drawing.Size(100, 115);
-            this.gbxPuls.TabIndex = 1;
-            this.gbxPuls.TabStop = false;
-            this.gbxPuls.Text = "puls";
-            // 
-            // lblBx2Enhet
-            // 
-            this.lblBx2Enhet.AutoSize = true;
-            this.lblBx2Enhet.Location = new System.Drawing.Point(40, 102);
-            this.lblBx2Enhet.Name = "lblBx2Enhet";
-            this.lblBx2Enhet.Size = new System.Drawing.Size(35, 13);
-            this.lblBx2Enhet.TabIndex = 3;
-            this.lblBx2Enhet.Text = "label4";
-            // 
-            // lblBx2Max
-            // 
-            this.lblBx2Max.AutoSize = true;
-            this.lblBx2Max.Location = new System.Drawing.Point(19, 69);
-            this.lblBx2Max.Name = "lblBx2Max";
-            this.lblBx2Max.Size = new System.Drawing.Size(35, 13);
-            this.lblBx2Max.TabIndex = 2;
-            this.lblBx2Max.Text = "label5";
-            // 
-            // txtBx2Verdi
-            // 
-            this.txtBx2Verdi.Location = new System.Drawing.Point(18, 46);
-            this.txtBx2Verdi.Name = "txtBx2Verdi";
-            this.txtBx2Verdi.Size = new System.Drawing.Size(57, 20);
-            this.txtBx2Verdi.TabIndex = 1;
-            // 
-            // lblBx2Min
-            // 
-            this.lblBx2Min.AutoSize = true;
-            this.lblBx2Min.Location = new System.Drawing.Point(19, 30);
-            this.lblBx2Min.Name = "lblBx2Min";
-            this.lblBx2Min.Size = new System.Drawing.Size(35, 13);
-            this.lblBx2Min.TabIndex = 0;
-            this.lblBx2Min.Text = "label6";
-            // 
-            // gbxTemp
-            // 
-            this.gbxTemp.Controls.Add(this.lblBx1Enhet);
-            this.gbxTemp.Controls.Add(this.lblBx1Max);
-            this.gbxTemp.Controls.Add(this.txtBx1Verdi);
-            this.gbxTemp.Controls.Add(this.lblBx1Min);
-            this.gbxTemp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbxTemp.Location = new System.Drawing.Point(109, 3);
-            this.gbxTemp.Name = "gbxTemp";
-            this.gbxTemp.Size = new System.Drawing.Size(100, 115);
-            this.gbxTemp.TabIndex = 0;
-            this.gbxTemp.TabStop = false;
-            this.gbxTemp.Text = "temp";
-            // 
-            // lblBx1Enhet
-            // 
-            this.lblBx1Enhet.AutoSize = true;
-            this.lblBx1Enhet.Location = new System.Drawing.Point(39, 102);
-            this.lblBx1Enhet.Name = "lblBx1Enhet";
-            this.lblBx1Enhet.Size = new System.Drawing.Size(35, 13);
-            this.lblBx1Enhet.TabIndex = 3;
-            this.lblBx1Enhet.Text = "label3";
-            // 
-            // lblBx1Max
-            // 
-            this.lblBx1Max.AutoSize = true;
-            this.lblBx1Max.Location = new System.Drawing.Point(18, 69);
-            this.lblBx1Max.Name = "lblBx1Max";
-            this.lblBx1Max.Size = new System.Drawing.Size(35, 13);
-            this.lblBx1Max.TabIndex = 2;
-            this.lblBx1Max.Text = "label2";
-            // 
-            // txtBx1Verdi
-            // 
-            this.txtBx1Verdi.Location = new System.Drawing.Point(17, 46);
-            this.txtBx1Verdi.Name = "txtBx1Verdi";
-            this.txtBx1Verdi.Size = new System.Drawing.Size(57, 20);
-            this.txtBx1Verdi.TabIndex = 1;
-            // 
-            // lblBx1Min
-            // 
-            this.lblBx1Min.AutoSize = true;
-            this.lblBx1Min.Location = new System.Drawing.Point(18, 30);
-            this.lblBx1Min.Name = "lblBx1Min";
-            this.lblBx1Min.Size = new System.Drawing.Size(35, 13);
-            this.lblBx1Min.TabIndex = 0;
-            this.lblBx1Min.Text = "label1";
-            // 
             // dateTimePicker3
             // 
             this.dateTimePicker3.CustomFormat = "MM/dd/yyyy hh:mm:ss";
@@ -419,7 +189,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Size = new System.Drawing.Size(800, 450);
-            this.splitContainer1.SplitterDistance = 265;
+            this.splitContainer1.SplitterDistance = 301;
             this.splitContainer1.TabIndex = 3;
             // 
             // splitContainer3
@@ -439,7 +209,7 @@
             this.splitContainer3.Panel2.Controls.Add(this.txtboxwatchdog);
             this.splitContainer3.Panel2.Controls.Add(this.buttonAvslutt);
             this.splitContainer3.Panel2.Controls.Add(this.button1);
-            this.splitContainer3.Size = new System.Drawing.Size(265, 450);
+            this.splitContainer3.Size = new System.Drawing.Size(301, 450);
             this.splitContainer3.SplitterDistance = 185;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -459,9 +229,31 @@
             this.dgwPasienter.Name = "dgwPasienter";
             this.dgwPasienter.ReadOnly = true;
             this.dgwPasienter.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgwPasienter.Size = new System.Drawing.Size(265, 185);
+            this.dgwPasienter.Size = new System.Drawing.Size(301, 185);
             this.dgwPasienter.TabIndex = 0;
             this.dgwPasienter.SelectionChanged += new System.EventHandler(this.dgwPasienter_SelectionChanged_1);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // navnDataGridViewTextBoxColumn
+            // 
+            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
+            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
+            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
+            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // alderDataGridViewTextBoxColumn
+            // 
+            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
+            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
+            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
+            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // listPasientBindingSource
             // 
@@ -519,9 +311,242 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer2.Size = new System.Drawing.Size(531, 450);
+            this.splitContainer2.Size = new System.Drawing.Size(495, 450);
             this.splitContainer2.SplitterDistance = 121;
             this.splitContainer2.TabIndex = 0;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 4;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel1.Controls.Add(this.gbxResp, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxBlod, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxPuls, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gbxTemp, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(495, 121);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // gbxResp
+            // 
+            this.gbxResp.Controls.Add(this.lblBx4Enhet);
+            this.gbxResp.Controls.Add(this.lblBx4Max);
+            this.gbxResp.Controls.Add(this.txtBx4Verdi);
+            this.gbxResp.Controls.Add(this.lblBx4Min);
+            this.gbxResp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxResp.Location = new System.Drawing.Point(249, 3);
+            this.gbxResp.Name = "gbxResp";
+            this.gbxResp.Size = new System.Drawing.Size(117, 115);
+            this.gbxResp.TabIndex = 3;
+            this.gbxResp.TabStop = false;
+            this.gbxResp.Text = "resp";
+            this.gbxResp.MouseCaptureChanged += new System.EventHandler(this.gbxResp_MouseCaptureChanged);
+            // 
+            // lblBx4Enhet
+            // 
+            this.lblBx4Enhet.AutoSize = true;
+            this.lblBx4Enhet.Location = new System.Drawing.Point(79, 49);
+            this.lblBx4Enhet.Name = "lblBx4Enhet";
+            this.lblBx4Enhet.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Enhet.TabIndex = 3;
+            this.lblBx4Enhet.Text = "label10";
+            // 
+            // lblBx4Max
+            // 
+            this.lblBx4Max.AutoSize = true;
+            this.lblBx4Max.Location = new System.Drawing.Point(16, 69);
+            this.lblBx4Max.Name = "lblBx4Max";
+            this.lblBx4Max.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Max.TabIndex = 2;
+            this.lblBx4Max.Text = "label11";
+            // 
+            // txtBx4Verdi
+            // 
+            this.txtBx4Verdi.Location = new System.Drawing.Point(15, 46);
+            this.txtBx4Verdi.Name = "txtBx4Verdi";
+            this.txtBx4Verdi.Size = new System.Drawing.Size(57, 20);
+            this.txtBx4Verdi.TabIndex = 1;
+            // 
+            // lblBx4Min
+            // 
+            this.lblBx4Min.AutoSize = true;
+            this.lblBx4Min.Location = new System.Drawing.Point(16, 30);
+            this.lblBx4Min.Name = "lblBx4Min";
+            this.lblBx4Min.Size = new System.Drawing.Size(41, 13);
+            this.lblBx4Min.TabIndex = 0;
+            this.lblBx4Min.Text = "label12";
+            // 
+            // gbxBlod
+            // 
+            this.gbxBlod.Controls.Add(this.lblBx3Enhet1);
+            this.gbxBlod.Controls.Add(this.txtBx3Verdi1);
+            this.gbxBlod.Controls.Add(this.lblBx3Enhet2);
+            this.gbxBlod.Controls.Add(this.lblBx3Max);
+            this.gbxBlod.Controls.Add(this.txtBx3Verdi2);
+            this.gbxBlod.Controls.Add(this.lblBx3Min);
+            this.gbxBlod.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxBlod.Location = new System.Drawing.Point(372, 3);
+            this.gbxBlod.Name = "gbxBlod";
+            this.gbxBlod.Size = new System.Drawing.Size(120, 115);
+            this.gbxBlod.TabIndex = 2;
+            this.gbxBlod.TabStop = false;
+            this.gbxBlod.Text = "blod";
+            this.gbxBlod.MouseCaptureChanged += new System.EventHandler(this.gbxBlod_MouseCaptureChanged);
+            // 
+            // lblBx3Enhet1
+            // 
+            this.lblBx3Enhet1.AutoSize = true;
+            this.lblBx3Enhet1.Location = new System.Drawing.Point(69, 46);
+            this.lblBx3Enhet1.Name = "lblBx3Enhet1";
+            this.lblBx3Enhet1.Size = new System.Drawing.Size(41, 13);
+            this.lblBx3Enhet1.TabIndex = 5;
+            this.lblBx3Enhet1.Text = "label13";
+            // 
+            // txtBx3Verdi1
+            // 
+            this.txtBx3Verdi1.Location = new System.Drawing.Point(6, 42);
+            this.txtBx3Verdi1.Name = "txtBx3Verdi1";
+            this.txtBx3Verdi1.Size = new System.Drawing.Size(57, 20);
+            this.txtBx3Verdi1.TabIndex = 4;
+            // 
+            // lblBx3Enhet2
+            // 
+            this.lblBx3Enhet2.AutoSize = true;
+            this.lblBx3Enhet2.Location = new System.Drawing.Point(69, 68);
+            this.lblBx3Enhet2.Name = "lblBx3Enhet2";
+            this.lblBx3Enhet2.Size = new System.Drawing.Size(35, 13);
+            this.lblBx3Enhet2.TabIndex = 3;
+            this.lblBx3Enhet2.Text = "label7";
+            // 
+            // lblBx3Max
+            // 
+            this.lblBx3Max.AutoSize = true;
+            this.lblBx3Max.Location = new System.Drawing.Point(7, 88);
+            this.lblBx3Max.Name = "lblBx3Max";
+            this.lblBx3Max.Size = new System.Drawing.Size(35, 13);
+            this.lblBx3Max.TabIndex = 2;
+            this.lblBx3Max.Text = "label8";
+            // 
+            // txtBx3Verdi2
+            // 
+            this.txtBx3Verdi2.Location = new System.Drawing.Point(6, 65);
+            this.txtBx3Verdi2.Name = "txtBx3Verdi2";
+            this.txtBx3Verdi2.Size = new System.Drawing.Size(57, 20);
+            this.txtBx3Verdi2.TabIndex = 1;
+            // 
+            // lblBx3Min
+            // 
+            this.lblBx3Min.AutoSize = true;
+            this.lblBx3Min.Location = new System.Drawing.Point(7, 29);
+            this.lblBx3Min.Name = "lblBx3Min";
+            this.lblBx3Min.Size = new System.Drawing.Size(35, 13);
+            this.lblBx3Min.TabIndex = 0;
+            this.lblBx3Min.Text = "label9";
+            // 
+            // gbxPuls
+            // 
+            this.gbxPuls.Controls.Add(this.lblBx2Enhet);
+            this.gbxPuls.Controls.Add(this.lblBx2Max);
+            this.gbxPuls.Controls.Add(this.txtBx2Verdi);
+            this.gbxPuls.Controls.Add(this.lblBx2Min);
+            this.gbxPuls.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxPuls.Location = new System.Drawing.Point(3, 3);
+            this.gbxPuls.Name = "gbxPuls";
+            this.gbxPuls.Size = new System.Drawing.Size(117, 115);
+            this.gbxPuls.TabIndex = 1;
+            this.gbxPuls.TabStop = false;
+            this.gbxPuls.Text = "puls";
+            this.gbxPuls.MouseCaptureChanged += new System.EventHandler(this.gbxPuls_MouseCaptureChanged);
+            // 
+            // lblBx2Enhet
+            // 
+            this.lblBx2Enhet.AutoSize = true;
+            this.lblBx2Enhet.Location = new System.Drawing.Point(81, 49);
+            this.lblBx2Enhet.Name = "lblBx2Enhet";
+            this.lblBx2Enhet.Size = new System.Drawing.Size(35, 13);
+            this.lblBx2Enhet.TabIndex = 3;
+            this.lblBx2Enhet.Text = "label4";
+            // 
+            // lblBx2Max
+            // 
+            this.lblBx2Max.AutoSize = true;
+            this.lblBx2Max.Location = new System.Drawing.Point(19, 69);
+            this.lblBx2Max.Name = "lblBx2Max";
+            this.lblBx2Max.Size = new System.Drawing.Size(35, 13);
+            this.lblBx2Max.TabIndex = 2;
+            this.lblBx2Max.Text = "label5";
+            // 
+            // txtBx2Verdi
+            // 
+            this.txtBx2Verdi.Location = new System.Drawing.Point(18, 46);
+            this.txtBx2Verdi.Name = "txtBx2Verdi";
+            this.txtBx2Verdi.Size = new System.Drawing.Size(57, 20);
+            this.txtBx2Verdi.TabIndex = 1;
+            // 
+            // lblBx2Min
+            // 
+            this.lblBx2Min.AutoSize = true;
+            this.lblBx2Min.Location = new System.Drawing.Point(19, 30);
+            this.lblBx2Min.Name = "lblBx2Min";
+            this.lblBx2Min.Size = new System.Drawing.Size(35, 13);
+            this.lblBx2Min.TabIndex = 0;
+            this.lblBx2Min.Text = "label6";
+            // 
+            // gbxTemp
+            // 
+            this.gbxTemp.Controls.Add(this.lblBx1Enhet);
+            this.gbxTemp.Controls.Add(this.lblBx1Max);
+            this.gbxTemp.Controls.Add(this.txtBx1Verdi);
+            this.gbxTemp.Controls.Add(this.lblBx1Min);
+            this.gbxTemp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gbxTemp.Location = new System.Drawing.Point(126, 3);
+            this.gbxTemp.Name = "gbxTemp";
+            this.gbxTemp.Size = new System.Drawing.Size(117, 115);
+            this.gbxTemp.TabIndex = 0;
+            this.gbxTemp.TabStop = false;
+            this.gbxTemp.Text = "temp";
+            this.gbxTemp.MouseCaptureChanged += new System.EventHandler(this.gbxTemp_MouseCaptureChanged);
+            // 
+            // lblBx1Enhet
+            // 
+            this.lblBx1Enhet.AutoSize = true;
+            this.lblBx1Enhet.Location = new System.Drawing.Point(80, 49);
+            this.lblBx1Enhet.Name = "lblBx1Enhet";
+            this.lblBx1Enhet.Size = new System.Drawing.Size(35, 13);
+            this.lblBx1Enhet.TabIndex = 3;
+            this.lblBx1Enhet.Text = "label3";
+            // 
+            // lblBx1Max
+            // 
+            this.lblBx1Max.AutoSize = true;
+            this.lblBx1Max.Location = new System.Drawing.Point(18, 69);
+            this.lblBx1Max.Name = "lblBx1Max";
+            this.lblBx1Max.Size = new System.Drawing.Size(35, 13);
+            this.lblBx1Max.TabIndex = 2;
+            this.lblBx1Max.Text = "label2";
+            // 
+            // txtBx1Verdi
+            // 
+            this.txtBx1Verdi.Location = new System.Drawing.Point(17, 46);
+            this.txtBx1Verdi.Name = "txtBx1Verdi";
+            this.txtBx1Verdi.Size = new System.Drawing.Size(57, 20);
+            this.txtBx1Verdi.TabIndex = 1;
+            // 
+            // lblBx1Min
+            // 
+            this.lblBx1Min.AutoSize = true;
+            this.lblBx1Min.Location = new System.Drawing.Point(18, 30);
+            this.lblBx1Min.Name = "lblBx1Min";
+            this.lblBx1Min.Size = new System.Drawing.Size(35, 13);
+            this.lblBx1Min.TabIndex = 0;
+            this.lblBx1Min.Text = "label1";
             // 
             // splitContainer4
             // 
@@ -540,7 +565,7 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer4.Size = new System.Drawing.Size(531, 325);
+            this.splitContainer4.Size = new System.Drawing.Size(495, 325);
             this.splitContainer4.SplitterDistance = 48;
             this.splitContainer4.TabIndex = 6;
             // 
@@ -552,6 +577,7 @@
             this.Intervall.TabIndex = 2;
             this.Intervall.Text = "Intervall";
             this.Intervall.UseVisualStyleBackColor = true;
+            this.Intervall.Click += new System.EventHandler(this.Intervall_Click);
             // 
             // textBoxTidMaal
             // 
@@ -572,7 +598,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(531, 273);
+            this.tabControl1.Size = new System.Drawing.Size(495, 273);
             this.tabControl1.TabIndex = 0;
             // 
             // tpTemp
@@ -581,7 +607,7 @@
             this.tpTemp.Location = new System.Drawing.Point(4, 22);
             this.tpTemp.Name = "tpTemp";
             this.tpTemp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpTemp.Size = new System.Drawing.Size(523, 247);
+            this.tpTemp.Size = new System.Drawing.Size(487, 247);
             this.tpTemp.TabIndex = 0;
             this.tpTemp.Text = "temp";
             this.tpTemp.UseVisualStyleBackColor = true;
@@ -600,7 +626,7 @@
             this.listKroppstemperaturDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView.Name = "listKroppstemperaturDataGridView";
-            this.listKroppstemperaturDataGridView.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn
@@ -644,7 +670,7 @@
             this.tpPuls.Location = new System.Drawing.Point(4, 22);
             this.tpPuls.Name = "tpPuls";
             this.tpPuls.Padding = new System.Windows.Forms.Padding(3);
-            this.tpPuls.Size = new System.Drawing.Size(523, 247);
+            this.tpPuls.Size = new System.Drawing.Size(487, 247);
             this.tpPuls.TabIndex = 1;
             this.tpPuls.Text = "puls";
             this.tpPuls.UseVisualStyleBackColor = true;
@@ -663,7 +689,7 @@
             this.listKroppstemperaturDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView1.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView1.Name = "listKroppstemperaturDataGridView1";
-            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView1.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn1
@@ -707,7 +733,7 @@
             this.tpResp.Location = new System.Drawing.Point(4, 22);
             this.tpResp.Name = "tpResp";
             this.tpResp.Padding = new System.Windows.Forms.Padding(3);
-            this.tpResp.Size = new System.Drawing.Size(523, 247);
+            this.tpResp.Size = new System.Drawing.Size(487, 247);
             this.tpResp.TabIndex = 2;
             this.tpResp.Text = "resp";
             this.tpResp.UseVisualStyleBackColor = true;
@@ -726,7 +752,7 @@
             this.listKroppstemperaturDataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView2.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView2.Name = "listKroppstemperaturDataGridView2";
-            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView2.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView2.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn2
@@ -771,7 +797,7 @@
             this.tpBlod.Location = new System.Drawing.Point(4, 22);
             this.tpBlod.Name = "tpBlod";
             this.tpBlod.Padding = new System.Windows.Forms.Padding(3);
-            this.tpBlod.Size = new System.Drawing.Size(523, 247);
+            this.tpBlod.Size = new System.Drawing.Size(487, 247);
             this.tpBlod.TabIndex = 3;
             this.tpBlod.Text = "blod";
             this.tpBlod.UseVisualStyleBackColor = true;
@@ -790,7 +816,7 @@
             this.listKroppstemperaturDataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView3.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView3.Name = "listKroppstemperaturDataGridView3";
-            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(517, 241);
+            this.listKroppstemperaturDataGridView3.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView3.TabIndex = 0;
             // 
             // verdiDataGridViewTextBoxColumn3
@@ -835,7 +861,7 @@
             this.tpAlarm.Location = new System.Drawing.Point(4, 22);
             this.tpAlarm.Name = "tpAlarm";
             this.tpAlarm.Padding = new System.Windows.Forms.Padding(3);
-            this.tpAlarm.Size = new System.Drawing.Size(523, 247);
+            this.tpAlarm.Size = new System.Drawing.Size(487, 247);
             this.tpAlarm.TabIndex = 4;
             this.tpAlarm.Text = "Aktive Alarmer";
             this.tpAlarm.UseVisualStyleBackColor = true;
@@ -852,7 +878,7 @@
             this.dataGridAktiveAlarmer.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridAktiveAlarmer.Name = "dataGridAktiveAlarmer";
             this.dataGridAktiveAlarmer.RowTemplate.Height = 24;
-            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(517, 241);
+            this.dataGridAktiveAlarmer.Size = new System.Drawing.Size(481, 241);
             this.dataGridAktiveAlarmer.TabIndex = 0;
             // 
             // datoTidDataGridViewTextBoxColumn4
@@ -865,28 +891,6 @@
             // 
             this.listAlarmBindingSource.DataSource = typeof(LibaryPasient.Alarm);
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Width = 40;
-            // 
-            // navnDataGridViewTextBoxColumn
-            // 
-            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
-            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
-            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
-            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // alderDataGridViewTextBoxColumn
-            // 
-            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
-            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
-            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
-            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -895,15 +899,6 @@
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.gbxBlod.ResumeLayout(false);
-            this.gbxBlod.PerformLayout();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.gbxResp.ResumeLayout(false);
-            this.gbxResp.PerformLayout();
-            this.gbxPuls.ResumeLayout(false);
-            this.gbxPuls.PerformLayout();
-            this.gbxTemp.ResumeLayout(false);
-            this.gbxTemp.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -919,6 +914,15 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.gbxResp.ResumeLayout(false);
+            this.gbxResp.PerformLayout();
+            this.gbxBlod.ResumeLayout(false);
+            this.gbxBlod.PerformLayout();
+            this.gbxPuls.ResumeLayout(false);
+            this.gbxPuls.PerformLayout();
+            this.gbxTemp.ResumeLayout(false);
+            this.gbxTemp.PerformLayout();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel1.PerformLayout();
             this.splitContainer4.Panel2.ResumeLayout(false);
@@ -948,29 +952,6 @@
         #endregion
 
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
-        private System.Windows.Forms.Label lblBx3Enhet1;
-        private System.Windows.Forms.TextBox txtBx3Verdi1;
-        private System.Windows.Forms.Label lblBx3Enhet2;
-        private System.Windows.Forms.Label lblBx3Max;
-        private System.Windows.Forms.TextBox txtBx3Verdi2;
-        private System.Windows.Forms.Label lblBx3Min;
-        private System.Windows.Forms.GroupBox gbxBlod;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.GroupBox gbxResp;
-        private System.Windows.Forms.Label lblBx4Enhet;
-        private System.Windows.Forms.Label lblBx4Max;
-        private System.Windows.Forms.TextBox txtBx4Verdi;
-        private System.Windows.Forms.Label lblBx4Min;
-        private System.Windows.Forms.GroupBox gbxPuls;
-        private System.Windows.Forms.Label lblBx2Enhet;
-        private System.Windows.Forms.Label lblBx2Max;
-        private System.Windows.Forms.TextBox txtBx2Verdi;
-        private System.Windows.Forms.Label lblBx2Min;
-        private System.Windows.Forms.GroupBox gbxTemp;
-        private System.Windows.Forms.Label lblBx1Enhet;
-        private System.Windows.Forms.Label lblBx1Max;
-        private System.Windows.Forms.TextBox txtBx1Verdi;
-        private System.Windows.Forms.Label lblBx1Min;
         private System.Windows.Forms.DateTimePicker dateTimePicker3;
         private System.ComponentModel.BackgroundWorker bgwVentPaKlient;
         private System.Windows.Forms.SplitContainer splitContainer1;
@@ -1026,6 +1007,29 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.GroupBox gbxResp;
+        private System.Windows.Forms.Label lblBx4Enhet;
+        private System.Windows.Forms.Label lblBx4Max;
+        private System.Windows.Forms.TextBox txtBx4Verdi;
+        private System.Windows.Forms.Label lblBx4Min;
+        private System.Windows.Forms.GroupBox gbxBlod;
+        private System.Windows.Forms.Label lblBx3Enhet1;
+        private System.Windows.Forms.TextBox txtBx3Verdi1;
+        private System.Windows.Forms.Label lblBx3Enhet2;
+        private System.Windows.Forms.Label lblBx3Max;
+        private System.Windows.Forms.TextBox txtBx3Verdi2;
+        private System.Windows.Forms.Label lblBx3Min;
+        private System.Windows.Forms.GroupBox gbxPuls;
+        private System.Windows.Forms.Label lblBx2Enhet;
+        private System.Windows.Forms.Label lblBx2Max;
+        private System.Windows.Forms.TextBox txtBx2Verdi;
+        private System.Windows.Forms.Label lblBx2Min;
+        private System.Windows.Forms.GroupBox gbxTemp;
+        private System.Windows.Forms.Label lblBx1Enhet;
+        private System.Windows.Forms.Label lblBx1Max;
+        private System.Windows.Forms.TextBox txtBx1Verdi;
+        private System.Windows.Forms.Label lblBx1Min;
     }
 }
 
