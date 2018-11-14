@@ -147,8 +147,9 @@ namespace Sentral2
                 txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString();
                 textBoxTidMaal.Text = n.ListAlarm.First().datoTid.ToLongTimeString();
 
-                LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
+                
             }
+            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
         }
 
 

@@ -58,9 +58,6 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dgwPasienter = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.navnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.alderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listPasientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.buttonwatchdog = new System.Windows.Forms.Button();
             this.txtboxwatchdog = new System.Windows.Forms.TextBox();
@@ -108,6 +105,9 @@
             this.datoTidDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.listPulsfrekvensBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.navnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxBlod.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.gbxResp.SuspendLayout();
@@ -463,27 +463,6 @@
             this.dgwPasienter.TabIndex = 0;
             this.dgwPasienter.SelectionChanged += new System.EventHandler(this.dgwPasienter_SelectionChanged_1);
             // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // navnDataGridViewTextBoxColumn
-            // 
-            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
-            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
-            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
-            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // alderDataGridViewTextBoxColumn
-            // 
-            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
-            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
-            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
-            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // listPasientBindingSource
             // 
             this.listPasientBindingSource.DataSource = typeof(LibaryPasient.ListPasient);
@@ -491,7 +470,7 @@
             // buttonwatchdog
             // 
             this.buttonwatchdog.BackColor = System.Drawing.Color.Lime;
-            this.buttonwatchdog.Location = new System.Drawing.Point(9, 138);
+            this.buttonwatchdog.Location = new System.Drawing.Point(11, 80);
             this.buttonwatchdog.Margin = new System.Windows.Forms.Padding(2);
             this.buttonwatchdog.Name = "buttonwatchdog";
             this.buttonwatchdog.Size = new System.Drawing.Size(45, 43);
@@ -500,7 +479,7 @@
             // 
             // txtboxwatchdog
             // 
-            this.txtboxwatchdog.Location = new System.Drawing.Point(77, 150);
+            this.txtboxwatchdog.Location = new System.Drawing.Point(83, 92);
             this.txtboxwatchdog.Margin = new System.Windows.Forms.Padding(2);
             this.txtboxwatchdog.Name = "txtboxwatchdog";
             this.txtboxwatchdog.Size = new System.Drawing.Size(182, 20);
@@ -509,7 +488,7 @@
             // 
             // buttonAvslutt
             // 
-            this.buttonAvslutt.Location = new System.Drawing.Point(164, 13);
+            this.buttonAvslutt.Location = new System.Drawing.Point(160, 32);
             this.buttonAvslutt.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAvslutt.Name = "buttonAvslutt";
             this.buttonAvslutt.Size = new System.Drawing.Size(56, 19);
@@ -519,7 +498,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(3, 8);
+            this.button1.Location = new System.Drawing.Point(3, 28);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 0;
@@ -886,6 +865,28 @@
             // 
             this.listAlarmBindingSource.DataSource = typeof(LibaryPasient.Alarm);
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Width = 40;
+            // 
+            // navnDataGridViewTextBoxColumn
+            // 
+            this.navnDataGridViewTextBoxColumn.DataPropertyName = "Navn";
+            this.navnDataGridViewTextBoxColumn.HeaderText = "Navn";
+            this.navnDataGridViewTextBoxColumn.Name = "navnDataGridViewTextBoxColumn";
+            this.navnDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // alderDataGridViewTextBoxColumn
+            // 
+            this.alderDataGridViewTextBoxColumn.DataPropertyName = "Alder";
+            this.alderDataGridViewTextBoxColumn.HeaderText = "Alder";
+            this.alderDataGridViewTextBoxColumn.Name = "alderDataGridViewTextBoxColumn";
+            this.alderDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -995,9 +996,6 @@
         private System.Windows.Forms.DataGridView listKroppstemperaturDataGridView3;
         private System.Windows.Forms.TabPage tpAlarm;
         private System.Windows.Forms.DataGridView dataGridAktiveAlarmer;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource listPasientBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn verdiDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn enhetDataGridViewTextBoxColumn;
@@ -1025,6 +1023,9 @@
         private System.Windows.Forms.BindingSource listBlodtrykkBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn4;
         private System.Windows.Forms.BindingSource listAlarmBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
     }
 }
 
