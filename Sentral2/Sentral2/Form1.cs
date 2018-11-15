@@ -146,7 +146,7 @@ namespace Sentral2
                 lblBx4Min.Text = n.ListRespirasjonsrate.First().Min.ToString();
                 lblBx4Max.Text = n.ListRespirasjonsrate.First().Max.ToString();
                 txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString();
-                textBoxTidMaal.Text = n.ListAlarm.First().datoTid.ToLongTimeString();
+                textBoxTidMaal.Text = n.ListAlarm.First().DatoTid.ToLongTimeString();
 
                 
             }

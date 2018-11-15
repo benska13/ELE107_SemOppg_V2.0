@@ -76,7 +76,7 @@ namespace Sentral2
             }
             foreach (Alarm a in pList.ListAlarm)
             {
-                if (a.datoTid < _stopp && a.datoTid > _start)
+                if (a.DatoTid < _stopp && a.DatoTid > _start)
                 {
                     alarmlist.Add(a);
                 }
