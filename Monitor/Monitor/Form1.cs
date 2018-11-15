@@ -40,8 +40,8 @@ namespace Monitor
         private int _teller;
         private Mdt _minDelegate;
 
-        Socket klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        IPEndPoint serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+        private Socket klientSokkel=null;
+        private IPEndPoint serverEP;
 
         public Form1()
         {
@@ -103,18 +103,21 @@ namespace Monitor
         private void SendData()
         {
 
-            if (klientSokkel.Connected)
+            if (klientSokkel != null )
             {
 
-                string json = new JavaScriptSerializer().Serialize(_pasient);
+                if (klientSokkel.Connected)
+                {
+                    string json = new JavaScriptSerializer().Serialize(_pasient);
 
-                klientSokkel.Send(Encoding.ASCII.GetBytes(json));
-            }
-            else
-            {
-                klientSokkel.Close();
-                txtSentralInfo.Text = "Mistet tilkobling";
-
+                    klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                }
+                else
+                {
+                    klientSokkel.Close();
+                    klientSokkel = null;
+                    txtSentralInfo.Text = "Sokkel = null";
+                }
             }
         }
 
@@ -171,6 +174,8 @@ namespace Monitor
         {
             try
             {
+                klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
                 klientSokkel.Connect(serverEP);  // blokkerende metode
 
                 txtSentralInfo.Text = "Tilkoblet server";
@@ -178,6 +183,7 @@ namespace Monitor
             catch (SocketException eks)
             {
                 MessageBox.Show("Feil: " + eks.Message);
+                klientSokkel.Close();
                 txtSentralInfo.Text = "Feilmelding";
             }
         }
@@ -259,53 +265,56 @@ namespace Monitor
 
         private void OppdaterPasient(string data)
         {
-            // MULIG LØSNING PÅ DATO?????
-            // Finner dato og klokkeslett
-            string dato = "";
-            var _pos = data.IndexOf('B');
-            dato += data.Substring(_pos + 1, 8);
-            _pos = data.IndexOf('C');
-            dato += data.Substring(_pos + 1, 6);
-            _pasient.SetDatoKlokke(dato);
-
-            // Digital /alarm
-            _pos = data.IndexOf('D');
-            //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
-
-
-            // id-kode
-
-            // Finner puls
-            _pos = data.IndexOf('F');
-            _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
-            // Finner blodtrykk
-            _pos = data.IndexOf('G');
-            _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
-            // Finner temperatur
-            _pos = data.IndexOf('H');
-            _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
-
-            // Finner respirasjon
-            _pos = data.IndexOf('I');
-            _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
-
-            // Oppdatere gui
-            txtTemp.Text = _pasient.Kroppstemperatur.GetVerdi().ToString();
-            txtBlodtrykk.Text = _pasient.Blodtrykk.GetVerdi().ToString();
-            txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
-            txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
-            txtSisteStatus.Text = _pasient.Blodtrykk.DatoTid.ToString();
-
-            AlarmLogikk();
-
-
-            _teller++;
-            if (_teller > 10)
+            if ((data!=""))
             {
-                SendData();
-                _teller = 0;
+                // MULIG LØSNING PÅ DATO?????
+                // Finner dato og klokkeslett
+                string dato = "";
+                var _pos = data.IndexOf('B');
+                dato += data.Substring(_pos + 1, 8);
+                _pos = data.IndexOf('C');
+                dato += data.Substring(_pos + 1, 6);
+                _pasient.SetDatoKlokke(dato);
+
+                // Digital /alarm
+                _pos = data.IndexOf('D');
+                //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
+
+
+                // id-kode
+
+                // Finner puls
+                _pos = data.IndexOf('F');
+                _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                // Finner blodtrykk
+                _pos = data.IndexOf('G');
+                _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                // Finner temperatur
+                _pos = data.IndexOf('H');
+                _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
+
+                // Finner respirasjon
+                _pos = data.IndexOf('I');
+                _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
+
+                // Oppdatere gui
+                txtTemp.Text = _pasient.Kroppstemperatur.GetVerdi().ToString();
+                txtBlodtrykk.Text = _pasient.Blodtrykk.GetVerdi().ToString();
+                txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
+                txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
+                txtSisteStatus.Text = _pasient.Blodtrykk.DatoTid.ToString();
+
+                AlarmLogikk();
+
+
+                _teller++;
+                if (_teller > 10)
+                {
+                    SendData();
+                    _teller = 0;
+                }
             }
 
         }
