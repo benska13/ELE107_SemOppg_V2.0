@@ -3,6 +3,7 @@ using LibaryPasient;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -46,13 +47,16 @@ namespace Sentral2
             _lytteSokkel.Bind(serverEp);
             _lytteSokkel.Listen(10);
 
-            try
+            if (File.Exists(_filnavn))
             {
-               _pasienter = LesSkrivFil.LesFraFil(_filnavn);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
+                try
+                {
+                    _pasienter = LesSkrivFil.LesFraFil(_filnavn);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
 
             listPasientBindingSource.DataSource = _pasienter;
@@ -75,7 +79,7 @@ namespace Sentral2
 
             if (!pasientFunnet)
             {
-                _pasienter.Add(new ListPasient(n));
+                _pasienter.Insert(0, new ListPasient(n));
                 OppdaterVerdiGui(_pasienter.Last());
             }
         }
@@ -89,7 +93,6 @@ namespace Sentral2
                 {
                     string data = minSokkel.VentPaData(kommSocket);
                     Pasient p = Serialize.StringTPasient(data);
-                    p.KommSokkel = kommSocket;
 
                     _minDelegate = new Mdt(PasientSjekk);
                     this.Invoke(_minDelegate, p);
@@ -114,7 +117,7 @@ namespace Sentral2
             lblBx2Enhet.Text = p.Pulsfrekvens.Enhet;
             gbxBlod.Text = p.Blodtrykk.ToString();
             lblBx3Enhet1.Text = p.Blodtrykk.Enhet;
-            // lblBx3Enhet2.Text = p.Blodtrykk.Enhet2;
+            lblBx3Enhet2.Text = p.Blodtrykk.Enhet2;
             gbxResp.Text = p.Respirasjonsrate.ToString();
             lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
 
@@ -138,7 +141,7 @@ namespace Sentral2
                 lblBx3Min.Text = n.ListBlodtrykk.First().Min.ToString();
                 lblBx3Max.Text = n.ListBlodtrykk.First().Max.ToString();
                 txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString();
-                //txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString();
+                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString();
 
                 lblBx4Min.Text = n.ListRespirasjonsrate.First().Min.ToString();
                 lblBx4Max.Text = n.ListRespirasjonsrate.First().Max.ToString();
