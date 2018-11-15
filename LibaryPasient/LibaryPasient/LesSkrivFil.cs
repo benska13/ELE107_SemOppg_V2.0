@@ -10,7 +10,7 @@ namespace LibaryPasient
     {
         public static BindingList<ListPasient> LesFraFil(string filnav)
         {
-            BindingList<ListPasient> _p = null;
+            BindingList<ListPasient> p;
             
             
             try
@@ -18,7 +18,7 @@ namespace LibaryPasient
                 var serilazer = new JavaScriptSerializer();
                 string data = File.ReadAllText(filnav);
 
-                _p = serilazer.Deserialize<BindingList<ListPasient>>(data);
+                p = serilazer.Deserialize<BindingList<ListPasient>>(data);
 
             }
             catch (SerializationException e)
@@ -27,7 +27,7 @@ namespace LibaryPasient
                 throw;
             }
 
-            return _p;
+            return p;
         }
 
         public static void SkrivTilFil(BindingList<ListPasient> _p, string filnav)

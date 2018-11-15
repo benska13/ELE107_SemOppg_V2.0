@@ -89,6 +89,7 @@
     <None Include="Properties\DataSources\LibaryPasient.Pulsfrekvens.datasource" />
     <None Include="Properties\DataSources\LibaryPasient.Respirasjonsrate.datasource" />
     <None Include="Properties\DataSources\LibaryPasient.Serialize.datasource" />
+    <None Include="Properties\DataSources\TilkobletMonitor.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
