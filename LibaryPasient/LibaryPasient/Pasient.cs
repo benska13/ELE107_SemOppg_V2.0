@@ -21,7 +21,6 @@ namespace LibaryPasient
         public Respirasjonsrate Respirasjonsrate { get; set; } = new Respirasjonsrate();
         public Alarm Alarm { get; set; } = new Alarm();
         public static DateTime DatoKlokke { get; set; }
-        public Socket KommSokkel { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
 
