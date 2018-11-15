@@ -81,16 +81,24 @@ namespace Sentral2
         }
         private void VentPaaData(object state)
         {
-            
-            Socket kommSocket = (Socket)state;
-            while (kommSocket.IsBound)
+            try
             {
-                string data = minSokkel.VentPaData(kommSocket);
-                Pasient p = Serialize.StringTPasient(data);
-                p.KommSokkel = kommSocket;
 
-                _minDelegate = new Mdt(PasientSjekk);
-                this.Invoke(_minDelegate, p);
+                Socket kommSocket = (Socket)state;
+                while (kommSocket.IsBound)
+                {
+                    string data = minSokkel.VentPaData(kommSocket);
+                    Pasient p = Serialize.StringTPasient(data);
+                    p.KommSokkel = kommSocket;
+
+                    _minDelegate = new Mdt(PasientSjekk);
+                    this.Invoke(_minDelegate, p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
             }
         }
         private void OppdaterLabelerGui()

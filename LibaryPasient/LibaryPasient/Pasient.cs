@@ -43,7 +43,6 @@ namespace LibaryPasient
         public BindingList<Respirasjonsrate> ListRespirasjonsrate { get; set; }
         public BindingList<Pulsfrekvens> ListPulsfrekvens { get; set; }
         public BindingList<Alarm> ListAlarm { get; set; }
-        public Socket KommSokkel { get; set; }
         public ListPasient(Pasient innPasient)
         {
             Id = idteller++;
@@ -60,9 +59,8 @@ namespace LibaryPasient
         }
         public void NyData(Pasient inPasient)
         {
-            Navn = inPasient.Navn;
+            //Navn = inPasient.Navn;
             Alder = inPasient.Alder;
-            KommSokkel = inPasient.KommSokkel;
 
             ListKroppstemperatur.Insert(0, inPasient.Kroppstemperatur);
             ListBlodtrykk.Insert(0, inPasient.Blodtrykk);
@@ -117,7 +115,7 @@ namespace LibaryPasient
     }
     public class Kroppstemperaturx
     {
-        public int Verdi { get; set; }
+        public int Verdi { get; set; } = 0;
         public string Enhet { get; } = "*C";
         public DateTime DatoTid { get; set; }
 
@@ -146,9 +144,9 @@ namespace LibaryPasient
     }
     public class Blodtrykk
     {
-        public int Verdi { get; set; }
+        public int Verdi { get; set; } = 0;
         public string Enhet { get; } = "mm Hg";
-        public int Verdi2 { get; set; }
+        public int Verdi2 { get; set; } = 0;
         public string Enhet2 { get; } = "mm Hg";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
@@ -177,7 +175,7 @@ namespace LibaryPasient
     }
     public class Pulsfrekvens
     {
-        public int Verdi { get; set; }
+        public int Verdi { get; set; } = 0;
         public string Enhet { get; } = "slag/min";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
@@ -203,7 +201,7 @@ namespace LibaryPasient
     }
     public class Respirasjonsrate
     {
-        public int Verdi { get; set; }
+        public int Verdi { get; set; } = 0;
         public string Enhet { get; } = "pust/min";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 10;
