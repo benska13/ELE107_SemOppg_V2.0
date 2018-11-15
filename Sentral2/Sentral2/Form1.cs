@@ -203,11 +203,17 @@ namespace Sentral2
 
             PasientSjekk(p);
 
-
             ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkeList[pasientnr]);                  // Starter en tråd som venter på data
             pasientnr++;
             bgwVentPaKlient.RunWorkerAsync();
+        }
 
+        private void Intervall_Click(object sender, EventArgs e)
+        {
+            DateTime start = Convert.ToDateTime(dateTimePicker1);
+            DateTime stop = Convert.ToDateTime(dateTimePicker3);
+            Klokke k = new Klokke(start, stop, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            k.ShowDialog();
         }
     }
 

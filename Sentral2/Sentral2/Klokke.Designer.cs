@@ -215,6 +215,7 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Klokke";
             this.Text = "Klokke";
+            this.Load += new System.EventHandler(this.Klokke_Load);
             ((System.ComponentModel.ISupportInitialize)(this.listPulsfrekvensBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);

@@ -19,11 +19,12 @@ namespace Sentral2
         BindingList<Blodtrykk> blodtrykksliste = new BindingList<Blodtrykk>();
         BindingList<Respirasjonsrate> resplist = new BindingList<Respirasjonsrate>();
         BindingList<Alarm> alarmlist = new BindingList<Alarm>();
+        DateTime _start;
+        DateTime _stopp;
+        ListPasient pList;
 
 
-
-
-        public Klokke()
+        public Klokke(DateTime start, DateTime stopp, ListPasient p)
         {
             InitializeComponent();
             listKroppstemperaturBindingSource.DataSource = templist;
@@ -31,60 +32,55 @@ namespace Sentral2
             listBlodtrykkBindingSource.DataSource = blodtrykksliste;
             listRespirasjonsrateBindingSource.DataSource = resplist;
             listAlarmBindingSource.DataSource = alarmlist;
+            _start = start;
+            _stopp = stopp;
+            pList = p;
         }
 
-
-        public void Intervallskrivut(DateTimePicker dateTimePicker1, DateTimePicker dateTimePicker3, ListPasient pasient)
+        private void Klokke_Load(object sender, EventArgs e)
         {
-            DateTime tid1 = Convert.ToDateTime(dateTimePicker1);
-            DateTime tid2 = Convert.ToDateTime(dateTimePicker3);
-
-            foreach (Kroppstemperaturx a in pasient.ListKroppstemperatur)
+            foreach (Kroppstemperaturx k in pList.ListKroppstemperatur)
             {
-                if (a.DatoTid < tid2 && a.DatoTid > tid1)
+                if (k.DatoTid < _stopp && k.DatoTid > _start)
                 {
-                    templist.Add(a);
+                    templist.Add(k);
                 }
-
-
-
             }
-            foreach (Pulsfrekvens p in pasient.ListPulsfrekvens)
+            foreach (Pulsfrekvens p in pList.ListPulsfrekvens)
             {
-                if (p.DatoTid < tid2 && p.DatoTid > tid1)
+                if (p.DatoTid < _stopp && p.DatoTid > _start)
                 {
                     pulslist.Add(p);
                 }
-
             }
-            foreach (Blodtrykk p in pasient.ListBlodtrykk)
+            foreach (Blodtrykk b in pList.ListBlodtrykk)
             {
-                if (p.DatoTid < tid2 && p.DatoTid > tid1)
+                if (b.DatoTid < _stopp && b.DatoTid > _start)
                 {
-                    blodtrykksliste.Add(p);
+                    blodtrykksliste.Add(b);
                 }
-
             }
-            foreach (Respirasjonsrate p in pasient.ListRespirasjonsrate)
+            foreach (Respirasjonsrate r in pList.ListRespirasjonsrate)
             {
-                if (p.DatoTid < tid2 && p.DatoTid > tid1)
+                if (r.DatoTid < _stopp && r.DatoTid > _start)
+                {
+                    resplist.Add(r);
+                }
+            }
+            foreach (Respirasjonsrate p in pList.ListRespirasjonsrate)
+            {
+                if (p.DatoTid < _stopp && p.DatoTid > _start)
                 {
                     resplist.Add(p);
                 }
-
             }
-            foreach (Alarm p in pasient.ListAlarm)
+            foreach (Alarm a in pList.ListAlarm)
             {
-                if (p.datoTid < tid2 && p.datoTid > tid1)
+                if (a.datoTid < _stopp && a.datoTid > _start)
                 {
-                    alarmlist.Add(p);
+                    alarmlist.Add(a);
                 }
-
             }
-
-
-
-
         }
     }
 

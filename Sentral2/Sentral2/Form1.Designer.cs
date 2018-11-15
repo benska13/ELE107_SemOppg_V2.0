@@ -572,6 +572,7 @@
             this.Intervall.TabIndex = 2;
             this.Intervall.Text = "Intervall";
             this.Intervall.UseVisualStyleBackColor = true;
+            this.Intervall.Click += new System.EventHandler(this.Intervall_Click);
             // 
             // textBoxTidMaal
             // 
