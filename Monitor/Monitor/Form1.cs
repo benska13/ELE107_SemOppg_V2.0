@@ -265,7 +265,7 @@ namespace Monitor
 
         private void OppdaterPasient(string data)
         {
-            if ((data!=""))
+            if (data!="")
             {
                 // MULIG LØSNING PÅ DATO?????
                 // Finner dato og klokkeslett
@@ -279,6 +279,14 @@ namespace Monitor
                 // Digital /alarm
                 _pos = data.IndexOf('D');
                 //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
+
+                var a = data.Substring(_pos + 1, 2);
+                if (a=="1")
+                {
+                    _pasient.Alarm.SetAlarm(true);
+                    _pasient.Alarm.SetHendelse("Alarm-Snor");
+                }
+                
 
 
                 // id-kode

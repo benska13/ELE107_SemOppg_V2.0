@@ -109,6 +109,11 @@ namespace LibaryPasient
         {
             return Hendelse;
         }
+
+        public void SetHendelse(string h)
+        {
+            Hendelse = h;
+        }
     }
     public class Kroppstemperaturx
     {
