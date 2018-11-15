@@ -13,17 +13,6 @@ namespace Monitor
 {
     public partial class RegistrerPM : Form
     {
-        string navn;
-        string alder;
-        int maxPuls;
-        int minPuls;
-        int maxTemp;
-        int minTemp;
-        int maxBlodtrykk;
-        int minBlodtrykk;
-        int maxResp;
-        int minResp;
-
         public RegistrerPM(Pasient pasient)
         {
             InitializeComponent();
@@ -38,69 +27,38 @@ namespace Monitor
 
         }
 
-        public string Navn
-        {
-            get { return navn; }
-        }
+        public string Navn { get; set; }
 
-        public string Alder
-        {
-            get { return alder; }
-        }
+        public string Alder { get; set; }
 
-        public double MaxPuls
-        {
-            get { return maxPuls; }
-        }
+        public double MaxPuls { get; set; }
 
-        public double MinPuls
-        {
-            get { return minPuls; }
-        }
+        public double MinPuls { get; set; }
 
-        public double MaxTemp
-        {
-            get { return maxTemp; }
-        }
+        public double MaxTemp { get; set; }
 
-        public double MinTemp
-        {
-            get { return minTemp; }
-        }
+        public double MinTemp { get; set; }
 
-        public double MaxBlodtrykk
-        {
-            get { return maxBlodtrykk; }
-        }
+        public double MaxBlodtrykk { get; set; }
 
-        public double MinBlodtrykk
-        {
-            get { return minBlodtrykk; }
-        }
+        public double MinBlodtrykk { get; set; }
 
-        public double MaxResp
-        {
-            get { return maxResp; }
-        }
+        public double MaxResp { get; set; }
 
-        public double MinResp
-        {
-            get { return minResp; }
-        }
+        public double MinResp { get; set; }
 
         private void btnOk_Click_3(object sender, EventArgs e)
         {
-            navn = txtNavn.Text;
-            alder = (txtAlder.Text);
-            maxPuls = int.Parse(txtMaxPuls.Text);
-            minPuls = int.Parse(txtMinPuls.Text);
-            maxTemp = int.Parse(txtMaxTemp.Text);
-            minTemp = int.Parse(txtMinTemp.Text);
-            maxBlodtrykk = int.Parse(txtMaxBlodtrykk.Text);
-            minBlodtrykk = int.Parse(txtMinBlodtrykk.Text);
-            maxResp = int.Parse(txtMaxResp.Text);
-            minResp = int.Parse(txtMinResp.Text);
-
+            Navn = txtNavn.Text;
+            Alder = (txtAlder.Text);
+            MaxPuls = int.Parse(txtMaxPuls.Text);
+            MinPuls = int.Parse(txtMinPuls.Text);
+            MaxTemp = int.Parse(txtMaxTemp.Text);
+            MinTemp = int.Parse(txtMinTemp.Text);
+            MaxBlodtrykk = int.Parse(txtMaxBlodtrykk.Text);
+            MinBlodtrykk = int.Parse(txtMinBlodtrykk.Text);
+            MaxResp = int.Parse(txtMaxResp.Text);
+            MinResp = int.Parse(txtMinResp.Text);
 
             this.Close();
         }

@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LibaryPasient;
 using System.Net;
 using System.Net.Sockets;
-using System.Runtime.Remoting.Messaging;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Web;
 using System.Web.Script.Serialization;
 
 /*
@@ -24,14 +14,14 @@ using System.Web.Script.Serialization;
     - dato og klokke, konvertere til datetime
     - alarm, konvertere til bool
     -[ok?] sender data før den er koblet til sentral
-    - feiler om den ikke får data fra simsim
+    - [ok?]feiler om den ikke får data fra simsim
     - hvis sentral blir koblet ifra
     - bedre mottak av data på seriell. 
     
  Legge til:
     - bedre visning for alarm
     - id - registrering
-    - klokke på monitor
+    - [ok]klokke på monitor
 
 
     */
@@ -41,18 +31,17 @@ using System.Web.Script.Serialization;
 
 namespace Monitor
 {
+    public delegate void Mdt(string d);
     public partial class Form1 : Form
     {
         private Pasient _pasient;
         private SerialPort comPort;
         private bool _forrigeAlarm;
         private int _teller;
+        private Mdt _minDelegate;
 
-        private IPEndPoint serverEndPoint;
-        //private Socket klientSokkel;
-
-        Socket klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        IPEndPoint serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+        private Socket klientSokkel=null;
+        private IPEndPoint serverEP;
 
         public Form1()
         {
@@ -74,18 +63,14 @@ namespace Monitor
 
         private void SettOppKort()
         {
-            Thread.Sleep(300);
+            Thread.Sleep(400);
             comPort.WriteLine($"$D{DateTime.Now.Year}{DateTime.Now.Month}{DateTime.Now.Day}"); //Oppdatere dato
-            Thread.Sleep(300);
+            Thread.Sleep(400);
             comPort.WriteLine($"$T{DateTime.Now.Hour}{DateTime.Now.Minute}{DateTime.Now.Second}"); //Klokke
-            Thread.Sleep(300);
+            Thread.Sleep(400);
             comPort.WriteLine("$S001"); //frekvens
 
-            Thread.Sleep(200);
-
-            // Legge til noe som sjekker at det kommer data fra port før den starter bgw
-
-            bgWLesData.RunWorkerAsync();
+            Thread.Sleep(400);
         }
 
         private void AlarmLogikk()
@@ -117,15 +102,23 @@ namespace Monitor
 
         private void SendData()
         {
-            if (klientSokkel != null)
+
+            if (klientSokkel != null )
             {
 
-                string json = new JavaScriptSerializer().Serialize(_pasient);
+                if (klientSokkel.Connected)
+                {
+                    string json = new JavaScriptSerializer().Serialize(_pasient);
 
-                klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                    klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                }
+                else
+                {
+                    klientSokkel.Close();
+                    klientSokkel = null;
+                    txtSentralInfo.Text = "Sokkel = null";
+                }
             }
-
-
         }
 
         private void btnAlarm_Click(object sender, EventArgs e)
@@ -153,11 +146,8 @@ namespace Monitor
         {
             try
             {
-
-
                 RegistrerPM registrer = new RegistrerPM(_pasient);
                 registrer.ShowDialog();
-
 
                 _pasient.Kroppstemperatur.Min = (int)registrer.MinTemp;
                 _pasient.Kroppstemperatur.Max = (int)registrer.MaxTemp;
@@ -184,21 +174,18 @@ namespace Monitor
         {
             try
             {
-                //minSokkel.KobleTilServer();    // blokkerende metode
-                klientSokkel.Connect(serverEP);
+                klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                serverEP = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
+                klientSokkel.Connect(serverEP);  // blokkerende metode
 
                 txtSentralInfo.Text = "Tilkoblet server";
-
-                string json = new JavaScriptSerializer().Serialize(_pasient);
-                klientSokkel.Send(Encoding.ASCII.GetBytes(json));
             }
             catch (SocketException eks)
             {
                 MessageBox.Show("Feil: " + eks.Message);
+                klientSokkel.Close();
+                txtSentralInfo.Text = "Feilmelding";
             }
-
-            
-
         }
 
         private void velgComPortToolStripMenuItem_Click(object sender, EventArgs e)
@@ -232,16 +219,22 @@ namespace Monitor
                     comPort.PortName = ts_cbComPorter.SelectedItem.ToString();
                     comPort.BaudRate = 9600;
                     comPort.ReadTimeout = 1000;
+
+                    comPort.DataReceived += new SerialDataReceivedEventHandler(MottarData);
+
                     comPort.Open();
 
                     SettOppKort();
 
+
+                    txtComInfo.Text = "Koblet til:" + comPort.PortName;
                     kobleTilToolStripMenuItem.Text = "Koble fra";
                 }
                 else
                 {
                     comPort.Close();
                     kobleTilToolStripMenuItem.Text = "Koble til";
+                    txtComInfo.Text = "Koblet fra";
                 }
 
             }
@@ -251,69 +244,75 @@ namespace Monitor
             }
         }
 
-        private void bgWLesData_DoWork(object sender, DoWorkEventArgs e)
+        private void MottarData(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
                 bool ferdig = false;
                 string data = "";
+                SerialPort sp = (SerialPort)sender;
+                data = sp.ReadExisting();
 
-                comPort.ReadTimeout = 2000;
-                if (comPort.IsOpen)     // lage en noe som sjekker at det kommer data
-                {
-                    while (!ferdig)
-                    {
-                        char tegn = Convert.ToChar(comPort.ReadChar()); // SerialPort comPort
-                        data = data + tegn;
-                        if (tegn == '#') ferdig = true;
-                    }
-                    // Finner Dato og klokke
-                    var _pos = data.IndexOf('B');
-                    // _pasient.SetDatoKlokke(data.Substring(_pos + 1, 14).ToString());
-
-                    // Digital /alarm
-                    _pos = data.IndexOf('D');
-                    //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
-
-
-                    // id-kode
-
-                    // Finner puls
-                    _pos = data.IndexOf('F');
-                    _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
-                    // Finner blodtrykk
-                    _pos = data.IndexOf('G');
-                    _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
-                    // Finner temperatur
-                    _pos = data.IndexOf('H');
-                    _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
-
-                    // Finner respirasjon
-                    _pos = data.IndexOf('I');
-                    _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
-                }
-
-
-
+                _minDelegate = new Mdt(OppdaterPasient);
+                this.Invoke(_minDelegate, data);
 
             }
             catch (Exception exception)
             {
-                MessageBox.Show("bgW\n\n" + exception.ToString());
-                //bgWLesData.RunWorkerAsync();
+                MessageBox.Show("MottarDatan\n" + exception.ToString());
             }
         }
 
-        private void bgWLesData_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private void OppdaterPasient(string data)
         {
-            try
+            if (data!="")
             {
+                // MULIG LØSNING PÅ DATO?????
+                // Finner dato og klokkeslett
+                string dato = "";
+                var _pos = data.IndexOf('B');
+                dato += data.Substring(_pos + 1, 8);
+                _pos = data.IndexOf('C');
+                dato += data.Substring(_pos + 1, 6);
+                _pasient.SetDatoKlokke(dato);
+
+                // Digital /alarm
+                _pos = data.IndexOf('D');
+                //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
+
+                var a = data.Substring(_pos + 1, 2);
+                if (a=="1")
+                {
+                    _pasient.Alarm.SetAlarm(true);
+                    _pasient.Alarm.SetHendelse("Alarm-Snor");
+                }
+                
+
+
+                // id-kode
+
+                // Finner puls
+                _pos = data.IndexOf('F');
+                _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                // Finner blodtrykk
+                _pos = data.IndexOf('G');
+                _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+
+                // Finner temperatur
+                _pos = data.IndexOf('H');
+                _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
+
+                // Finner respirasjon
+                _pos = data.IndexOf('I');
+                _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
+
+                // Oppdatere gui
                 txtTemp.Text = _pasient.Kroppstemperatur.GetVerdi().ToString();
                 txtBlodtrykk.Text = _pasient.Blodtrykk.GetVerdi().ToString();
                 txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
                 txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
+                txtSisteStatus.Text = _pasient.Blodtrykk.DatoTid.ToString();
 
                 AlarmLogikk();
 
@@ -324,13 +323,10 @@ namespace Monitor
                     SendData();
                     _teller = 0;
                 }
+            }
 
-                bgWLesData.RunWorkerAsync();
-            }
-            catch (Exception exception)
-            {
-                MessageBox.Show("bgWorkerComp\n" + exception.ToString());
-            }
         }
+
+
     }
 }

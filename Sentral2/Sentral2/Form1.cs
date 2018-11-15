@@ -81,16 +81,24 @@ namespace Sentral2
         }
         private void VentPaaData(object state)
         {
-            
-            Socket kommSocket = (Socket)state;
-            while (kommSocket.IsBound)
+            try
             {
-                string data = minSokkel.VentPaData(kommSocket);
-                Pasient p = Serialize.StringTPasient(data);
-                p.KommSokkel = kommSocket;
 
-                _minDelegate = new Mdt(PasientSjekk);
-                this.Invoke(_minDelegate, p);
+                Socket kommSocket = (Socket)state;
+                while (kommSocket.IsBound)
+                {
+                    string data = minSokkel.VentPaData(kommSocket);
+                    Pasient p = Serialize.StringTPasient(data);
+                    p.KommSokkel = kommSocket;
+
+                    _minDelegate = new Mdt(PasientSjekk);
+                    this.Invoke(_minDelegate, p);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
             }
         }
         private void OppdaterLabelerGui()
@@ -180,8 +188,10 @@ namespace Sentral2
         }
         private void Intervall_Click(object sender, EventArgs e)
         {
-            Klokke Nyklokke = new Klokke();
-            Nyklokke.Intervallskrivut(dateTimePicker1, dateTimePicker3, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            DateTime start = Convert.ToDateTime(dateTimePicker1);
+            DateTime stop = Convert.ToDateTime(dateTimePicker3);
+            Klokke k = new Klokke(start, stop, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            k.ShowDialog();
         }
 
     }
