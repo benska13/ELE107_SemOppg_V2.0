@@ -24,28 +24,14 @@ namespace LibaryPasient
         public Socket KommSokkel { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
-            DatoKlokke = DateTime.ParseExact(datoKlokke, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture);
+
+            DatoKlokke = DateTime.ParseExact(datoKlokke, "yyyyMMddHHmmss", null);
         }
-        //public void SetDatoKlokke(string datoKlokke)
-        //{
-        //    //yyyymmdd
-        //    int aar = Convert.ToInt32(datoKlokke.Substring(0, 3));
-        //    int mnd = Convert.ToInt32(datoKlokke.Substring(4, 5));
-        //    int dag = Convert.ToInt32(datoKlokke.Substring(6, 7));
-        //    //Chhmmss
-        //    int hh = Convert.ToInt32(datoKlokke.Substring(9, 10));
-        //    int mm = Convert.ToInt32(datoKlokke.Substring(11, 12));
-        //    int ss = Convert.ToInt32(datoKlokke.Substring(13, 14));
-        //    DatoKlokke = new DateTime(aar, mnd, dag, hh, mm, ss);
-        //}
         public override string ToString()
         {
             return Navn;
         }
     }
-
-
-
     public class ListPasient
     {
         private static int idteller = 1;
@@ -57,9 +43,7 @@ namespace LibaryPasient
         public BindingList<Respirasjonsrate> ListRespirasjonsrate { get; set; }
         public BindingList<Pulsfrekvens> ListPulsfrekvens { get; set; }
         public BindingList<Alarm> ListAlarm { get; set; }
-
         public Socket KommSokkel { get; set; }
-
         public ListPasient(Pasient innPasient)
         {
             Id = idteller++;
@@ -73,13 +57,7 @@ namespace LibaryPasient
             ListAlarm = new BindingList<Alarm>();
 
             NyData(innPasient);
-
         }
-
-        public ListPasient()
-        {
-        }
-
         public void NyData(Pasient inPasient)
         {
             Navn = inPasient.Navn;
@@ -93,7 +71,6 @@ namespace LibaryPasient
             ListAlarm.Insert(0, inPasient.Alarm);
         }
     }
-
     public class Alarm
     {
         public static bool Grense { get; set; }
@@ -132,29 +109,14 @@ namespace LibaryPasient
         {
             return Hendelse;
         }
+
+        public void SetHendelse(string h)
+        {
+            Hendelse = h;
+        }
     }
-
-    //public interface IMaalinger
-    //{
-    //    int Verdi { get; set; }
-    //    string Enhet { get; }
-    //    DateTime DatoTid { get; set; }
-
-    //    int Min { get; set; }
-    //    int Max { get; set; }
-    //    int GetVerdi();
-    //    void SetVerdi(int value);
-    //}
-
     public class Kroppstemperaturx
     {
-        //public Kroppstemperaturx(int min, int max, int verdi, DateTime datoTid)
-        //{
-        //    Min = min;
-        //    Max = max;
-        //    Verdi = verdi;
-        //    DatoTid = datoTid;
-        //}
         public int Verdi { get; set; }
         public string Enhet { get; } = "*C";
         public DateTime DatoTid { get; set; }
@@ -182,25 +144,12 @@ namespace LibaryPasient
             return "Kroppstemperatur:";
         }
     }
-
     public class Blodtrykk
     {
-        //public Blodtrykk()
-        //{
-
-        //}
-
-        //public Blodtrykk(int min, int max, int verdi, DateTime datoTid)
-        //{
-        //    Min = min;
-        //    Max = max;
-        //    Verdi = verdi;
-        //    DatoTid = datoTid;
-        //}
         public int Verdi { get; set; }
         public string Enhet { get; } = "mm Hg";
-        // public int Verdi2 { get; set; }
-        //public string Enhet2 { get; } = "mm Hg";
+        public int Verdi2 { get; set; }
+        public string Enhet2 { get; } = "mm Hg";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
         public int Max { get; set; } = 100;
@@ -212,7 +161,7 @@ namespace LibaryPasient
         public void SetVerdi(int value)
         {
             Verdi = value;
-            //Verdi2 =(int) (Verdi* (2.0/ 3));
+            Verdi2 =(int) (Verdi* (2.0/ 3));
             DatoTid = Pasient.DatoKlokke;
             if (Verdi > Max || Verdi < Min)
             {
@@ -226,20 +175,8 @@ namespace LibaryPasient
             return "Blodtrykk:";
         }
     }
-
     public class Pulsfrekvens
     {
-        //public Pulsfrekvens() { }
-
-        //public Pulsfrekvens(int min, int max, int verdi, DateTime datoTid)
-        //{
-        //    Min = min;
-        //    Max = max;
-        //    Verdi = verdi;
-        //    DatoTid = datoTid;
-        //}
-
-
         public int Verdi { get; set; }
         public string Enhet { get; } = "slag/min";
         public DateTime DatoTid { get; set; }
@@ -264,19 +201,8 @@ namespace LibaryPasient
             return "Pulsfrekvens:";
         }
     }
-
     public class Respirasjonsrate
     {
-        //public Respirasjonsrate() { }
-
-        //public Respirasjonsrate(int min, int max, int verdi, DateTime datoTid)
-        //{
-        //    Min = min;
-        //    Max = max;
-        //    Verdi = verdi;
-        //    DatoTid = datoTid;
-        //}
-
         public int Verdi { get; set; }
         public string Enhet { get; } = "pust/min";
         public DateTime DatoTid { get; set; }

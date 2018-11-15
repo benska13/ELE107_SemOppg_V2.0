@@ -31,8 +31,8 @@
             this.label11 = new System.Windows.Forms.Label();
             this.txtSentralInfo = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtComInfo = new System.Windows.Forms.TextBox();
+            this.txtSisteStatus = new System.Windows.Forms.TextBox();
             this.btnGrense = new System.Windows.Forms.Button();
             this.btnAlarm = new System.Windows.Forms.Button();
             this.registrerPasientToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +65,6 @@
             this.txtPuls = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.kobleTilSentralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bgWLesData = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -95,19 +94,19 @@
             this.label9.TabIndex = 102;
             this.label9.Text = "Com port:";
             // 
-            // textBox2
+            // txtComInfo
             // 
-            this.textBox2.Location = new System.Drawing.Point(94, 354);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 100;
+            this.txtComInfo.Location = new System.Drawing.Point(94, 354);
+            this.txtComInfo.Name = "txtComInfo";
+            this.txtComInfo.Size = new System.Drawing.Size(100, 20);
+            this.txtComInfo.TabIndex = 100;
             // 
-            // textBox1
+            // txtSisteStatus
             // 
-            this.textBox1.Location = new System.Drawing.Point(445, 204);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 99;
+            this.txtSisteStatus.Location = new System.Drawing.Point(445, 204);
+            this.txtSisteStatus.Name = "txtSisteStatus";
+            this.txtSisteStatus.Size = new System.Drawing.Size(147, 20);
+            this.txtSisteStatus.TabIndex = 99;
             // 
             // btnGrense
             // 
@@ -382,11 +381,6 @@
             this.kobleTilSentralToolStripMenuItem.Text = "Koble til sentral";
             this.kobleTilSentralToolStripMenuItem.Click += new System.EventHandler(this.kobleTilSentralToolStripMenuItem_Click);
             // 
-            // bgWLesData
-            // 
-            this.bgWLesData.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgWLesData_DoWork);
-            this.bgWLesData.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgWLesData_RunWorkerCompleted);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -408,8 +402,8 @@
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtSentralInfo);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtComInfo);
+            this.Controls.Add(this.txtSisteStatus);
             this.Controls.Add(this.btnGrense);
             this.Controls.Add(this.btnAlarm);
             this.Controls.Add(this.label8);
@@ -452,8 +446,8 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox txtSentralInfo;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtComInfo;
+        private System.Windows.Forms.TextBox txtSisteStatus;
         private System.Windows.Forms.Button btnGrense;
         private System.Windows.Forms.Button btnAlarm;
         private System.Windows.Forms.ToolStripMenuItem registrerPasientToolStripMenuItem;
@@ -486,7 +480,6 @@
         private System.Windows.Forms.TextBox txtPuls;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem kobleTilSentralToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker bgWLesData;
         private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
