@@ -180,8 +180,10 @@ namespace Sentral2
         }
         private void Intervall_Click(object sender, EventArgs e)
         {
-            Klokke Nyklokke = new Klokke();
-            Nyklokke.Intervallskrivut(dateTimePicker1, dateTimePicker3, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            DateTime start = Convert.ToDateTime(dateTimePicker1);
+            DateTime stop = Convert.ToDateTime(dateTimePicker3);
+            Klokke k = new Klokke(start, stop, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            k.ShowDialog();
         }
 
     }
