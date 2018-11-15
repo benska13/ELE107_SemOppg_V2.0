@@ -24,16 +24,20 @@ namespace LibaryPasient
         public Socket KommSokkel { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
-            //yyyymmdd
-            int aar = Convert.ToInt32(datoKlokke.Substring(0, 3));
-            int mnd = Convert.ToInt32(datoKlokke.Substring(4, 5));
-            int dag = Convert.ToInt32(datoKlokke.Substring(6, 7));
-            //Chhmmss
-            int hh = Convert.ToInt32(datoKlokke.Substring(9, 10));
-            int mm = Convert.ToInt32(datoKlokke.Substring(11, 12));
-            int ss = Convert.ToInt32(datoKlokke.Substring(13, 14));
-            DatoKlokke = new DateTime(aar, mnd, dag, hh, mm, ss);
+            DatoKlokke = DateTime.ParseExact(datoKlokke, "yyyyMMddHHmmss", System.Globalization.CultureInfo.InvariantCulture);
         }
+        //public void SetDatoKlokke(string datoKlokke)
+        //{
+        //    //yyyymmdd
+        //    int aar = Convert.ToInt32(datoKlokke.Substring(0, 3));
+        //    int mnd = Convert.ToInt32(datoKlokke.Substring(4, 5));
+        //    int dag = Convert.ToInt32(datoKlokke.Substring(6, 7));
+        //    //Chhmmss
+        //    int hh = Convert.ToInt32(datoKlokke.Substring(9, 10));
+        //    int mm = Convert.ToInt32(datoKlokke.Substring(11, 12));
+        //    int ss = Convert.ToInt32(datoKlokke.Substring(13, 14));
+        //    DatoKlokke = new DateTime(aar, mnd, dag, hh, mm, ss);
+        //}
         public override string ToString()
         {
             return Navn;
