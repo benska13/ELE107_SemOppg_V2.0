@@ -187,6 +187,7 @@ namespace Sentral2
                 listKroppstemperaturBindingSource.DataSource = _pasienter[x].ListKroppstemperatur;
                 listRespirasjonsrateBindingSource.DataSource = _pasienter[x].ListRespirasjonsrate;
                 listBlodtrykkBindingSource.DataSource = _pasienter[x].ListBlodtrykk;
+                listAlarmBindingSource.DataSource = _pasienter[x].ListAlarm;
             }
         }
         private void Intervall_Click(object sender, EventArgs e)

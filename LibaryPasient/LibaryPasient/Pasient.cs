@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Sockets;
 
 /*
@@ -52,29 +53,32 @@ namespace LibaryPasient
             ListBlodtrykk = new BindingList<Blodtrykk>();
             ListRespirasjonsrate = new BindingList<Respirasjonsrate>();
             ListPulsfrekvens = new BindingList<Pulsfrekvens>();
-            ListAlarm = new BindingList<Alarm>();
+            ListAlarm = new BindingList<Alarm> {new Alarm()};
 
             NyData(innPasient);
         }
         public void NyData(Pasient inPasient)
         {
-            //Navn = inPasient.Navn;
             Alder = inPasient.Alder;
 
             ListKroppstemperatur.Insert(0, inPasient.Kroppstemperatur);
             ListBlodtrykk.Insert(0, inPasient.Blodtrykk);
             ListPulsfrekvens.Insert(0, inPasient.Pulsfrekvens);
             ListRespirasjonsrate.Insert(0, inPasient.Respirasjonsrate);
-            ListAlarm.Insert(0, inPasient.Alarm);
+            if (ListAlarm.First().GetHendelse() != inPasient.Alarm.GetHendelse())
+            {
+                ListAlarm.Insert(0, inPasient.Alarm);
+            }
+            
         }
     }
     public class Alarm
     {
-        public static bool Grense { get; set; }
-        public static bool Alarmm { get; set; }
-        public static string Hendelse { get; set; }
-        public DateTime datoTid { get; set; }
-        public int Id { get; set; }
+        public static bool Grense { get; set; } = false;
+        public static bool Alarmm { get; set; } = false;
+        public static string Hendelse { get; set; } = "";
+        public DateTime datoTid { get; set; } 
+        public int Id { get; set; } = 0;
         public void SetGrense(bool value)
         {
             Grense = value;

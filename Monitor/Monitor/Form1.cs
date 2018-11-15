@@ -109,21 +109,30 @@ namespace Monitor
         private void SendData()
         {
 
-            if (klientSokkel != null )
+            try
             {
-
-                if (klientSokkel.Connected)
+                if (klientSokkel != null )
                 {
-                    string json = new JavaScriptSerializer().Serialize(_pasient);
 
-                    klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                    if (klientSokkel.Connected)
+                    {
+                        string json = new JavaScriptSerializer().Serialize(_pasient);
+
+                        klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                    }
+                    else
+                    {
+                        klientSokkel.Close();
+                        klientSokkel = null;
+                        txtSentralInfo.Text = "Sokkel = null";
+                    }
                 }
-                else
-                {
-                    klientSokkel.Close();
-                    klientSokkel = null;
-                    txtSentralInfo.Text = "Sokkel = null";
-                }
+            }
+            catch (Exception )
+            {
+                klientSokkel.Close();     // Ikke bra løsning?
+                klientSokkel = null;
+                txtSentralInfo.Text = "Sokkel = null";
             }
         }
 
@@ -340,7 +349,7 @@ namespace Monitor
 
 
                 _teller++;
-                if (_teller > 10)
+                if (_teller > 5)   ///skal være 10
                 {
                     SendData();
                     _teller = 0;

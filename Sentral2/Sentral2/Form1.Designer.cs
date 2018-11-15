@@ -81,12 +81,6 @@
             this.listKroppstemperaturBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tpPuls = new System.Windows.Forms.TabPage();
             this.listKroppstemperaturDataGridView1 = new System.Windows.Forms.DataGridView();
-            this.verdiDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enhetDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.datoTidDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.listPulsfrekvensBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.tpResp = new System.Windows.Forms.TabPage();
             this.listKroppstemperaturDataGridView2 = new System.Windows.Forms.DataGridView();
             this.verdiDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -104,11 +98,16 @@
             this.maxDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listBlodtrykkBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tpAlarm = new System.Windows.Forms.TabPage();
-            this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.listAlarmDataGridView = new System.Windows.Forms.DataGridView();
             this.listPulsfrekvensBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.listAlarmBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.verdiDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.enhetDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.datoTidDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.minDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.datoTidDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -138,7 +137,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturBindingSource)).BeginInit();
             this.tpPuls.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listPulsfrekvensBindingSource1)).BeginInit();
             this.tpResp.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listRespirasjonsrateBindingSource)).BeginInit();
@@ -146,10 +144,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listBlodtrykkBindingSource)).BeginInit();
             this.tpAlarm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listAlarmDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.listPulsfrekvensBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePicker1
@@ -691,51 +688,12 @@
             this.datoTidDataGridViewTextBoxColumn1,
             this.minDataGridViewTextBoxColumn1,
             this.maxDataGridViewTextBoxColumn1});
-            this.listKroppstemperaturDataGridView1.DataSource = this.listPulsfrekvensBindingSource1;
+            this.listKroppstemperaturDataGridView1.DataSource = this.listPulsfrekvensBindingSource;
             this.listKroppstemperaturDataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listKroppstemperaturDataGridView1.Location = new System.Drawing.Point(3, 3);
             this.listKroppstemperaturDataGridView1.Name = "listKroppstemperaturDataGridView1";
             this.listKroppstemperaturDataGridView1.Size = new System.Drawing.Size(481, 241);
             this.listKroppstemperaturDataGridView1.TabIndex = 0;
-            // 
-            // verdiDataGridViewTextBoxColumn1
-            // 
-            this.verdiDataGridViewTextBoxColumn1.DataPropertyName = "Verdi";
-            this.verdiDataGridViewTextBoxColumn1.HeaderText = "Verdi";
-            this.verdiDataGridViewTextBoxColumn1.Name = "verdiDataGridViewTextBoxColumn1";
-            this.verdiDataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // enhetDataGridViewTextBoxColumn1
-            // 
-            this.enhetDataGridViewTextBoxColumn1.DataPropertyName = "Enhet";
-            this.enhetDataGridViewTextBoxColumn1.HeaderText = "Enhet";
-            this.enhetDataGridViewTextBoxColumn1.Name = "enhetDataGridViewTextBoxColumn1";
-            this.enhetDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.enhetDataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // datoTidDataGridViewTextBoxColumn1
-            // 
-            this.datoTidDataGridViewTextBoxColumn1.DataPropertyName = "DatoTid";
-            this.datoTidDataGridViewTextBoxColumn1.HeaderText = "DatoTid";
-            this.datoTidDataGridViewTextBoxColumn1.Name = "datoTidDataGridViewTextBoxColumn1";
-            // 
-            // minDataGridViewTextBoxColumn1
-            // 
-            this.minDataGridViewTextBoxColumn1.DataPropertyName = "Min";
-            this.minDataGridViewTextBoxColumn1.HeaderText = "Min";
-            this.minDataGridViewTextBoxColumn1.Name = "minDataGridViewTextBoxColumn1";
-            this.minDataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // maxDataGridViewTextBoxColumn1
-            // 
-            this.maxDataGridViewTextBoxColumn1.DataPropertyName = "Max";
-            this.maxDataGridViewTextBoxColumn1.HeaderText = "Max";
-            this.maxDataGridViewTextBoxColumn1.Name = "maxDataGridViewTextBoxColumn1";
-            this.maxDataGridViewTextBoxColumn1.Width = 50;
-            // 
-            // listPulsfrekvensBindingSource1
-            // 
-            this.listPulsfrekvensBindingSource1.DataSource = typeof(LibaryPasient.Pulsfrekvens);
             // 
             // tpResp
             // 
@@ -875,7 +833,7 @@
             // tpAlarm
             // 
             this.tpAlarm.AutoScroll = true;
-            this.tpAlarm.Controls.Add(this.dataGridView1);
+            this.tpAlarm.Controls.Add(this.listAlarmDataGridView);
             this.tpAlarm.Location = new System.Drawing.Point(4, 22);
             this.tpAlarm.Name = "tpAlarm";
             this.tpAlarm.Padding = new System.Windows.Forms.Padding(3);
@@ -884,33 +842,72 @@
             this.tpAlarm.Text = "Alarm";
             this.tpAlarm.UseVisualStyleBackColor = true;
             // 
+            // listAlarmDataGridView
+            // 
+            this.listAlarmDataGridView.AutoGenerateColumns = false;
+            this.listAlarmDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.listAlarmDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.datoTidDataGridViewTextBoxColumn4,
+            this.idDataGridViewTextBoxColumn1});
+            this.listAlarmDataGridView.DataSource = this.listAlarmBindingSource;
+            this.listAlarmDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listAlarmDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.listAlarmDataGridView.Name = "listAlarmDataGridView";
+            this.listAlarmDataGridView.Size = new System.Drawing.Size(481, 241);
+            this.listAlarmDataGridView.TabIndex = 0;
+            // 
+            // listPulsfrekvensBindingSource
+            // 
+            this.listPulsfrekvensBindingSource.DataMember = "ListPulsfrekvens";
+            this.listPulsfrekvensBindingSource.DataSource = this.listPasientBindingSource;
+            // 
+            // verdiDataGridViewTextBoxColumn1
+            // 
+            this.verdiDataGridViewTextBoxColumn1.DataPropertyName = "Verdi";
+            this.verdiDataGridViewTextBoxColumn1.HeaderText = "Verdi";
+            this.verdiDataGridViewTextBoxColumn1.Name = "verdiDataGridViewTextBoxColumn1";
+            // 
+            // enhetDataGridViewTextBoxColumn1
+            // 
+            this.enhetDataGridViewTextBoxColumn1.DataPropertyName = "Enhet";
+            this.enhetDataGridViewTextBoxColumn1.HeaderText = "Enhet";
+            this.enhetDataGridViewTextBoxColumn1.Name = "enhetDataGridViewTextBoxColumn1";
+            this.enhetDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // datoTidDataGridViewTextBoxColumn1
+            // 
+            this.datoTidDataGridViewTextBoxColumn1.DataPropertyName = "DatoTid";
+            this.datoTidDataGridViewTextBoxColumn1.HeaderText = "DatoTid";
+            this.datoTidDataGridViewTextBoxColumn1.Name = "datoTidDataGridViewTextBoxColumn1";
+            // 
+            // minDataGridViewTextBoxColumn1
+            // 
+            this.minDataGridViewTextBoxColumn1.DataPropertyName = "Min";
+            this.minDataGridViewTextBoxColumn1.HeaderText = "Min";
+            this.minDataGridViewTextBoxColumn1.Name = "minDataGridViewTextBoxColumn1";
+            // 
+            // maxDataGridViewTextBoxColumn1
+            // 
+            this.maxDataGridViewTextBoxColumn1.DataPropertyName = "Max";
+            this.maxDataGridViewTextBoxColumn1.HeaderText = "Max";
+            this.maxDataGridViewTextBoxColumn1.Name = "maxDataGridViewTextBoxColumn1";
+            // 
             // listAlarmBindingSource
             // 
-            this.listAlarmBindingSource.DataSource = typeof(LibaryPasient.Alarm);
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.datoTidDataGridViewTextBoxColumn4});
-            this.dataGridView1.DataSource = this.listAlarmBindingSource1;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(481, 241);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // listAlarmBindingSource1
-            // 
-            this.listAlarmBindingSource1.DataMember = "ListAlarm";
-            this.listAlarmBindingSource1.DataSource = this.listPasientBindingSource;
+            this.listAlarmBindingSource.DataMember = "ListAlarm";
+            this.listAlarmBindingSource.DataSource = this.listPasientBindingSource;
             // 
             // datoTidDataGridViewTextBoxColumn4
             // 
             this.datoTidDataGridViewTextBoxColumn4.DataPropertyName = "datoTid";
             this.datoTidDataGridViewTextBoxColumn4.HeaderText = "datoTid";
             this.datoTidDataGridViewTextBoxColumn4.Name = "datoTidDataGridViewTextBoxColumn4";
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
             // 
             // Form1
             // 
@@ -955,7 +952,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturBindingSource)).EndInit();
             this.tpPuls.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listPulsfrekvensBindingSource1)).EndInit();
             this.tpResp.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listRespirasjonsrateBindingSource)).EndInit();
@@ -963,10 +959,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.listKroppstemperaturDataGridView3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listBlodtrykkBindingSource)).EndInit();
             this.tpAlarm.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listAlarmDataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.listPulsfrekvensBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.listAlarmBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -992,7 +987,6 @@
         private System.Windows.Forms.DataGridView listKroppstemperaturDataGridView;
         private System.Windows.Forms.TabPage tpPuls;
         private System.Windows.Forms.DataGridView listKroppstemperaturDataGridView1;
-        private System.Windows.Forms.BindingSource listPulsfrekvensBindingSource;
         private System.Windows.Forms.TabPage tpResp;
         private System.Windows.Forms.DataGridView listKroppstemperaturDataGridView2;
         private System.Windows.Forms.TabPage tpBlod;
@@ -1000,10 +994,8 @@
         private System.Windows.Forms.TabPage tpAlarm;
         private System.Windows.Forms.BindingSource listPasientBindingSource;
         private System.Windows.Forms.BindingSource listKroppstemperaturBindingSource;
-        private System.Windows.Forms.BindingSource listPulsfrekvensBindingSource1;
         private System.Windows.Forms.BindingSource listRespirasjonsrateBindingSource;
         private System.Windows.Forms.BindingSource listBlodtrykkBindingSource;
-        private System.Windows.Forms.BindingSource listAlarmBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn navnDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn alderDataGridViewTextBoxColumn;
@@ -1035,11 +1027,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn minDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn verdiDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn enhetDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn minDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn maxDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn verdiDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn enhetDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn2;
@@ -1050,9 +1037,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn minDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxDataGridViewTextBoxColumn3;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn verdiDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn enhetDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn minDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn maxDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.BindingSource listPulsfrekvensBindingSource;
+        private System.Windows.Forms.DataGridView listAlarmDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn4;
-        private System.Windows.Forms.BindingSource listAlarmBindingSource1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.BindingSource listAlarmBindingSource;
     }
 }
 
