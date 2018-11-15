@@ -66,6 +66,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.kobleTilSentralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.txtAlarmHendelse = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -394,11 +395,19 @@
             this.menuStrip1.TabIndex = 98;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // txtAlarmHendelse
+            // 
+            this.txtAlarmHendelse.Location = new System.Drawing.Point(445, 288);
+            this.txtAlarmHendelse.Name = "txtAlarmHendelse";
+            this.txtAlarmHendelse.Size = new System.Drawing.Size(100, 20);
+            this.txtAlarmHendelse.TabIndex = 105;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.txtAlarmHendelse);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.txtSentralInfo);
             this.Controls.Add(this.label9);
@@ -481,6 +490,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripMenuItem kobleTilSentralToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.TextBox txtAlarmHendelse;
     }
 }
 

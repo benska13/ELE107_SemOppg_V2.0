@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
@@ -84,6 +85,7 @@ namespace Monitor
                     _forrigeAlarm = true;
                     btnAlarm.BackColor = Color.Red;
                     _pasient.Alarm.SetAlarm(true);
+                    txtAlarmHendelse.Text = _pasient.Alarm.GetHendelse();
                 }
             }
             else
@@ -96,7 +98,11 @@ namespace Monitor
             if (_pasient.Alarm.GetAlarm())
             {
                 btnAlarm.BackColor = Color.Red;
-                //txtAlarmH.Text = _pasient.Alarm.GetHendelse();
+                txtAlarmHendelse.Text = _pasient.Alarm.GetHendelse();
+                if (_pasient.Alarm.Id>0)
+                {
+                    
+                }
             }
         }
 
@@ -254,7 +260,7 @@ namespace Monitor
                 data = sp.ReadExisting();
 
                 _minDelegate = new Mdt(OppdaterPasient);
-                this.Invoke(_minDelegate, data);
+                Invoke(_minDelegate, data);
 
             }
             catch (Exception exception)
@@ -277,16 +283,31 @@ namespace Monitor
                 _pasient.SetDatoKlokke(dato);
 
                 // Digital /alarm
-                _pos = data.IndexOf('D');
-                //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
+                _pos = data.IndexOf('E');
 
-                var a = data.Substring(_pos + 1, 2);
+                var a = data.Substring(_pos + 1, 1);
                 if (a=="1")
                 {
                     _pasient.Alarm.SetAlarm(true);
                     _pasient.Alarm.SetHendelse("Alarm-Snor");
+                    SendData();
                 }
-                
+
+                a = data.Substring(_pos + 2, 7);
+                int id = Convert.ToInt32(a, 2);
+                if (id>0)
+                {
+                    _pasient.Alarm.Id = id;
+                    _pasient.Alarm.SetAlarm(false);
+                    //txtAlarmHendelse.Text = "ID: " + id.ToString();
+                    _pasient.Alarm.SetHendelse("ID: "+ id);
+                    comPort.WriteLine("$O00");
+                    Thread.Sleep(300);
+                    comPort.WriteLine("$O10");
+                    Thread.Sleep(200);
+                    btnAlarm.BackColor = Color.White;
+                    SendData();
+                }
 
 
                 // id-kode
@@ -313,6 +334,7 @@ namespace Monitor
                 txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
                 txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
                 txtSisteStatus.Text = _pasient.Blodtrykk.DatoTid.ToString();
+                txtAlarmHendelse.Text = _pasient.Alarm.GetHendelse();
 
                 AlarmLogikk();
 

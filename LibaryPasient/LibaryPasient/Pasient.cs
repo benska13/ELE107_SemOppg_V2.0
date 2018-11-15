@@ -74,6 +74,7 @@ namespace LibaryPasient
         public static bool Alarmm { get; set; }
         public static string Hendelse { get; set; }
         public DateTime datoTid { get; set; }
+        public int Id { get; set; }
         public void SetGrense(bool value)
         {
             Grense = value;
