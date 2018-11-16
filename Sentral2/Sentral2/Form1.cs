@@ -1,24 +1,15 @@
 ﻿using System;
 using LibaryPasient;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Threading;
 
-
-
-// Klokke oppdatert hvert 10 sek // OK
-// aktive alarmer // ok
-// avslutt 
-//Varsler watchdog 
-// sjekk om pasient finnes fra før
+// Fjerne socet class i egen libary
 
 namespace Sentral2
 {
@@ -26,13 +17,13 @@ namespace Sentral2
 
     public partial class Sentral : Form
     {
-        private BindingList<ListPasient> _pasienter;
-        private BindingList<string> _aktivAlarm;
+        private readonly BindingList<ListPasient> _pasienter;
+        private readonly BindingList<string> _aktivAlarm;
 
         private Socket _kommSokkel;
-        private Socket _lytteSokkel;
+        private readonly Socket _lytteSokkel;
 
-        private string _filnavn = "PasienterFil.txt";
+        private const string Filnavn = "PasienterFil.txt";
 
         private Mdt _minDelegate;
 
@@ -51,16 +42,16 @@ namespace Sentral2
             _lytteSokkel.Bind(serverEp);
             _lytteSokkel.Listen(10);
 
-            if (File.Exists(_filnavn))
+            if (File.Exists(Filnavn))
             {
                 try
                 {
-                    _pasienter = LesSkrivFil.LesFraFil(_filnavn);
+                    _pasienter = LesSkrivFil.LesFraFil(Filnavn);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    File.Delete(_filnavn);
+                    File.Delete(Filnavn);
                 }
             }
 
@@ -71,12 +62,12 @@ namespace Sentral2
             ThreadPool.QueueUserWorkItem(SjekkTilkobling);
         }
 
-        private void SjekkTilkobling(object state)
+        private void SjekkTilkobling(object state) // Sjekker igjennom alle pasienter, setter farge etter hvor lenge siden sist motatt data 
         {
             Thread.Sleep(3000);
             TimeSpan toSek = new TimeSpan(0, 0, 0, 20);
             TimeSpan tiSek = new TimeSpan(0, 0, 0, 10);
-            while (true)
+            while (true)                               // Ikke helt bra
             {
                 DateTime tidNo = DateTime.Now;
 
@@ -98,15 +89,12 @@ namespace Sentral2
 
                         dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.LightGreen;
                     }
-
-
-
                     Thread.Sleep(1000);
                 }
             }
         }
 
-        void PasientSjekk(Pasient n) // Kan gjøres bedre
+        void PasientSjekk(Pasient n) // Sjekker om pasientens navn finnes fra før, da oppdatere den, ellers opprette ny
         {
             bool pasientFunnet = false;
             foreach (ListPasient p in _pasienter)
@@ -131,7 +119,7 @@ namespace Sentral2
             }
         }
 
-        private void OppdaterAktivAlarmList(ListPasient p)
+        private void OppdaterAktivAlarmList(ListPasient p)  // Lager en liste over alle pasienter som har en aktiv alarm
         {
             try
             {
@@ -159,13 +147,13 @@ namespace Sentral2
 
         }
 
-        private void VentPaaData(object state)
+        private void VentPaaData(object state) // Venter på data i den socketen som blir sendt inn
         {
             try
             {
 
-                Socket kommSocket = (Socket) state;
-                while (kommSocket.IsBound)
+                Socket kommSocket = (Socket)state;
+                while (kommSocket.IsBound)         // usikker.. Ha en sjekk som ser at kobling er ok før den venter på data?
                 {
                     string data = minSokkel.VentPaData(kommSocket);
                     Pasient p = Serialize.StringTPasient(data);
@@ -176,7 +164,6 @@ namespace Sentral2
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
@@ -199,7 +186,7 @@ namespace Sentral2
             tpResp.Text = p.Respirasjonsrate.ToString();
         }
 
-        public void OppdaterVerdiGui(ListPasient n)
+        public void OppdaterVerdiGui(ListPasient n) // Oppdaterer gui med de siste verdiene som kom ifra monitor
         {
 
             if (_pasienter[dgwPasienter.SelectedRows[0].Index] == n)
@@ -226,11 +213,8 @@ namespace Sentral2
                 lblBx4Max.Text = "Max: " + n.ListRespirasjonsrate.First().Max.ToString();
                 txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString() +
                                    n.ListRespirasjonsrate.First().Enhet;
-
-
             }
-
-            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
         }
 
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
@@ -253,7 +237,7 @@ namespace Sentral2
             tabControl1.SelectedTab = tpBlod;
         }
 
-        private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e)
+        private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e) // Venter på en ny monitor
         {
             _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel); // Blokerer, venter på klient
         }
@@ -264,7 +248,7 @@ namespace Sentral2
             bgwVentPaKlient.RunWorkerAsync();
         }
 
-        private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e)
+        private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e) // Viser data fra den pasienten som blir klikket på
         {
             if (dgwPasienter.SelectedRows.Count != 0)
             {
@@ -278,9 +262,8 @@ namespace Sentral2
             }
         }
 
-        private void Intervall_Click(object sender, EventArgs e)
+        private void Intervall_Click(object sender, EventArgs e) // Viser målinger i en gitt tidsperiode
         {
-            // Her skjer det mye rart
             string startStr = dateTimePicker1.Value.ToString("HH:mm:ss");
             DateTime start = Convert.ToDateTime(startStr);
             string stoppStr = dateTimePicker3.Value.ToString("HH:mm:ss");
@@ -293,11 +276,11 @@ namespace Sentral2
         {
             // avslutte alle tråder og koble ifra
             // Lagre en siste gang
-            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
             this.Close();
 
         }
     }
 }
 
-    
+
