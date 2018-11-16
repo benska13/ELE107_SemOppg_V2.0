@@ -1,47 +1,38 @@
 ﻿using System;
 using LibaryPasient;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
-using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Threading;
 
-
-
-// Klokke oppdatert hvert 10 sek // OK
-// aktive alarmer // ok
-// avslutt 
-//Varsler watchdog 
-// sjekk om pasient finnes fra før
+// Fjerne socet class i egen libary
 
 namespace Sentral2
 {
     public delegate void Mdt(Pasient p);
 
-    public partial class Form1 : Form
+    public partial class Sentral : Form
     {
-        private BindingList<ListPasient> _pasienter;
-        private BindingList<string> _aktivAlarm;
+        private readonly BindingList<ListPasient> _pasienter;
+        private readonly BindingList<string> _aktivAlarm;
 
         private Socket _kommSokkel;
-        private Socket _lytteSokkel;
+        private readonly Socket _lytteSokkel;
 
-        private string _filnavn = "PasienterFil.txt";
+        private const string Filnavn = "PasienterFil.txt";
 
         private Mdt _minDelegate;
 
-        public Form1()
+        public Sentral()
         {
             InitializeComponent();
 
             _pasienter = new BindingList<ListPasient> { };
-            _aktivAlarm=new BindingList<string>();
+            _aktivAlarm = new BindingList<string>();
             lbAktiveAlarmer.DataSource = _aktivAlarm;
 
             OppdaterLabelerGui();
@@ -51,25 +42,59 @@ namespace Sentral2
             _lytteSokkel.Bind(serverEp);
             _lytteSokkel.Listen(10);
 
-            if (File.Exists(_filnavn))
+            if (File.Exists(Filnavn))
             {
                 try
                 {
-                    _pasienter = LesSkrivFil.LesFraFil(_filnavn);
+                    _pasienter = LesSkrivFil.LesFraFil(Filnavn);
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    File.Delete(_filnavn);
+                    File.Delete(Filnavn);
                 }
             }
 
             listPasientBindingSource.DataSource = _pasienter;
             dgwPasienter.SelectAll();
             bgwVentPaKlient.RunWorkerAsync();
+
+            ThreadPool.QueueUserWorkItem(SjekkTilkobling);
         }
 
-        void PasientSjekk(Pasient n)      // Kan gjøres bedre
+        private void SjekkTilkobling(object state) // Sjekker igjennom alle pasienter, setter farge etter hvor lenge siden sist motatt data 
+        {
+            Thread.Sleep(3000);
+            TimeSpan toSek = new TimeSpan(0, 0, 0, 20);
+            TimeSpan tiSek = new TimeSpan(0, 0, 0, 10);
+            while (true)                               // Ikke helt bra
+            {
+                DateTime tidNo = DateTime.Now;
+
+                foreach (ListPasient p in _pasienter)
+                {
+                    TimeSpan differanse = tidNo - p.SisteMeldingMottatt;
+
+
+                    if (differanse > toSek)
+                    {
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Gray;
+                    }
+                    else if (differanse > tiSek)
+                    {
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Red;
+                    }
+                    else
+                    {
+
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        void PasientSjekk(Pasient n) // Sjekker om pasientens navn finnes fra før, da oppdatere den, ellers opprette ny
         {
             bool pasientFunnet = false;
             foreach (ListPasient p in _pasienter)
@@ -79,20 +104,22 @@ namespace Sentral2
                     p.NyData(n);
                     pasientFunnet = true;
                     OppdaterVerdiGui(p);
+                    p.SisteMeldingMottatt = DateTime.Now;
 
-                     OppdaterAktivAlarmList(p);
+                    OppdaterAktivAlarmList(p);
                 }
             }
 
             if (!pasientFunnet)
             {
                 _pasienter.Insert(0, new ListPasient(n));
-                OppdaterVerdiGui(_pasienter.Last());
-                OppdaterAktivAlarmList(_pasienter.Last());
+                OppdaterVerdiGui(_pasienter.First());
+                OppdaterAktivAlarmList(_pasienter.First());
+                _pasienter.First().SisteMeldingMottatt = DateTime.Now;
             }
         }
 
-        private void OppdaterAktivAlarmList(ListPasient p)
+        private void OppdaterAktivAlarmList(ListPasient p)  // Lager en liste over alle pasienter som har en aktiv alarm
         {
             try
             {
@@ -117,16 +144,16 @@ namespace Sentral2
                 MessageBox.Show(e.ToString());
             }
 
- 
+
         }
 
-        private void VentPaaData(object state)
+        private void VentPaaData(object state) // Venter på data i den socketen som blir sendt inn
         {
             try
             {
 
                 Socket kommSocket = (Socket)state;
-                while (kommSocket.IsBound)
+                while (kommSocket.IsBound)         // usikker.. Ha en sjekk som ser at kobling er ok før den venter på data?
                 {
                     string data = minSokkel.VentPaData(kommSocket);
                     Pasient p = Serialize.StringTPasient(data);
@@ -137,10 +164,10 @@ namespace Sentral2
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
+
         private void OppdaterLabelerGui()
         {
             // bx1= temp
@@ -149,78 +176,81 @@ namespace Sentral2
             // bx4= resp
             Pasient p = new Pasient();
             gbxTemp.Text = p.Kroppstemperatur.ToString();
-            lblBx1Enhet.Text = p.Kroppstemperatur.Enhet;
             gbxPuls.Text = p.Pulsfrekvens.ToString();
-            lblBx2Enhet.Text = p.Pulsfrekvens.Enhet;
             gbxBlod.Text = p.Blodtrykk.ToString();
-            lblBx3Enhet1.Text = p.Blodtrykk.Enhet;
-            lblBx3Enhet2.Text = p.Blodtrykk.Enhet2;
             gbxResp.Text = p.Respirasjonsrate.ToString();
-            lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
             tpTemp.Text = p.Kroppstemperatur.ToString();
             tpAlarm.Text = p.Alarm.ToString();
             tpBlod.Text = p.Blodtrykk.ToString();
             tpPuls.Text = p.Pulsfrekvens.ToString();
             tpResp.Text = p.Respirasjonsrate.ToString();
         }
-        public void OppdaterVerdiGui(ListPasient n)
+
+        public void OppdaterVerdiGui(ListPasient n) // Oppdaterer gui med de siste verdiene som kom ifra monitor
         {
-            if (_pasienter[dgwPasienter.SelectedRows[0].Index]==n)
+
+            if (_pasienter[dgwPasienter.SelectedRows[0].Index] == n)
             {
                 // bx1= temp
                 // bx2= puls
                 // bx3= blod
                 // bx4= resp
-                lblBx1Min.Text = n.ListKroppstemperatur.First().Min.ToString();
-                lblBx1Max.Text = n.ListKroppstemperatur.First().Max.ToString();
-                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString();
+                lblBx1Min.Text = "Min: " + n.ListKroppstemperatur.First().Min.ToString();
+                lblBx1Max.Text = "Max: " + n.ListKroppstemperatur.First().Max.ToString();
+                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString() +
+                                   n.ListKroppstemperatur.First().Enhet;
 
-                lblBx2Min.Text = n.ListPulsfrekvens.First().Min.ToString();
-                lblBx2Max.Text = n.ListPulsfrekvens.First().Max.ToString();
-                txtBx2Verdi.Text = n.ListPulsfrekvens.First().Verdi.ToString();
+                lblBx2Min.Text = "Min: " + n.ListPulsfrekvens.First().Min.ToString();
+                lblBx2Max.Text = "Max: " + n.ListPulsfrekvens.First().Max.ToString();
+                txtBx2Verdi.Text = n.ListPulsfrekvens.First().Verdi.ToString() + n.ListPulsfrekvens.First().Enhet;
 
-                lblBx3Min.Text = n.ListBlodtrykk.First().Min.ToString();
-                lblBx3Max.Text = n.ListBlodtrykk.First().Max.ToString();
-                txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString();
-                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString();
+                lblBx3Min.Text = "Min: " + n.ListBlodtrykk.First().Min.ToString();
+                lblBx3Max.Text = "Max: " + n.ListBlodtrykk.First().Max.ToString();
+                txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString() + n.ListBlodtrykk.First().Enhet;
+                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString() + n.ListBlodtrykk.First().Enhet;
 
-                lblBx4Min.Text = n.ListRespirasjonsrate.First().Min.ToString();
-                lblBx4Max.Text = n.ListRespirasjonsrate.First().Max.ToString();
-                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString();
-                textBoxTidMaal.Text = n.ListAlarm.First().DatoTid.ToLongTimeString();
-
-                
+                lblBx4Min.Text = "Min: " + n.ListRespirasjonsrate.First().Min.ToString();
+                lblBx4Max.Text = "Max: " + n.ListRespirasjonsrate.First().Max.ToString();
+                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString() +
+                                   n.ListRespirasjonsrate.First().Enhet;
             }
-            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
         }
+
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpPuls;
         }
+
         private void gbxTemp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpTemp;
         }
+
         private void gbxResp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpResp;
         }
+
         private void gbxBlod_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpBlod;
         }
-        private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e)
+
+        private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e) // Venter på en ny monitor
         {
-            _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
+            _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel); // Blokerer, venter på klient
         }
+
         private void bgwVentPaKlient_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkel);                  // Starter en tråd som venter på data
+            ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkel); // Starter en tråd som venter på data
             bgwVentPaKlient.RunWorkerAsync();
         }
-        private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e)
+
+        private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e) // Viser data fra den pasienten som blir klikket på
         {
-            if (dgwPasienter.SelectedRows.Count!=0)
+            if (dgwPasienter.SelectedRows.Count != 0)
             {
                 int x = dgwPasienter.SelectedRows[0].Index;
                 OppdaterVerdiGui(_pasienter[x]);
@@ -231,11 +261,14 @@ namespace Sentral2
                 listAlarmBindingSource.DataSource = _pasienter[x].ListAlarm;
             }
         }
-        private void Intervall_Click(object sender, EventArgs e)
+
+        private void Intervall_Click(object sender, EventArgs e) // Viser målinger i en gitt tidsperiode
         {
-            DateTime start = Convert.ToDateTime(dateTimePicker1);
-            DateTime stop = Convert.ToDateTime(dateTimePicker3);
-            Klokke k = new Klokke(start, stop, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            string startStr = dateTimePicker1.Value.ToString("HH:mm:ss");
+            DateTime start = Convert.ToDateTime(startStr);
+            string stoppStr = dateTimePicker3.Value.ToString("HH:mm:ss");
+            DateTime stopp = Convert.ToDateTime(stoppStr);
+            Klokke k = new Klokke(start, stopp, _pasienter[dgwPasienter.SelectedRows[0].Index]);
             k.ShowDialog();
         }
 
@@ -243,11 +276,11 @@ namespace Sentral2
         {
             // avslutte alle tråder og koble ifra
             // Lagre en siste gang
-            LesSkrivFil.SkrivTilFil(_pasienter,_filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
             this.Close();
 
         }
     }
-
-
 }
+
+
