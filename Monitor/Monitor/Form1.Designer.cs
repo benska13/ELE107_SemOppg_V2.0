@@ -65,6 +65,7 @@
             this.txtPasientAlder = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.avsluttToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -114,7 +115,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.registrerPasientToolStripMenuItem,
             this.velgComPortToolStripMenuItem,
-            this.kobleTilSentralToolStripMenuItem});
+            this.kobleTilSentralToolStripMenuItem,
+            this.avsluttToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(492, 24);
@@ -425,6 +427,13 @@
             this.label17.TabIndex = 106;
             this.label17.Text = "Pasient navn:";
             // 
+            // avsluttToolStripMenuItem
+            // 
+            this.avsluttToolStripMenuItem.Name = "avsluttToolStripMenuItem";
+            this.avsluttToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.avsluttToolStripMenuItem.Text = "Avslutt";
+            this.avsluttToolStripMenuItem.Click += new System.EventHandler(this.avsluttToolStripMenuItem_Click);
+            // 
             // Pasientmonitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -433,7 +442,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "Pasientmonitor";
-            this.Text = "Form1";
+            this.Text = "Pasientmonitor";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -485,6 +494,7 @@
         private System.Windows.Forms.TextBox txtPasientAlder;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ToolStripMenuItem avsluttToolStripMenuItem;
     }
 }
 

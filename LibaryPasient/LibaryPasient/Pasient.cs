@@ -6,10 +6,9 @@ using System.Net.Sockets;
 
 /*
   legge til
-    - id på pasient
-    - enhet på målinger
-    - blodt mangler en variabel
-    */
+  -
+
+     * */
 namespace LibaryPasient
 {
     public class Pasient
@@ -35,7 +34,7 @@ namespace LibaryPasient
     public class ListPasient
     {
         private static int idteller = 1;
-        public int Id { get; }
+        public int Id { get; set; }
         public string Navn { get; set; }
         public string Alder { get; set; }
         public BindingList<Kroppstemperaturx> ListKroppstemperatur { get; set; }
@@ -171,7 +170,7 @@ namespace LibaryPasient
     public class Pulsfrekvens
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = " slag/min";
+        public string Enhet { get; } = " SPM";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
         public int Max { get; set; } = 200;
@@ -200,7 +199,7 @@ namespace LibaryPasient
     public class Respirasjonsrate
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = " pust/min";
+        public string Enhet { get; } = " PPM";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 10;
         public int Max { get; set; } = 60;

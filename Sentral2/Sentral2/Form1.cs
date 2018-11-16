@@ -24,7 +24,7 @@ namespace Sentral2
 {
     public delegate void Mdt(Pasient p);
 
-    public partial class Form1 : Form
+    public partial class Sentral : Form
     {
         private BindingList<ListPasient> _pasienter;
         private BindingList<string> _aktivAlarm;
@@ -36,7 +36,7 @@ namespace Sentral2
 
         private Mdt _minDelegate;
 
-        public Form1()
+        public Sentral()
         {
             InitializeComponent();
 
@@ -149,14 +149,9 @@ namespace Sentral2
             // bx4= resp
             Pasient p = new Pasient();
             gbxTemp.Text = p.Kroppstemperatur.ToString();
-            lblBx1Enhet.Text = p.Kroppstemperatur.Enhet;
             gbxPuls.Text = p.Pulsfrekvens.ToString();
-            lblBx2Enhet.Text = p.Pulsfrekvens.Enhet;
             gbxBlod.Text = p.Blodtrykk.ToString();
-            lblBx3Enhet1.Text = p.Blodtrykk.Enhet;
-            lblBx3Enhet2.Text = p.Blodtrykk.Enhet;
             gbxResp.Text = p.Respirasjonsrate.ToString();
-            lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
             tpTemp.Text = p.Kroppstemperatur.ToString();
             tpAlarm.Text = p.Alarm.ToString();
             tpBlod.Text = p.Blodtrykk.ToString();
@@ -171,23 +166,22 @@ namespace Sentral2
                 // bx2= puls
                 // bx3= blod
                 // bx4= resp
-                lblBx1Min.Text = n.ListKroppstemperatur.First().Min.ToString();
-                lblBx1Max.Text = n.ListKroppstemperatur.First().Max.ToString();
-                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString();
+                lblBx1Min.Text ="Min: "+ n.ListKroppstemperatur.First().Min.ToString();
+                lblBx1Max.Text = "Max: " + n.ListKroppstemperatur.First().Max.ToString();
+                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString() + n.ListKroppstemperatur.First().Enhet;
 
-                lblBx2Min.Text = n.ListPulsfrekvens.First().Min.ToString();
-                lblBx2Max.Text = n.ListPulsfrekvens.First().Max.ToString();
-                txtBx2Verdi.Text = n.ListPulsfrekvens.First().Verdi.ToString();
+                lblBx2Min.Text = "Min: " + n.ListPulsfrekvens.First().Min.ToString();
+                lblBx2Max.Text = "Max: " + n.ListPulsfrekvens.First().Max.ToString();
+                txtBx2Verdi.Text = n.ListPulsfrekvens.First().Verdi.ToString() + n.ListPulsfrekvens.First().Enhet;
 
-                lblBx3Min.Text = n.ListBlodtrykk.First().Min.ToString();
-                lblBx3Max.Text = n.ListBlodtrykk.First().Max.ToString();
-                txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString();
-                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString();
+                lblBx3Min.Text ="Min: " + n.ListBlodtrykk.First().Min.ToString();
+                lblBx3Max.Text = "Max: " + n.ListBlodtrykk.First().Max.ToString();
+                txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString() + n.ListBlodtrykk.First().Enhet;
+                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString()+ n.ListBlodtrykk.First().Enhet;
 
-                lblBx4Min.Text = n.ListRespirasjonsrate.First().Min.ToString();
-                lblBx4Max.Text = n.ListRespirasjonsrate.First().Max.ToString();
-                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString();
-                textBoxTidMaal.Text = n.ListAlarm.First().DatoTid.ToLongTimeString();
+                lblBx4Min.Text = "Min: " + n.ListRespirasjonsrate.First().Min.ToString();
+                lblBx4Max.Text = "Max: " + n.ListRespirasjonsrate.First().Max.ToString();
+                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString()+ n.ListRespirasjonsrate.First().Enhet;
 
                 
             }

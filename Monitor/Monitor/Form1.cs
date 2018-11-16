@@ -342,5 +342,13 @@ namespace Monitor
                 }
             }
         }
+
+        private void avsluttToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            _comPort.Close();
+            _klientSokkel.Close();
+            
+            this.Close();
+        }
     }
 }
