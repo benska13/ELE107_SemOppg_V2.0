@@ -105,7 +105,7 @@ namespace LibaryPasient
     public class Kroppstemperaturx
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = "*C";
+        public string Enhet { get; } = " *C";
         public DateTime DatoTid { get; set; }
 
         public int Min { get; set; } = 35;
@@ -138,9 +138,8 @@ namespace LibaryPasient
     public class Blodtrykk
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = "mm Hg";
+        public string Enhet { get; } = " mmHg";
         public int Verdi2 { get; set; } = 0;
-        public string Enhet2 { get; } = "mm Hg";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
         public int Max { get; set; } = 100;
@@ -172,7 +171,7 @@ namespace LibaryPasient
     public class Pulsfrekvens
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = "slag/min";
+        public string Enhet { get; } = " slag/min";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 50;
         public int Max { get; set; } = 200;
@@ -201,7 +200,7 @@ namespace LibaryPasient
     public class Respirasjonsrate
     {
         public int Verdi { get; set; } = 0;
-        public string Enhet { get; } = "pust/min";
+        public string Enhet { get; } = " pust/min";
         public DateTime DatoTid { get; set; }
         public int Min { get; set; } = 10;
         public int Max { get; set; } = 60;
