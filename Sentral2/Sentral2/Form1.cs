@@ -41,7 +41,7 @@ namespace Sentral2
             InitializeComponent();
 
             _pasienter = new BindingList<ListPasient> { };
-            _aktivAlarm=new BindingList<string>();
+            _aktivAlarm = new BindingList<string>();
             lbAktiveAlarmer.DataSource = _aktivAlarm;
 
             OppdaterLabelerGui();
@@ -67,9 +67,46 @@ namespace Sentral2
             listPasientBindingSource.DataSource = _pasienter;
             dgwPasienter.SelectAll();
             bgwVentPaKlient.RunWorkerAsync();
+
+            ThreadPool.QueueUserWorkItem(SjekkTilkobling);
         }
 
-        void PasientSjekk(Pasient n)      // Kan gjøres bedre
+        private void SjekkTilkobling(object state)
+        {
+            Thread.Sleep(3000);
+            TimeSpan toSek = new TimeSpan(0, 0, 0, 20);
+            TimeSpan tiSek = new TimeSpan(0, 0, 0, 10);
+            while (true)
+            {
+                DateTime tidNo = DateTime.Now;
+
+                foreach (ListPasient p in _pasienter)
+                {
+                    TimeSpan differanse = tidNo - p.SisteMeldingMottatt;
+
+
+                    if (differanse > toSek)
+                    {
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Gray;
+                    }
+                    else if (differanse > tiSek)
+                    {
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Red;
+                    }
+                    else
+                    {
+
+                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+
+
+
+                    Thread.Sleep(1000);
+                }
+            }
+        }
+
+        void PasientSjekk(Pasient n) // Kan gjøres bedre
         {
             bool pasientFunnet = false;
             foreach (ListPasient p in _pasienter)
@@ -79,16 +116,18 @@ namespace Sentral2
                     p.NyData(n);
                     pasientFunnet = true;
                     OppdaterVerdiGui(p);
+                    p.SisteMeldingMottatt = DateTime.Now;
 
-                     OppdaterAktivAlarmList(p);
+                    OppdaterAktivAlarmList(p);
                 }
             }
 
             if (!pasientFunnet)
             {
                 _pasienter.Insert(0, new ListPasient(n));
-                OppdaterVerdiGui(_pasienter.Last());
-                OppdaterAktivAlarmList(_pasienter.Last());
+                OppdaterVerdiGui(_pasienter.First());
+                OppdaterAktivAlarmList(_pasienter.First());
+                _pasienter.First().SisteMeldingMottatt = DateTime.Now;
             }
         }
 
@@ -117,7 +156,7 @@ namespace Sentral2
                 MessageBox.Show(e.ToString());
             }
 
- 
+
         }
 
         private void VentPaaData(object state)
@@ -125,7 +164,7 @@ namespace Sentral2
             try
             {
 
-                Socket kommSocket = (Socket)state;
+                Socket kommSocket = (Socket) state;
                 while (kommSocket.IsBound)
                 {
                     string data = minSokkel.VentPaData(kommSocket);
@@ -141,6 +180,7 @@ namespace Sentral2
                 MessageBox.Show(ex.ToString());
             }
         }
+
         private void OppdaterLabelerGui()
         {
             // bx1= temp
@@ -158,63 +198,75 @@ namespace Sentral2
             tpPuls.Text = p.Pulsfrekvens.ToString();
             tpResp.Text = p.Respirasjonsrate.ToString();
         }
+
         public void OppdaterVerdiGui(ListPasient n)
         {
-            if (_pasienter[dgwPasienter.SelectedRows[0].Index]==n)
+
+            if (_pasienter[dgwPasienter.SelectedRows[0].Index] == n)
             {
                 // bx1= temp
                 // bx2= puls
                 // bx3= blod
                 // bx4= resp
-                lblBx1Min.Text ="Min: "+ n.ListKroppstemperatur.First().Min.ToString();
+                lblBx1Min.Text = "Min: " + n.ListKroppstemperatur.First().Min.ToString();
                 lblBx1Max.Text = "Max: " + n.ListKroppstemperatur.First().Max.ToString();
-                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString() + n.ListKroppstemperatur.First().Enhet;
+                txtBx1Verdi.Text = n.ListKroppstemperatur.First().Verdi.ToString() +
+                                   n.ListKroppstemperatur.First().Enhet;
 
                 lblBx2Min.Text = "Min: " + n.ListPulsfrekvens.First().Min.ToString();
                 lblBx2Max.Text = "Max: " + n.ListPulsfrekvens.First().Max.ToString();
                 txtBx2Verdi.Text = n.ListPulsfrekvens.First().Verdi.ToString() + n.ListPulsfrekvens.First().Enhet;
 
-                lblBx3Min.Text ="Min: " + n.ListBlodtrykk.First().Min.ToString();
+                lblBx3Min.Text = "Min: " + n.ListBlodtrykk.First().Min.ToString();
                 lblBx3Max.Text = "Max: " + n.ListBlodtrykk.First().Max.ToString();
                 txtBx3Verdi1.Text = n.ListBlodtrykk.First().Verdi.ToString() + n.ListBlodtrykk.First().Enhet;
-                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString()+ n.ListBlodtrykk.First().Enhet;
+                txtBx3Verdi2.Text = n.ListBlodtrykk.First().Verdi2.ToString() + n.ListBlodtrykk.First().Enhet;
 
                 lblBx4Min.Text = "Min: " + n.ListRespirasjonsrate.First().Min.ToString();
                 lblBx4Max.Text = "Max: " + n.ListRespirasjonsrate.First().Max.ToString();
-                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString()+ n.ListRespirasjonsrate.First().Enhet;
+                txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString() +
+                                   n.ListRespirasjonsrate.First().Enhet;
 
-                
+
             }
+
             LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
         }
+
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpPuls;
         }
+
         private void gbxTemp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpTemp;
         }
+
         private void gbxResp_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpResp;
         }
+
         private void gbxBlod_MouseCaptureChanged(object sender, EventArgs e)
         {
             tabControl1.SelectedTab = tpBlod;
         }
+
         private void bgwVentPaKlient_DoWork(object sender, DoWorkEventArgs e)
         {
-            _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel);   // Blokerer, venter på klient
+            _kommSokkel = minSokkel.VentPaaKlient(_lytteSokkel); // Blokerer, venter på klient
         }
+
         private void bgwVentPaKlient_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkel);                  // Starter en tråd som venter på data
+            ThreadPool.QueueUserWorkItem(VentPaaData, _kommSokkel); // Starter en tråd som venter på data
             bgwVentPaKlient.RunWorkerAsync();
         }
+
         private void dgwPasienter_SelectionChanged_1(object sender, EventArgs e)
         {
-            if (dgwPasienter.SelectedRows.Count!=0)
+            if (dgwPasienter.SelectedRows.Count != 0)
             {
                 int x = dgwPasienter.SelectedRows[0].Index;
                 OppdaterVerdiGui(_pasienter[x]);
@@ -225,6 +277,7 @@ namespace Sentral2
                 listAlarmBindingSource.DataSource = _pasienter[x].ListAlarm;
             }
         }
+
         private void Intervall_Click(object sender, EventArgs e)
         {
             // Her skjer det mye rart
@@ -240,11 +293,11 @@ namespace Sentral2
         {
             // avslutte alle tråder og koble ifra
             // Lagre en siste gang
-            LesSkrivFil.SkrivTilFil(_pasienter,_filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, _filnavn);
             this.Close();
 
         }
     }
-
-
 }
+
+    
