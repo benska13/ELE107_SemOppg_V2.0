@@ -106,34 +106,6 @@ namespace Monitor
                 SendData();
                 
             }
-
-            
-            //if (_pasient.Alarm.GetGrense())
-            //{
-            //    btnGrense.BackColor = Color.Red;
-
-            //    if (!_forrigeAlarm)
-            //    {
-            //        _forrigeAlarm = true;
-            //        btnAlarm.BackColor = Color.Red;
-            //        _pasient.Alarm.SetAlarm(true);
-            //        txtAlarmHendelse.Text = _pasient.Alarm.GetHendelse();
-            //        SendData();
-            //    }
-            //}
-            //else
-            //{
-            //    btnGrense.BackColor = Color.White;
-            //    _forrigeAlarm = false;
-            //}
-            //_pasient.Alarm.SetGrense(false);
-
-            //if (_pasient.Alarm.GetAlarm())
-            //{
-            //    btnAlarm.BackColor = Color.Red;
-            //    txtAlarmHendelse.Text = _pasient.Alarm.GetHendelse();
-
-            //}
         }
 
         private void SendData()

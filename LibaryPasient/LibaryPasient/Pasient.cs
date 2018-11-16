@@ -57,6 +57,11 @@ namespace LibaryPasient
 
             NyData(innPasient);
         }
+
+        public ListPasient()
+        {
+        }
+
         public void NyData(Pasient inPasient)
         {
             Alder = inPasient.Alder;
@@ -90,6 +95,11 @@ namespace LibaryPasient
         {
             Grense = true;
             Hendelse = s;
+        }
+
+        public override string ToString()
+        {
+            return "Alarm:";
         }
     }
     public class Kroppstemperaturx

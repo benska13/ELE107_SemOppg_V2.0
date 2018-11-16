@@ -39,10 +39,10 @@
             this.navnDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.alderDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.listPasientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lbAktiveAlarmer = new System.Windows.Forms.ListBox();
             this.buttonwatchdog = new System.Windows.Forms.Button();
             this.txtboxwatchdog = new System.Windows.Forms.TextBox();
             this.buttonAvslutt = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.gbxResp = new System.Windows.Forms.GroupBox();
@@ -105,11 +105,12 @@
             this.listBlodtrykkBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tpAlarm = new System.Windows.Forms.TabPage();
             this.listAlarmDataGridView = new System.Windows.Forms.DataGridView();
-            this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.grenseDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.alarmmDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.hendelseDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.datoTidDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.listAlarmBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -206,10 +207,11 @@
             // 
             // splitContainer3.Panel2
             // 
+            this.splitContainer3.Panel2.Controls.Add(this.label1);
+            this.splitContainer3.Panel2.Controls.Add(this.lbAktiveAlarmer);
             this.splitContainer3.Panel2.Controls.Add(this.buttonwatchdog);
             this.splitContainer3.Panel2.Controls.Add(this.txtboxwatchdog);
             this.splitContainer3.Panel2.Controls.Add(this.buttonAvslutt);
-            this.splitContainer3.Panel2.Controls.Add(this.button1);
             this.splitContainer3.Size = new System.Drawing.Size(301, 450);
             this.splitContainer3.SplitterDistance = 185;
             this.splitContainer3.TabIndex = 0;
@@ -260,6 +262,14 @@
             // 
             this.listPasientBindingSource.DataSource = typeof(LibaryPasient.ListPasient);
             // 
+            // lbAktiveAlarmer
+            // 
+            this.lbAktiveAlarmer.FormattingEnabled = true;
+            this.lbAktiveAlarmer.Location = new System.Drawing.Point(15, 156);
+            this.lbAktiveAlarmer.Name = "lbAktiveAlarmer";
+            this.lbAktiveAlarmer.Size = new System.Drawing.Size(120, 95);
+            this.lbAktiveAlarmer.TabIndex = 4;
+            // 
             // buttonwatchdog
             // 
             this.buttonwatchdog.BackColor = System.Drawing.Color.Lime;
@@ -281,22 +291,14 @@
             // 
             // buttonAvslutt
             // 
-            this.buttonAvslutt.Location = new System.Drawing.Point(160, 32);
+            this.buttonAvslutt.Location = new System.Drawing.Point(230, 231);
             this.buttonAvslutt.Margin = new System.Windows.Forms.Padding(2);
             this.buttonAvslutt.Name = "buttonAvslutt";
             this.buttonAvslutt.Size = new System.Drawing.Size(56, 19);
             this.buttonAvslutt.TabIndex = 1;
             this.buttonAvslutt.Text = "Avslutt";
             this.buttonAvslutt.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 28);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonAvslutt.Click += new System.EventHandler(this.buttonAvslutt_Click);
             // 
             // splitContainer2
             // 
@@ -896,11 +898,6 @@
             this.listAlarmDataGridView.Size = new System.Drawing.Size(481, 241);
             this.listAlarmDataGridView.TabIndex = 0;
             // 
-            // listAlarmBindingSource
-            // 
-            this.listAlarmBindingSource.DataMember = "ListAlarm";
-            this.listAlarmBindingSource.DataSource = this.listPasientBindingSource;
-            // 
             // grenseDataGridViewCheckBoxColumn
             // 
             this.grenseDataGridViewCheckBoxColumn.DataPropertyName = "Grense";
@@ -925,6 +922,20 @@
             this.datoTidDataGridViewTextBoxColumn5.HeaderText = "DatoTid";
             this.datoTidDataGridViewTextBoxColumn5.Name = "datoTidDataGridViewTextBoxColumn5";
             // 
+            // listAlarmBindingSource
+            // 
+            this.listAlarmBindingSource.DataMember = "ListAlarm";
+            this.listAlarmBindingSource.DataSource = this.listPasientBindingSource;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 140);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(74, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Aktive alarmer";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -932,7 +943,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.splitContainer1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Sentral";
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -993,7 +1004,6 @@
         private System.Windows.Forms.Button buttonwatchdog;
         private System.Windows.Forms.TextBox txtboxwatchdog;
         private System.Windows.Forms.Button buttonAvslutt;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer4;
         private System.Windows.Forms.Button Intervall;
@@ -1067,6 +1077,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hendelseDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn datoTidDataGridViewTextBoxColumn5;
         private System.Windows.Forms.BindingSource listAlarmBindingSource;
+        private System.Windows.Forms.ListBox lbAktiveAlarmer;
+        private System.Windows.Forms.Label label1;
     }
 }
 

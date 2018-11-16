@@ -27,6 +27,7 @@ namespace Sentral2
     public partial class Form1 : Form
     {
         private BindingList<ListPasient> _pasienter;
+        private BindingList<string> _aktivAlarm;
 
         private Socket _kommSokkel;
         private Socket _lytteSokkel;
@@ -40,6 +41,9 @@ namespace Sentral2
             InitializeComponent();
 
             _pasienter = new BindingList<ListPasient> { };
+            _aktivAlarm=new BindingList<string>();
+            lbAktiveAlarmer.DataSource = _aktivAlarm;
+
             OppdaterLabelerGui();
 
             _lytteSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
@@ -56,6 +60,7 @@ namespace Sentral2
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
+                    File.Delete(_filnavn);
                 }
             }
 
@@ -74,6 +79,8 @@ namespace Sentral2
                     p.NyData(n);
                     pasientFunnet = true;
                     OppdaterVerdiGui(p);
+
+                     OppdaterAktivAlarmList(p);
                 }
             }
 
@@ -81,8 +88,38 @@ namespace Sentral2
             {
                 _pasienter.Insert(0, new ListPasient(n));
                 OppdaterVerdiGui(_pasienter.Last());
+                OppdaterAktivAlarmList(_pasienter.Last());
             }
         }
+
+        private void OppdaterAktivAlarmList(ListPasient p)
+        {
+            try
+            {
+                bool f = true;
+                if (_aktivAlarm.Contains(p.Id + p.Navn))
+                {
+                    if (!p.ListAlarm.First().Alarmm)
+                    {
+                        _aktivAlarm.RemoveAt(_aktivAlarm.IndexOf(p.Id + p.Navn));
+                    }
+                }
+                else
+                {
+                    if (p.ListAlarm.First().Alarmm)
+                    {
+                        _aktivAlarm.Add(p.Id + p.Navn);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+
+ 
+        }
+
         private void VentPaaData(object state)
         {
             try
@@ -120,7 +157,11 @@ namespace Sentral2
             lblBx3Enhet2.Text = p.Blodtrykk.Enhet2;
             gbxResp.Text = p.Respirasjonsrate.ToString();
             lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
-
+            tpTemp.Text = p.Kroppstemperatur.ToString();
+            tpAlarm.Text = p.Alarm.ToString();
+            tpBlod.Text = p.Blodtrykk.ToString();
+            tpPuls.Text = p.Pulsfrekvens.ToString();
+            tpResp.Text = p.Respirasjonsrate.ToString();
         }
         public void OppdaterVerdiGui(ListPasient n)
         {
@@ -198,6 +239,14 @@ namespace Sentral2
             k.ShowDialog();
         }
 
+        private void buttonAvslutt_Click(object sender, EventArgs e)
+        {
+            // avslutte alle tråder og koble ifra
+            // Lagre en siste gang
+            LesSkrivFil.SkrivTilFil(_pasienter,_filnavn);
+            this.Close();
+
+        }
     }
 
 
