@@ -233,6 +233,7 @@ namespace Sentral2
         }
         private void Intervall_Click(object sender, EventArgs e)
         {
+            // Her skjer det mye rart
             string startStr = dateTimePicker1.Value.ToString("HH:mm:ss");
             DateTime start = Convert.ToDateTime(startStr);
             string stoppStr = dateTimePicker3.Value.ToString("HH:mm:ss");
