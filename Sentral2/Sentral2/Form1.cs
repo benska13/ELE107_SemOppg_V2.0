@@ -233,9 +233,12 @@ namespace Sentral2
         }
         private void Intervall_Click(object sender, EventArgs e)
         {
-            DateTime start = Convert.ToDateTime(dateTimePicker1);
-            DateTime stop = Convert.ToDateTime(dateTimePicker3);
-            Klokke k = new Klokke(start, stop, _pasienter[dgwPasienter.SelectedRows[0].Index]);
+            // Her skjer det mye rart
+            string startStr = dateTimePicker1.Value.ToString("HH:mm:ss");
+            DateTime start = Convert.ToDateTime(startStr);
+            string stoppStr = dateTimePicker3.Value.ToString("HH:mm:ss");
+            DateTime stopp = Convert.ToDateTime(stoppStr);
+            Klokke k = new Klokke(start, stopp, _pasienter[dgwPasienter.SelectedRows[0].Index]);
             k.ShowDialog();
         }
 

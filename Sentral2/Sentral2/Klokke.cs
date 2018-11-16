@@ -23,7 +23,6 @@ namespace Sentral2
         DateTime _stopp;
         ListPasient pList;
 
-
         public Klokke(DateTime start, DateTime stopp, ListPasient p)
         {
             InitializeComponent();
@@ -35,52 +34,63 @@ namespace Sentral2
             _start = start;
             _stopp = stopp;
             pList = p;
+
+            OppdaterForm();
         }
 
-        private void Klokke_Load(object sender, EventArgs e)
+        private void OppdaterForm()
         {
             foreach (Kroppstemperaturx k in pList.ListKroppstemperatur)
             {
-                if (k.DatoTid < _stopp && k.DatoTid > _start)
+                int starttid = DateTime.Compare(k.DatoTid, _start);
+                int stopptid = DateTime.Compare(k.DatoTid, _stopp);
+                if (starttid >= 0 && stopptid <= 0)
                 {
+
                     templist.Add(k);
                 }
             }
             foreach (Pulsfrekvens p in pList.ListPulsfrekvens)
             {
-                if (p.DatoTid < _stopp && p.DatoTid > _start)
+                int starttid = DateTime.Compare(p.DatoTid, _start);
+                int stopptid = DateTime.Compare(p.DatoTid, _stopp);
+                if (starttid >= 0 && stopptid <= 0)
                 {
                     pulslist.Add(p);
                 }
             }
             foreach (Blodtrykk b in pList.ListBlodtrykk)
             {
-                if (b.DatoTid < _stopp && b.DatoTid > _start)
+                int starttid = DateTime.Compare(b.DatoTid, _start);
+                int stopptid = DateTime.Compare(b.DatoTid, _stopp);
+                if (starttid >= 0 && stopptid <= 0)
                 {
                     blodtrykksliste.Add(b);
                 }
             }
             foreach (Respirasjonsrate r in pList.ListRespirasjonsrate)
             {
-                if (r.DatoTid < _stopp && r.DatoTid > _start)
+                int starttid = DateTime.Compare(r.DatoTid, _start);
+                int stopptid = DateTime.Compare(r.DatoTid, _stopp);
+                if (starttid >= 0 && stopptid <= 0)
                 {
                     resplist.Add(r);
                 }
             }
-            foreach (Respirasjonsrate p in pList.ListRespirasjonsrate)
-            {
-                if (p.DatoTid < _stopp && p.DatoTid > _start)
-                {
-                    resplist.Add(p);
-                }
-            }
             foreach (Alarm a in pList.ListAlarm)
             {
-                if (a.DatoTid < _stopp && a.DatoTid > _start)
+                int starttid = DateTime.Compare(a.DatoTid, _start);
+                int stopptid = DateTime.Compare(a.DatoTid, _stopp);
+                if (starttid >= 0 && stopptid <= 0)
                 {
                     alarmlist.Add(a);
                 }
             }
+        }
+
+        private void Klokke_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
