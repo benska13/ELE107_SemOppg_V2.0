@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
@@ -37,6 +38,7 @@ namespace Monitor
         private Pasient _pasient;
         private SerialPort comPort;
         private bool _forrigeAlarm;
+        private bool _forrigeGrense;
         private int _teller;
         private Mdt _minDelegate;
 
@@ -50,6 +52,7 @@ namespace Monitor
                 InitializeComponent();
                 comPort = new SerialPort();
                 _forrigeAlarm = false;
+                _forrigeGrense = false;
                 _teller = 10;
                 _pasient = new Pasient();
                 OppdaterLabel();
@@ -75,57 +78,64 @@ namespace Monitor
 
         private void AlarmLogikk()
         {
-            if (_pasient.Alarm.GetGrense())
-            {
-                btnGrense.BackColor = Color.Red;
+            txtAlarmHendelse.Text = _pasient.Alarm.Hendelse;
+            bool nybeskjed = false;
 
-                if (!_forrigeAlarm)
+
+            if (_forrigeGrense != _pasient.Alarm.Grense)
+            {
+                nybeskjed= true;
+                _forrigeGrense = _pasient.Alarm.Grense;
+                if (_forrigeGrense)
                 {
-                    _forrigeAlarm = true;
-                    btnAlarm.BackColor = Color.Red;
-                    _pasient.Alarm.SetAlarm(true);
+                    _pasient.Alarm.SetAlarm();
                 }
             }
-            else
+            if (_forrigeAlarm!=_pasient.Alarm.Alarmm)
             {
-                btnGrense.BackColor = Color.White;
-                _forrigeAlarm = false;
+                nybeskjed = true;
+                _forrigeAlarm = _pasient.Alarm.Alarmm;
             }
-            _pasient.Alarm.SetGrense(false);
 
-            if (_pasient.Alarm.GetAlarm())
+            btnAlarm.BackColor = _pasient.Alarm.Alarmm ? Color.Red : Color.White;
+
+            btnGrense.BackColor = _pasient.Alarm.Grense ? Color.Red : Color.White;
+
+            if (nybeskjed)
             {
-                btnAlarm.BackColor = Color.Red;
-                //txtAlarmH.Text = _pasient.Alarm.GetHendelse();
+                SendData();
+                
             }
         }
 
         private void SendData()
         {
 
-            if (klientSokkel != null )
+            try
             {
-
-                if (klientSokkel.Connected)
+                if (klientSokkel != null )
                 {
-                    string json = new JavaScriptSerializer().Serialize(_pasient);
 
-                    klientSokkel.Send(Encoding.ASCII.GetBytes(json));
-                }
-                else
-                {
-                    klientSokkel.Close();
-                    klientSokkel = null;
-                    txtSentralInfo.Text = "Sokkel = null";
+                    if (klientSokkel.Connected)
+                    {
+                        string json = new JavaScriptSerializer().Serialize(_pasient);
+
+                        klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                    }
+                    else
+                    {
+                        klientSokkel.Close();
+                        klientSokkel = null;
+                        txtSentralInfo.Text = "Sokkel = null";
+                    }
                 }
             }
-        }
-
-        private void btnAlarm_Click(object sender, EventArgs e)
-        {
-            _pasient.Alarm.SetAlarm(false);
-            btnAlarm.BackColor = Color.White;
-            SendData();
+            catch (Exception )
+            {
+                klientSokkel.Close();     // Ikke bra løsning?
+                klientSokkel = null;
+                txtSentralInfo.Text = "Sokkel = null";
+            }
         }
 
         void OppdaterLabel()
@@ -254,7 +264,7 @@ namespace Monitor
                 data = sp.ReadExisting();
 
                 _minDelegate = new Mdt(OppdaterPasient);
-                this.Invoke(_minDelegate, data);
+                Invoke(_minDelegate, data);
 
             }
             catch (Exception exception)
@@ -267,7 +277,6 @@ namespace Monitor
         {
             if (data!="")
             {
-                // MULIG LØSNING PÅ DATO?????
                 // Finner dato og klokkeslett
                 string dato = "";
                 var _pos = data.IndexOf('B');
@@ -276,36 +285,48 @@ namespace Monitor
                 dato += data.Substring(_pos + 1, 6);
                 _pasient.SetDatoKlokke(dato);
 
-                // Digital /alarm
-                _pos = data.IndexOf('D');
-                //_pasient.Alarm.SetAlarm(Convert.ToBoolean(data.Substring(_pos + 1, 2)), "Alarmsnor");
 
-                var a = data.Substring(_pos + 1, 2);
-                if (a=="1")
-                {
-                    _pasient.Alarm.SetAlarm(true);
-                    _pasient.Alarm.SetHendelse("Alarm-Snor");
-                }
-                
+                _pasient.Alarm.Grense = false;
 
 
-                // id-kode
-
+                bool b = false;
                 // Finner puls
                 _pos = data.IndexOf('F');
-                _pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
+                b=_pasient.Pulsfrekvens.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+                if (b) _pasient.Alarm.SetGrense( "Puls");
+                
                 // Finner blodtrykk
                 _pos = data.IndexOf('G');
-                _pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
-
+                b=_pasient.Blodtrykk.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 4)));
+                if (b) _pasient.Alarm.SetGrense( "Blod");
                 // Finner temperatur
                 _pos = data.IndexOf('H');
-                _pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
-
+                b=_pasient.Kroppstemperatur.SetVerdi(Convert.ToInt32((data.Substring(_pos + 1, 3))));
+                if (b) _pasient.Alarm.SetGrense( "Temp");
                 // Finner respirasjon
                 _pos = data.IndexOf('I');
-                _pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
+                b=_pasient.Respirasjonsrate.SetVerdi(Convert.ToInt32(data.Substring(_pos + 1, 3)));
+                if (b) _pasient.Alarm.SetGrense( "Resp");
+                // Digital /alarm
+                _pos = data.IndexOf('E');
+                var a = data.Substring(_pos + 1, 1);
+                if (a == "1")
+                {
+                    _pasient.Alarm.SetAlarm();
+                    _pasient.Alarm.Hendelse = "Alarm-Snor";
+                }
+                a = data.Substring(_pos + 2, 7);
+                int id = Convert.ToInt32(a, 2);
+                if (id > 0)
+                {
+                    _pasient.Alarm.Alarmm = false;
+                    _pasient.Alarm.Hendelse = "ID: " + id;
+                    comPort.WriteLine("$O00");
+                    Thread.Sleep(300);
+                    comPort.WriteLine("$O10");
+                    Thread.Sleep(200);
+                    btnAlarm.BackColor = Color.White;
+                }
 
                 // Oppdatere gui
                 txtTemp.Text = _pasient.Kroppstemperatur.GetVerdi().ToString();
@@ -313,12 +334,13 @@ namespace Monitor
                 txtPuls.Text = _pasient.Pulsfrekvens.GetVerdi().ToString();
                 txtResp.Text = _pasient.Respirasjonsrate.GetVerdi().ToString();
                 txtSisteStatus.Text = _pasient.Blodtrykk.DatoTid.ToString();
+                txtAlarmHendelse.Text = _pasient.Alarm.Hendelse;
 
                 AlarmLogikk();
 
 
                 _teller++;
-                if (_teller > 10)
+                if (_teller > 5)   ///skal være 10
                 {
                     SendData();
                     _teller = 0;

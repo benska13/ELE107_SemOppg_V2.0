@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Sockets;
 
 /*
@@ -21,7 +22,6 @@ namespace LibaryPasient
         public Respirasjonsrate Respirasjonsrate { get; set; } = new Respirasjonsrate();
         public Alarm Alarm { get; set; } = new Alarm();
         public static DateTime DatoKlokke { get; set; }
-        public Socket KommSokkel { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
 
@@ -53,64 +53,53 @@ namespace LibaryPasient
             ListBlodtrykk = new BindingList<Blodtrykk>();
             ListRespirasjonsrate = new BindingList<Respirasjonsrate>();
             ListPulsfrekvens = new BindingList<Pulsfrekvens>();
-            ListAlarm = new BindingList<Alarm>();
+            ListAlarm = new BindingList<Alarm> {new Alarm()};
 
             NyData(innPasient);
         }
+
+        public ListPasient()
+        {
+        }
+
         public void NyData(Pasient inPasient)
         {
-            //Navn = inPasient.Navn;
             Alder = inPasient.Alder;
 
             ListKroppstemperatur.Insert(0, inPasient.Kroppstemperatur);
             ListBlodtrykk.Insert(0, inPasient.Blodtrykk);
             ListPulsfrekvens.Insert(0, inPasient.Pulsfrekvens);
             ListRespirasjonsrate.Insert(0, inPasient.Respirasjonsrate);
-            ListAlarm.Insert(0, inPasient.Alarm);
+            if (ListAlarm.First().Alarmm != inPasient.Alarm.Alarmm || ListAlarm.First().Grense != inPasient.Alarm.Grense)
+            {
+                ListAlarm.Insert(0, inPasient.Alarm);
+            }
+            
         }
     }
     public class Alarm
     {
-        public static bool Grense { get; set; }
-        public static bool Alarmm { get; set; }
-        public static string Hendelse { get; set; }
-        public DateTime datoTid { get; set; }
-        public void SetGrense(bool value)
+        public  bool Grense { get; set; } = false;
+
+        public bool Alarmm { get; set; } = false;
+
+        public void SetAlarm()
         {
-            Grense = value;
-            datoTid = Pasient.DatoKlokke;
+            Alarmm = true;
+            DatoTid = Pasient.DatoKlokke;
+        }
+        public  string Hendelse { get; set; } = "";
+        public DateTime DatoTid { get; set; }
+
+        public void SetGrense(string s)
+        {
+            Grense = true;
+            Hendelse = s;
         }
 
-        public bool GetGrense()
+        public override string ToString()
         {
-            return Grense;
-        }
-
-        public void SetAlarm(bool value, string hendelse)
-        {
-            Alarmm = value;
-            Hendelse = hendelse;
-            datoTid = Pasient.DatoKlokke;
-        }
-
-        public void SetAlarm(bool value)
-        {
-            Alarmm = value;
-        }
-
-        public bool GetAlarm()
-        {
-            return Alarmm;
-        }
-
-        public string GetHendelse()
-        {
-            return Hendelse;
-        }
-
-        public void SetHendelse(string h)
-        {
-            Hendelse = h;
+            return "Alarm:";
         }
     }
     public class Kroppstemperaturx
@@ -127,15 +116,19 @@ namespace LibaryPasient
         {
             return Verdi;
         }
-        public void SetVerdi(int value)
+        public bool SetVerdi(int value)
         {
             Verdi = value;
             DatoTid = Pasient.DatoKlokke;
             if (Verdi > Max || Verdi < Min)
             {
-                Alarm.Grense = true;
-                Alarm.Hendelse = this.ToString();
+                return true;
             }
+            else
+            {
+                return false;
+            }
+           
         }
         public override string ToString()
         {
@@ -156,15 +149,18 @@ namespace LibaryPasient
         {
             return Verdi;
         }
-        public void SetVerdi(int value)
+        public bool SetVerdi(int value)
         {
             Verdi = value;
             Verdi2 =(int) (Verdi* (2.0/ 3));
             DatoTid = Pasient.DatoKlokke;
-            if (Verdi > Max || Verdi < Min)
+            if (Verdi > Max || Verdi2 < Min)
             {
-                Alarm.Grense = true;
-                Alarm.Hendelse = this.ToString();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -184,14 +180,17 @@ namespace LibaryPasient
         {
             return Verdi;
         }
-        public void SetVerdi(int value)
+        public bool SetVerdi(int value)
         {
             Verdi = value;
             DatoTid = Pasient.DatoKlokke;
             if (Verdi > Max || Verdi < Min)
             {
-                Alarm.Grense = true;
-                Alarm.Hendelse = this.ToString();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         public override string ToString()
@@ -210,14 +209,17 @@ namespace LibaryPasient
         {
             return Verdi;
         }
-        public void SetVerdi(int value)
+        public bool SetVerdi(int value)
         {
             Verdi = value;
             DatoTid = Pasient.DatoKlokke;
             if (Verdi > Max || Verdi < Min)
             {
-                Alarm.Grense = true;
-                Alarm.Hendelse = this.ToString();
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         public override string ToString()
