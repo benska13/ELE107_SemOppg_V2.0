@@ -154,7 +154,7 @@ namespace Sentral2
             lblBx2Enhet.Text = p.Pulsfrekvens.Enhet;
             gbxBlod.Text = p.Blodtrykk.ToString();
             lblBx3Enhet1.Text = p.Blodtrykk.Enhet;
-            lblBx3Enhet2.Text = p.Blodtrykk.Enhet2;
+            lblBx3Enhet2.Text = p.Blodtrykk.Enhet;
             gbxResp.Text = p.Respirasjonsrate.ToString();
             lblBx4Enhet.Text = p.Respirasjonsrate.Enhet;
             tpTemp.Text = p.Kroppstemperatur.ToString();
