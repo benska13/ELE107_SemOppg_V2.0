@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using LibaryPasient;
 using System.ComponentModel;
 using System.Drawing;
@@ -70,8 +71,9 @@ namespace Sentral2
             while (true)                               // Ikke helt bra
             {
                 DateTime tidNo = DateTime.Now;
+                List<ListPasient> lp = new List<ListPasient>(_pasienter);
 
-                foreach (ListPasient p in _pasienter)
+                foreach (ListPasient p in lp)
                 {
                     TimeSpan differanse = tidNo - p.SisteMeldingMottatt;
 
