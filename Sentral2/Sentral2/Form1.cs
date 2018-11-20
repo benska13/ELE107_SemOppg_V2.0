@@ -115,7 +115,7 @@ namespace Sentral2
                 _pasienter.Insert(0, new ListPasient(n));
                 OppdaterVerdiGui(_pasienter.First());
                 OppdaterAktivAlarmList(_pasienter.First());
-                _pasienter.First().SisteMeldingMottatt = DateTime.Now;
+                 _pasienter.First().SisteMeldingMottatt = DateTime.Now;
             }
         }
 
