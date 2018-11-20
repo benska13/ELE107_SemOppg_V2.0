@@ -37,6 +37,7 @@ namespace LibaryPasient
         public int Id { get; set; }
         public string Navn { get; set; }
         public string Alder { get; set; }
+        public DateTime SisteMeldingMottatt { get; set; }
         public BindingList<Kroppstemperaturx> ListKroppstemperatur { get; set; }
         public BindingList<Blodtrykk> ListBlodtrykk { get; set; }
         public BindingList<Respirasjonsrate> ListRespirasjonsrate { get; set; }
