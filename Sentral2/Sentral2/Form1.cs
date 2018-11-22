@@ -10,7 +10,13 @@ using System.Net.Sockets;
 using System.Windows.Forms;
 using System.Threading;
 
-// Fjerne socet class i egen libary
+/*
+ * Forbedre:
+ * - Klokken viser samme tid som i monitor
+ * - Klokken til intervall blir oppdatert med første og siste mulige klokkeslett
+ * - Legge til mulighet for å vise all historikk fra alle alarmer hos alle pasienter
+ * - revurdere bruken av minSokkel klassen
+ */
 
 namespace Sentral2
 {
@@ -32,7 +38,7 @@ namespace Sentral2
         {
             InitializeComponent();
 
-            _pasienter = new BindingList<ListPasient> { };
+            _pasienter = new BindingList<ListPasient>();
             _aktivAlarm = new BindingList<string>();
             lbAktiveAlarmer.DataSource = _aktivAlarm;
 
@@ -48,6 +54,7 @@ namespace Sentral2
                 try
                 {
                     _pasienter = LesSkrivFil.LesFraFil(Filnavn);
+                    ListPasient.idteller = _pasienter.First().Id + 1;
                 }
                 catch (Exception ex)
                 {
@@ -66,8 +73,8 @@ namespace Sentral2
         private void SjekkTilkobling(object state) // Sjekker igjennom alle pasienter, setter farge etter hvor lenge siden sist motatt data 
         {
             Thread.Sleep(3000);
-            TimeSpan toSek = new TimeSpan(0, 0, 0, 20);
-            TimeSpan tiSek = new TimeSpan(0, 0, 0, 10);
+            TimeSpan toSek = new TimeSpan(0, 0, 0, 22);
+            TimeSpan tiSek = new TimeSpan(0, 0, 0, 12);
             while (true)                               // Ikke helt bra
             {
                 DateTime tidNo = DateTime.Now;
@@ -78,18 +85,20 @@ namespace Sentral2
                     TimeSpan differanse = tidNo - p.SisteMeldingMottatt;
 
 
-                    if (differanse > toSek)
+                    if (dgwPasienter.RowCount==lp.Count)
                     {
-                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Gray;
-                    }
-                    else if (differanse > tiSek)
-                    {
-                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Red;
-                    }
-                    else
-                    {
-
-                        dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.LightGreen;
+                        if (differanse > toSek)
+                        {
+                            dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Gray;
+                        }
+                        else if (differanse > tiSek)
+                        {
+                            dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            dgwPasienter.Rows[_pasienter.IndexOf(p)].DefaultCellStyle.BackColor = Color.LightGreen;
+                        }
                     }
                     Thread.Sleep(1000);
                 }
@@ -145,15 +154,12 @@ namespace Sentral2
             {
                 MessageBox.Show(e.ToString());
             }
-
-
         }
 
         private void VentPaaData(object state) // Venter på data i den socketen som blir sendt inn
         {
             try
             {
-
                 Socket kommSocket = (Socket)state;
                 while (kommSocket.IsBound)         // usikker.. Ha en sjekk som ser at kobling er ok før den venter på data?
                 {
@@ -216,7 +222,7 @@ namespace Sentral2
                 txtBx4Verdi.Text = n.ListRespirasjonsrate.First().Verdi.ToString() +
                                    n.ListRespirasjonsrate.First().Enhet;
             }
-            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
+            LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);  // sjekke om det er flere tråder som prøver å skrive samtidig
         }
 
         private void gbxPuls_MouseCaptureChanged(object sender, EventArgs e)
@@ -277,7 +283,6 @@ namespace Sentral2
         private void buttonAvslutt_Click(object sender, EventArgs e)
         {
             // avslutte alle tråder og koble ifra
-            // Lagre en siste gang
             LesSkrivFil.SkrivTilFil(_pasienter, Filnavn);
             this.Close();
 

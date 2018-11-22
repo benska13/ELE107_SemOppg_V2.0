@@ -30,7 +30,7 @@ namespace LibaryPasient
     }
     public class ListPasient
     {
-        private static int idteller = 1;
+        public static int idteller = 1;
         public int Id { get; set; }
         public string Navn { get; set; }
         public string Alder { get; set; }
