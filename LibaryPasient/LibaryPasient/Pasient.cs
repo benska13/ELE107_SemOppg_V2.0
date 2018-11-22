@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Net.Sockets;
 
 /*
-  legge til
+  Forbedringer:
   -
 
-     * */
+  */
 namespace LibaryPasient
 {
     public class Pasient
@@ -23,7 +21,6 @@ namespace LibaryPasient
         public static DateTime DatoKlokke { get; set; }
         public void SetDatoKlokke(string datoKlokke)
         {
-
             DatoKlokke = DateTime.ParseExact(datoKlokke, "yyyyMMddHHmmss", null);
         }
         public override string ToString()
