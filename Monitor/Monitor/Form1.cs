@@ -11,19 +11,12 @@ using System.Net.Sockets;
 using System.Web.Script.Serialization;
 
 /*
- bugs
-    - dato og klokke, konvertere til datetime
-    - alarm, konvertere til bool
-    -[ok?] sender data før den er koblet til sentral
-    - [ok?]feiler om den ikke får data fra simsim
-    - hvis sentral blir koblet ifra
-    - bedre mottak av data på seriell. 
-    
- Legge til:
-    - bedre visning for alarm
-    - id - registrering
-    - [ok]klokke på monitor
-
+ Må forbedres:
+    - handling ved brudd i kommunikajon med server og comport
+        (blir idag fanget opp med try-catch)
+    - mulighet for å koble fra server
+    - sikker lukking av koblinger og tråder ved avsluttning
+    - revurdere sokkel klassen som er laget
 
     */
 
@@ -33,6 +26,7 @@ using System.Web.Script.Serialization;
 namespace Monitor
 {
     public delegate void Mdt(string d);
+
     public partial class Pasientmonitor : Form
     {
         private readonly Pasient _pasient;
@@ -42,7 +36,7 @@ namespace Monitor
         private int _teller;
         private Mdt _minDelegate;
 
-        private Socket _klientSokkel = null;
+        private Socket _klientSokkel;
         private IPEndPoint _serverEp;
 
         public Pasientmonitor()
@@ -104,7 +98,6 @@ namespace Monitor
             if (nybeskjed)
             {
                 SendData();
-
             }
         }
 
@@ -113,7 +106,7 @@ namespace Monitor
 
             try
             {
-                if (_klientSokkel != null)
+                if (_klientSokkel != null)  // Usikker på om denne sjekken er nyttig
                 {
 
                     if (_klientSokkel.Connected)
@@ -121,6 +114,7 @@ namespace Monitor
                         string json = new JavaScriptSerializer().Serialize(_pasient);
 
                         _klientSokkel.Send(Encoding.ASCII.GetBytes(json));
+                        _teller = 0;
                     }
                     else
                     {
@@ -132,7 +126,7 @@ namespace Monitor
             }
             catch (Exception)
             {
-                _klientSokkel.Close();     // Ikke bra løsning?
+                if (_klientSokkel != null) _klientSokkel.Close();   // Ikke bra løsning?
                 _klientSokkel = null;
                 txtSentralInfo.Text = "Sokkel = null";
             }
@@ -187,7 +181,7 @@ namespace Monitor
                 _klientSokkel = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 _serverEp = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 9050);
                 _klientSokkel.Connect(_serverEp);  // blokkerende metode
-
+                SendData();
                 txtSentralInfo.Text = "Tilkoblet server";
             }
             catch (SocketException eks)
@@ -335,10 +329,9 @@ namespace Monitor
                 AlarmLogikk();
 
                 _teller++;
-                if (_teller > 5)   // skal være 10
+                if (_teller > 10)
                 {
                     SendData();
-                    _teller = 0;
                 }
             }
         }
@@ -347,7 +340,6 @@ namespace Monitor
         {
             _comPort.Close();
             _klientSokkel.Close();
-            
             this.Close();
         }
     }
